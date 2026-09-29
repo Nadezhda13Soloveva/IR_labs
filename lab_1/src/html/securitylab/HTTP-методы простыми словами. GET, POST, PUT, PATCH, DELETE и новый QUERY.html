@@ -1,0 +1,2991 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<title>HTTP-методы простыми словами. GET, POST, PUT, PATCH, DELETE и новый QUERY</title>
+	<link rel="preload" href="/css/fonts/noto-sans/noto-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/css/fonts/noto-sans/noto-sans-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/css/fonts/noto-serif/noto-serif-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Noto Sans";font-style:normal;font-weight:400;font-display:swap;src:url("/css/fonts/noto-sans/noto-sans-400.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans";font-style:normal;font-weight:700;font-display:swap;src:url("/css/fonts/noto-sans/noto-sans-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif";font-style:normal;font-weight:400;font-display:swap;src:url("/css/fonts/noto-serif/noto-serif-400.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif";font-style:normal;font-weight:700;font-display:swap;src:url("/css/fonts/noto-serif/noto-serif-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans Fallback";font-style:normal;font-weight:400;src:local("Arial"),local("Helvetica");size-adjust:105.5%;ascent-override:100%;descent-override:26%;line-gap-override:0%}
+@font-face{font-family:"Noto Sans Fallback";font-style:normal;font-weight:700;src:local("Arial Bold"),local("Arial"),local("Helvetica");size-adjust:105.5%;ascent-override:100%;descent-override:26%;line-gap-override:0%}
+@font-face{font-family:"Noto Serif Fallback";font-style:normal;font-weight:400;src:local("Times New Roman"),local("Times");size-adjust:108.7%;ascent-override:91%;descent-override:24%;line-gap-override:0%}
+@font-face{font-family:"Noto Serif Fallback";font-style:normal;font-weight:700;src:local("Times New Roman Bold"),local("Times New Roman"),local("Times");size-adjust:108.7%;ascent-override:91%;descent-override:24%;line-gap-override:0%}
+</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script data-skip-moving="true">(function(w, d, n) {var cl = "bx-core";var ht = d.documentElement;var htc = ht ? ht.className : undefined;if (htc === undefined || htc.indexOf(cl) !== -1){return;}var ua = n.userAgent;if (/(iPad;)|(iPhone;)/i.test(ua)){cl += " bx-ios";}else if (/Windows/i.test(ua)){cl += ' bx-win';}else if (/Macintosh/i.test(ua)){cl += " bx-mac";}else if (/Linux/i.test(ua) && !/Android/i.test(ua)){cl += " bx-linux";}else if (/Android/i.test(ua)){cl += " bx-android";}cl += (/(ipad|iphone|android|mobile|touch)/i.test(ua) ? " bx-touch" : " bx-no-touch");cl += w.devicePixelRatio && w.devicePixelRatio >= 2? " bx-retina": " bx-no-retina";if (/Safari/i.test(ua) && !/Chrome/i.test(ua)){cl += " bx-safari";}else if (/AppleWebKit/.test(ua)){cl += " bx-chrome";}else if (/Opera/.test(ua)){cl += " bx-opera";}else if (/Firefox/.test(ua)){cl += " bx-firefox";}ht.className = htc ? htc + " " + cl : cl;})(window, document, navigator);</script>
+
+
+<link href="/bitrix/js/ui/design-tokens/dist/ui.design-tokens.min.css?174384203023463" type="text/css" rel="stylesheet"/>
+<link href="/bitrix/js/ui/fonts/opensans/ui.font.opensans.min.css?16639293882320" type="text/css" rel="stylesheet"/>
+<link href="/bitrix/js/main/popup/dist/main.popup.bundle.min.css?178733002322500" type="text/css" rel="stylesheet"/>
+<link href="/bitrix/cache/css/ru/securitylab_detail/template_5df5dc9eff90289af869d1f484b95d94/template_5df5dc9eff90289af869d1f484b95d94_v1.css?178946634134971" type="text/css" rel="stylesheet" data-template-style="true"/>
+
+
+<script type="extension/settings" data-extension="main.baseline">{"collectData":false,"helpUrl":"https:\/\/helpdesk.bitrix24.ru\/open\/code_27229654\/","helpCode":"redirect=detail\u0026code=27229654"}</script>
+
+
+
+
+
+
+<script type="extension/settings" data-extension="ui.a11y">{"restoreLostFocus":false,"useFocusTrapInDialogs":false}</script>
+
+
+
+<link rel="canonical" href="https://www.securitylab.ru/analytics/563109.php" />
+<meta property="og:url" content="https://www.securitylab.ru/analytics/563109.php"/>
+<meta name="title" content="HTTP-методы простыми словами. GET, POST, PUT, PATCH, DELETE и новый QUERY" />
+<meta name="description" content="Разбираем популярные заблуждения о браузерной безопасности и HTTP-методах." />
+<meta property="og:title" content="HTTP-методы простыми словами. GET, POST, PUT, PATCH, DELETE и новый QUERY"/>
+<meta property="og:description" content="Разбираем популярные заблуждения о браузерной безопасности и HTTP-методах."/>
+<meta name="twitter:creator" content="@SecurityLabnews"/>
+<meta name="twitter:title" content="HTTP-методы простыми словами. GET, POST, PUT, PATCH, DELETE и новый QUERY"/>
+<meta name="twitter:description" content="Разбираем популярные заблуждения о браузерной безопасности и HTTP-методах."/>
+<meta name="article:published_time" content="2026-09-05T21:48:33+03:00"/>
+<meta property="og:image:height" content="570"/>
+<meta property="og:image:width" content="1013"/>
+<link rel="image_src" href="https://www.securitylab.ru/upload/iblock/92b/3wg0nhehk37r79v5atrjh2y7413d9cvx.jpg" />
+<meta property="og:image" content="https://www.securitylab.ru/upload/iblock/92b/3wg0nhehk37r79v5atrjh2y7413d9cvx.jpg"/>
+<meta name="twitter:image" content="https://www.securitylab.ru/upload/iblock/92b/3wg0nhehk37r79v5atrjh2y7413d9cvx.jpg"/>
+<meta property="og_image" content="https://www.securitylab.ru/upload/iblock/92b/3wg0nhehk37r79v5atrjh2y7413d9cvx.jpg"/>
+
+
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/faveicons/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/img/faveicons/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/img/faveicons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/img/faveicons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/img/faveicons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/img/faveicons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/img/faveicons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/img/faveicons/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/img/faveicons/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="/img/faveicons/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/img/faveicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/img/faveicons/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/img/faveicons/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/img/faveicons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<meta name="author" itemprop="author" content="Alexander Antipov">
+	<meta name="telegram:channel" content="@SecLabNews">
+
+	<meta name="robots" content="max-image-preview:large">
+	<link rel="alternate" type="application/rss+xml" href="https://www.securitylab.ru/_services/export/rss/news/">
+</head>
+
+<body >
+		<div class="wrap">
+		
+						
+
+		<header class="shadow" id="header">
+			<!-- блок с соц.сетями в хедере -->
+			<div class="header-social-links">
+				<div class="banner-mobile-only">
+					<!--'start_frame_cache_y0XwfU'-->
+	<!-- header-banner -->
+	<div class="header-banner-mobile" style="position:relative;width:100%;overflow:hidden;aspect-ratio:728/240">
+		<style>
+.svad-728x240-202608 {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 728px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+.svad-728x240-202608__link {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important;
+    text-decoration: none !important;
+}
+
+.svad-728x240-202608__img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+/* Компактная маркировка "Реклама 18+" */
+.svad-728x240-202608__label {
+    position: absolute !important;
+    right: 36px !important;
+    bottom: 6px !important;
+    z-index: 30 !important;
+
+    margin: 0 !important;
+    padding: 2px 4px !important;
+
+    border: 0 !important;
+    border-radius: 3px !important;
+
+    background: rgba(0, 0, 0, 0.55) !important;
+    color: #fff !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 9px !important;
+    font-weight: normal !important;
+    line-height: 12px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+
+    pointer-events: none !important;
+}
+
+/* Кнопка с тремя точками */
+.svad-728x240-202608__btn {
+    position: absolute !important;
+    right: 6px !important;
+    bottom: 6px !important;
+    z-index: 30 !important;
+
+    width: 26px !important;
+    height: 18px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    border-radius: 3px !important;
+
+    background: rgba(0, 0, 0, 0.55) !important;
+    color: #fff !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    line-height: 14px !important;
+    text-align: center !important;
+
+    cursor: pointer !important;
+}
+
+/* Раскрывающаяся информация */
+.svad-728x240-202608__info {
+    display: none !important;
+    position: absolute !important;
+
+    right: 6px !important;
+    bottom: 30px !important;
+    z-index: 40 !important;
+
+    width: 320px !important;
+    max-width: calc(100% - 12px) !important;
+
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    box-sizing: border-box !important;
+
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    border-radius: 7px !important;
+
+    background: rgba(255, 255, 255, 0.97) !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2) !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: normal !important;
+    color: #333 !important;
+    line-height: 1.4 !important;
+    text-align: left !important;
+    white-space: normal !important;
+}
+
+.svad-728x240-202608__info.is-open {
+    display: block !important;
+}
+
+.svad-728x240-202608__info a {
+    color: #c00 !important;
+    text-decoration: none !important;
+}
+
+.svad-728x240-202608__info a:hover {
+    text-decoration: underline !important;
+}
+
+@media (max-width: 480px) {
+
+    .svad-728x240-202608__label {
+        right: 33px !important;
+        bottom: 5px !important;
+
+        padding: 1px 3px !important;
+
+        font-size: 8px !important;
+        line-height: 11px !important;
+    }
+
+    .svad-728x240-202608__btn {
+        right: 5px !important;
+        bottom: 5px !important;
+
+        width: 24px !important;
+        height: 16px !important;
+
+        font-size: 13px !important;
+        line-height: 12px !important;
+    }
+
+    .svad-728x240-202608__info {
+        right: 5px !important;
+        bottom: 26px !important;
+
+        width: calc(100% - 10px) !important;
+        max-width: none !important;
+
+        padding: 6px 8px !important;
+
+        font-size: 10px !important;
+        line-height: 1.25 !important;
+    }
+}
+</style>
+
+<div class="svad-728x240-202608">
+
+    <a
+        class="svad-728x240-202608__link"
+        href="https://www.securityvision.ru/blog/security-vision-siem-ot-kontrolya-kachestva-dannykh-do-rassledovaniya-i-reagirovaniya-v-edinom-kontu/?utm_source=website&utm_medium=banner_180&utm_campaign=seclab&utm_content=siem&erid=2SDnjcywVi3"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        <img
+            class="svad-728x240-202608__img"
+            src="https://www.securitylab.ru/upload/medialibrary/7b1/felzslyjp2gz0ar1t0g21w2dev9thqht.png"
+            alt="Security Vision SIEM"
+            width="728"
+            height="240"
+        >
+    </a>
+
+    <span class="svad-728x240-202608__label">Реклама 18+</span>
+
+    <button
+        class="svad-728x240-202608__btn"
+        type="button"
+        aria-label="Информация о рекламе"
+        aria-expanded="false"
+        onclick="
+            var box = this.nextElementSibling;
+            var isOpen = box.classList.contains('is-open');
+
+            box.classList.toggle('is-open', !isOpen);
+            this.setAttribute(
+                'aria-expanded',
+                isOpen ? 'false' : 'true'
+            );
+        "
+    >···</button>
+
+    <div class="svad-728x240-202608__info">
+        Реклама.<br>
+        Рекламодатель ООО «Интеллектуальная безопасность»<br>
+        ИНН: 7719435412<br>
+        <a
+            href="https://www.securityvision.ru/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >securityvision.ru↗</a>
+    </div>
+
+</div>	</div>
+	<!-- header-banner end -->
+
+	<!--'end_frame_cache_y0XwfU'-->				</div>
+			</div>
+			<div class="container d-none d-lg-block">
+				<div class="header-top py-3 d-flex justify-content-between align-items-center">
+					<a class="navbar-brand" href="/">
+						<img src="/img/logo/logo-header.svg" width="312" height="70" alt="Security Lab">					</a>
+					<!--'start_frame_cache_2DJmFo'-->
+	<!-- header-banner -->
+	<div class="header-banner banner_728-90-desktop">
+	<style>
+.svad-728x90-202608 {
+    position: relative !important;
+    display: block !important;
+    width: 728px !important;
+    height: 90px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+.svad-728x90-202608__link {
+    display: block !important;
+    width: 728px !important;
+    height: 90px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important;
+    text-decoration: none !important;
+}
+
+.svad-728x90-202608__img {
+    display: block !important;
+    width: 728px !important;
+    height: 90px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: fill !important;
+    border: 0 !important;
+}
+
+/* Текст "Реклама 18+" */
+.svad-728x90-202608__label {
+    position: absolute !important;
+    right: 35px !important;
+    bottom: 1px !important;
+    z-index: 30 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    background: transparent !important;
+
+    color: rgba(210, 210, 210, 0.82) !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 9px !important;
+    font-weight: normal !important;
+    line-height: 14px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+
+    pointer-events: none !important;
+}
+
+/* Кнопка с тремя точками */
+.svad-728x90-202608__btn {
+    position: absolute !important;
+    right: 4px !important;
+    bottom: 4px !important;
+    z-index: 30 !important;
+
+    width: 26px !important;
+    height: 18px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 1px solid rgba(200, 200, 200, 0.75) !important;
+    border-radius: 3px !important;
+
+    background: transparent !important;
+    color: rgba(210, 210, 210, 0.85) !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    line-height: 13px !important;
+    text-align: center !important;
+
+    cursor: pointer !important;
+}
+
+.svad-728x90-202608__btn:hover {
+    border-color: rgba(230, 230, 230, 0.95) !important;
+    color: rgba(235, 235, 235, 0.95) !important;
+}
+
+/* Раскрывающаяся информация */
+.svad-728x90-202608__info {
+    display: none !important;
+    position: absolute !important;
+
+    top: 5px !important;
+    right: 35px !important;
+    z-index: 40 !important;
+
+    width: 340px !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 7px 10px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #ddd !important;
+    border-radius: 6px !important;
+
+    background: rgba(255, 255, 255, 0.97) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: normal !important;
+    color: #333 !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
+    white-space: normal !important;
+}
+
+.svad-728x90-202608__info.is-open {
+    display: block !important;
+}
+
+.svad-728x90-202608__info a {
+    color: #c00 !important;
+    text-decoration: none !important;
+}
+
+.svad-728x90-202608__info a:hover {
+    text-decoration: underline !important;
+}
+</style>
+
+<div class="svad-728x90-202608">
+
+    <span class="svad-728x90-202608__label">Реклама 18+</span>
+
+    <button
+        class="svad-728x90-202608__btn"
+        type="button"
+        aria-label="Информация о рекламе"
+        aria-expanded="false"
+        onclick="
+            var box = this.nextElementSibling;
+            var isOpen = box.classList.contains('is-open');
+
+            box.classList.toggle('is-open', !isOpen);
+            this.setAttribute(
+                'aria-expanded',
+                isOpen ? 'false' : 'true'
+            );
+        "
+    >···</button>
+
+    <div class="svad-728x90-202608__info">
+        Реклама.<br>
+        Рекламодатель ООО «Интеллектуальная безопасность»<br>
+        ИНН: 7719435412<br>
+        <a
+            href="https://www.securityvision.ru/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >securityvision.ru↗</a>
+    </div>
+
+    <a
+        class="svad-728x90-202608__link"
+        href="https://www.securityvision.ru/blog/security-vision-siem-ot-kontrolya-kachestva-dannykh-do-rassledovaniya-i-reagirovaniya-v-edinom-kontu/?utm_source=website&utm_medium=banner_90&utm_campaign=seclab&utm_content=siem&erid=2SDnjcywVi3"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        <img
+            class="svad-728x90-202608__img"
+            src="https://www.securitylab.ru/upload/medialibrary/9e6/6xwa47ibvipodd9g8r7t6w0wzrdqw5ti.png"
+            alt="Security Vision SIEM"
+            width="728"
+            height="90"
+        >
+    </a>
+
+</div>	</div>
+	<!-- header-banner end -->
+	
+	<!--'end_frame_cache_2DJmFo'-->					<!-- кнопка "Подписаться на рассылку" в хедере -->
+					<div class="nav-banner d-none">
+						<button onclick="doScrollTo('#subscribe-section')" class="btn btn-primary">Подписаться на рассылку</button>
+					</div>
+				</div>
+			</div>
+					<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg">
+			<div class="container">
+				<a class="navbar-brand d-lg-none" href="/">
+					<img src="/img/logo/logo-header.svg" width="312" height="70" alt="Security Lab">
+				</a>
+				<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">МЕНЮ</span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav">
+						<li class="nav-item ">
+							<a class="nav-link" href="/news/">Новости</a>
+						</li>
+						<li class="nav-item dropdown active">
+							<a class="nav-link dropdown-toggle" href="/analytics/" id="group_2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Статьи</a>
+							<ul class="dropdown-menu" aria-labelledby="group_2">
+								<li class="nav-item"><a class="nav-link" href="/analytics/">Статьи</a></li>
+								<li class="nav-item"><a class="nav-link" href="/contest/">Конкурсы</a></li>
+								<li class="nav-item"><a class="nav-link" href="/opinion/">Мнения</a></li>
+							</ul>
+						</li>
+						<li class="nav-item ">
+							<a class="nav-link" href="/blog/">Блоги</a>
+						</li>
+
+						<li class="nav-item ">
+							<a class="nav-link" href="/glossary/">Глоссарий</a>
+						</li>
+					</ul>
+    
+					<form action="/search/" id="global-search" class="global-search form-inline" method="get">
+						<div class="form-content">
+							<button class="search-btn" type="submit"><i class="icon-search"></i></button>
+							<a href="javascript:void(0)" onclick="document.getElementById('global-search').value='';document.getElementById('global-search').classList.toggle('active');" class="search-switch">
+								<i class="icon-search"></i>
+							</a>
+							<input id="shopSearchInput" class="form-control" type="text" name="q" placeholder="Поиск по сайту" aria-label="Search">
+						</div>
+					</form>
+				</div>
+			</div>
+		</nav>
+		<!-- /.Navigation -->		</header>
+        <!--'start_frame_cache_ALOAcH'-->
+    <div class="sticky-wrapper" id="js-banner-wrapper-6aa91e7ec9e04">
+        <div class="container">
+            <div class="sticky-wrapper__shell">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="articl-text">
+                                                        <div class="promo-banner" style="
+                                                                                                                                            "
+                            >
+                                                                    <!-- Лейбл теперь по центру сверху -->
+                                    <button class="promo-banner__label" type="button" id="js-toggle-mode-6aa91e7ec9e04">
+                                        Реклама
+                                    </button>
+                                
+                                <!-- Кнопка закрытия теперь "висит" на углу -->
+                                <!-- Иконка - простой крестик (X) -->
+                                <button class="promo-banner__close" type="button" id="js-close-banner-6aa91e7ec9e04" aria-label="Закрыть баннер">
+                                    <svg class="promo-banner__close-icon" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+
+                                <div class="promo-banner__inner">
+                                                                            <!-- Юридическая инфа -->
+                                        <div class="promo-banner__legal" id="js-legal-info-6aa91e7ec9e04">
+                                            <div class="promo-banner__legal-line">Реклама. АО «Позитив Текнолоджиз». ИНН 7718668887. 18+</div>                                        </div>
+                                    
+
+                                    <!-- Контент -->
+                                    <a href="https://triz.tech/triztech-day?utm_source=seclab&amp;utm_medium=cpm&amp;utm_campaign=triztech_day_2026&amp;utm_content=begunok_cr_3&amp;utm_term=digital&amp;erid=2SDnjd3zHQF" target="_blank" class="promo-banner__content promo-banner__content--active" id="js-main-content-6aa91e7ec9e04">
+                                        <div class="promo-banner__image-box">
+                                            <!-- Заглушка картинки -->
+                                            <img class="promo-banner__image" src="/upload/rk/378/xqxeuc8eyju5acn2bu5odsf3n16b1w1w.png" alt="Image">
+                                        </div>
+                                        <div class="promo-banner__text-box">
+                                            <h3 class="promo-banner__title">
+                                                За этим будущее кибербеза                                            </h3>
+                                            <div class="promo-banner__desc">
+                                                                                                    24.09 узнай, над чем работает ТризТех после PT NGFW                                                                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    	<!--'end_frame_cache_ALOAcH'-->		<!-- Page Content -->
+		<div class="container">
+			
+		<!-- Breadcrumbs -->
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb px-3" itemscope itemtype="https://schema.org/BreadcrumbList">
+
+			<li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="/" title="Главная"><span itemprop="name">Главная</span><meta itemprop="position" content="0"></a></li>
+			<li class="breadcrumb-item active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="/analytics/" title="Статьи"><span itemprop="name">Статьи</span><meta itemprop="position" content="1"></a></li>
+			</ol>
+		</nav>
+		<!-- /. Breadcrumbs -->
+		</div>
+				<div class="dynamic-tape" data-url="/analytics/ajax.php">
+							<div id="article_563109" class="tape-element"
+					data-element-url="https://www.securitylab.ru/analytics/563109.php"
+					data-element-page="/analytics/563109.php"
+					data-title="HTTP-методы простыми словами. GET, POST, PUT, PATCH, DELETE и новый QUERY"
+					data-description="Разбираем популярные заблуждения о браузерной безопасности и HTTP-методах."
+					data-canonical="https://www.securitylab.ru/analytics/563109.php">
+									<div class="container cpb" data-print="true">
+                        						<h1 class="page-title pt-3 px-3">HTTP-методы простыми словами. GET, POST, PUT, PATCH, DELETE и новый QUERY</h1>
+                        												<div class="article-options px-3 d-flex justify-content-between">
+            <div class="d-inline-flex align-items-center article-options-details">
+            <time datetime="2026-09-05T21:48:33+03:00">21:48 / 5 сентября, 2026</time>
+                            <span class="d-inline-flex align-items-center ml-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                    </svg>
+                    <span class="ml-2">52982</span>
+                </span>
+                    </div>
+    
+	<div class="article-tags">
+			</div>
+</div>
+						<div class="row"><div class="col-lg-9">
+
+
+
+ 
+
+<div class="articl-text" itemscope itemtype="http://schema.org/NewsArticle">
+	<sape_index>
+	<div itemprop="headline" class="d-none">HTTP-методы простыми словами. GET, POST, PUT, PATCH, DELETE и новый QUERY</div>
+	<link itemprop="url" href="https://www.securitylab.ru/analytics/563109.php" />
+        		<time class="d-none" itemprop="dateCreated" datetime="2026-09-05T21:48:33+03:00">21:48 / 5 сентября, 2026</time>
+		<time itemprop="datePublished" class="d-none">2026-09-05T21:48:33+03:00</time>
+	<div itemprop="author" itemscope itemtype="https://schema.org/Person" class="d-none"><meta itemprop="name" content="Alexander Antipov"><link itemprop="url" href="https://www.securitylab.ru/contacts.php"></div>	<div itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+		<link itemprop="sameAs" href="https://www.securitylab.ru/" />
+		<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject"> 
+			<link itemprop="url image" href="https://www.securitylab.ru/img/logo/logo.png"/>
+		</div> 
+		<meta itemprop="name" content="SecurityLab">
+	</div>
+	<div itemprop="articleSection" class="d-none">
+			</div>
+			<p itemprop="description">Разбираем популярные заблуждения о браузерной безопасности и HTTP-методах.</p>
+	
+        								<div class="articl-text-cover" style="position:relative;width:100%;max-width:800px;margin-left:auto;margin-right:auto;aspect-ratio:1013/570;margin-bottom:2rem;overflow:hidden">
+				<img alt="image" src="/upload/iblock/92b/3wg0nhehk37r79v5atrjh2y7413d9cvx.jpg" itemprop="image" width="1013" height="570" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;margin:0;max-width:none">
+			</div>
+			          
+	<div itemprop="articleBody">
+					
+<p>
+	 HTTP-метод сообщает серверу, что клиент хочет сделать с ресурсом. Получить страницу, отправить данные, заменить объект, изменить его часть, удалить или выполнить запрос другого типа.
+</p>
+<p>
+	 На первых порах HTTP часто объясняют через простую схему «GET читает, POST создаёт, PUT заменяет, DELETE удаляет». Схема полезная, но неполная. POST может ничего не создавать, PUT способен создать ресурс, DELETE не обязан физически стирать данные, а PATCH вообще не определяет конкретный способ изменения.
+</p>
+<p>
+	 Основную семантику HTTP описывает <a href="https://www.rfc-editor.org/rfc/rfc9110.html">RFC 9110</a>. Помимо привычных методов существуют расширения для WebDAV, календарей, версионирования и других протоколов. В июне 2026 года появился новый стандартизованный метод QUERY, предназначенный для сложных запросов с телом.
+</p>
+<h2>Безопасные и идемпотентные методы</h2>
+<p>
+	 Перед разбором отдельных методов полезно знать два свойства.
+</p><!--'start_frame_cache_Zg1Ab0'-->
+
+	<div class="banner-detailed">
+		<div class="banner-detailed__shell">
+			<div class="banner-detailed__title">
+									ПЯТЬ! миллионов читателей в месяц. 							</div>
+			<a href="https://max.ru/SecLabNews"
+				target="_blank" class="banner-detailed__button">
+									<span>И каждый из них умнее человека, который до сих пор не подписался.</span>
+					<div class="banner-detailed__arrow">
+						<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M20.5375 34.4392L22.465 31.7392C22.5739 31.5872 22.7145 31.4607 22.8772 31.3684C23.0399 31.2762 23.2207 31.2205 23.407 31.2052C23.5934 31.1898 23.7809 31.2152 23.9564 31.2796C24.132 31.344 24.2915 31.4458 24.4237 31.578L29.6025 36.758C30.0787 37.2333 30.724 37.5002 31.3969 37.5002C32.0697 37.5002 32.715 37.2333 33.1912 36.758L36.7575 33.1917C37.2328 32.7155 37.4998 32.0702 37.4998 31.3973C37.4998 30.7245 37.2328 30.0792 36.7575 29.603L31.5775 24.4242C31.4453 24.2919 31.3435 24.1325 31.2791 23.9569C31.2147 23.7814 31.1893 23.5939 31.2047 23.4075C31.22 23.2211 31.2757 23.0404 31.368 22.8777C31.4602 22.715 31.5867 22.5743 31.7387 22.4655L34.4387 20.538C34.6405 20.3939 34.7965 20.1947 34.8878 19.9641C34.9791 19.7336 35.0018 19.4816 34.9534 19.2385C34.9049 18.9953 34.7873 18.7713 34.6146 18.5934C34.442 18.4155 34.2216 18.2912 33.98 18.2355L13.5112 13.5117L18.235 33.9805C18.2907 34.2221 18.415 34.4425 18.5929 34.6151C18.7708 34.7878 18.9948 34.9054 19.238 34.9539C19.4812 35.0023 19.7331 34.9795 19.9637 34.8882C20.1942 34.7969 20.3934 34.641 20.5375 34.4392Z"
+								fill="#FFD98C" />
+							<path
+								d="M34.0751 37.6413C33.3582 38.3389 32.3973 38.7293 31.397 38.7293C30.3966 38.7293 29.4358 38.3389 28.7189 37.6413L23.4826 32.4663L21.5539 35.165C21.2699 35.5626 20.8773 35.8698 20.423 36.0497C19.9688 36.2295 19.4723 36.2744 18.9931 36.179C18.514 36.0836 18.0726 35.8518 17.7219 35.5117C17.3713 35.1715 17.1263 34.7373 17.0164 34.2613L12.2926 13.7925C12.2447 13.5858 12.2502 13.3702 12.3086 13.1662C12.367 12.9622 12.4764 12.7764 12.6264 12.6263C12.7765 12.4763 12.9623 12.3669 13.1663 12.3085C13.3703 12.2501 13.5859 12.2446 13.7926 12.2925L34.2614 17.0175C34.7374 17.1271 35.1717 17.3719 35.512 17.7225C35.8523 18.073 36.0841 18.5144 36.1795 18.9935C36.275 19.4726 36.23 19.9691 36.0501 20.4233C35.8701 20.8775 35.5628 21.27 35.1651 21.5538L32.4614 23.54L37.6414 28.7188C38.3498 29.43 38.7476 30.393 38.7476 31.3969C38.7476 32.4008 38.3498 33.3637 37.6414 34.075L34.0751 37.6413ZM35.8751 30.4863L30.6951 25.3075C30.4344 25.047 30.2336 24.7328 30.1068 24.3868C29.9799 24.0407 29.9299 23.6712 29.9604 23.3039C29.9908 22.9366 30.101 22.5804 30.2831 22.26C30.4653 21.9396 30.7151 21.6628 31.0151 21.4488L33.6989 19.4488L15.1851 15.1763L19.5001 33.7275L19.5139 33.7113L21.4414 31.0125C21.6555 30.7124 21.9325 30.4626 22.253 30.2805C22.5735 30.0983 22.9298 29.9882 23.2972 29.9577C23.6646 29.9272 24.0342 29.9772 24.3803 30.1041C24.7264 30.231 25.0407 30.4318 25.3014 30.6925L30.4864 35.875C30.728 36.1163 31.0555 36.2518 31.397 36.2518C31.7385 36.2518 32.066 36.1163 32.3076 35.875L35.8751 32.3075C36.1161 32.0657 36.2514 31.7383 36.2514 31.3969C36.2514 31.0555 36.1161 30.728 35.8751 30.4863ZM8.14636 9.385C7.98292 9.38706 7.82069 9.35675 7.66901 9.29583C7.51733 9.2349 7.37921 9.14455 7.26261 9.03L4.58011 6.3475C4.35242 6.11175 4.22643 5.796 4.22927 5.46825C4.23212 5.1405 4.36358 4.82699 4.59534 4.59523C4.8271 4.36347 5.14062 4.23201 5.46836 4.22916C5.79611 4.22631 6.11186 4.3523 6.34761 4.58L9.03012 7.2625C9.20107 7.43787 9.31674 7.65959 9.36277 7.90013C9.4088 8.14068 9.38315 8.38944 9.28901 8.61553C9.19487 8.84162 9.03639 9.03508 8.83325 9.17188C8.63011 9.30867 8.39126 9.38278 8.14636 9.385ZM17.9726 9.03C17.7362 9.26044 17.419 9.3894 17.0889 9.3894C16.7587 9.3894 16.4416 9.26044 16.2051 9.03C15.9708 8.79559 15.8391 8.47771 15.8391 8.14625C15.8391 7.8148 15.9708 7.49691 16.2051 7.2625L18.8876 4.58C19.0029 4.46061 19.1409 4.36538 19.2934 4.29987C19.4459 4.23436 19.6099 4.19988 19.7759 4.19844C19.9418 4.197 20.1064 4.22862 20.2601 4.29147C20.4137 4.35432 20.5532 4.44714 20.6706 4.56451C20.788 4.68187 20.8808 4.82144 20.9436 4.97506C21.0065 5.12868 21.0381 5.29328 21.0367 5.45925C21.0352 5.62523 21.0008 5.78925 20.9352 5.94176C20.8697 6.09426 20.7745 6.23219 20.6551 6.3475L17.9726 9.03ZM6.34761 20.655C6.11146 20.886 5.79423 21.0154 5.46386 21.0154C5.1335 21.0154 4.81627 20.886 4.58011 20.655C4.34578 20.4206 4.21413 20.1027 4.21413 19.7713C4.21413 19.4398 4.34578 19.1219 4.58011 18.8875L7.26261 16.205C7.37792 16.0856 7.51585 15.9904 7.66836 15.9249C7.82086 15.8594 7.98489 15.8249 8.15086 15.8234C8.31684 15.822 8.48144 15.8536 8.63506 15.9165C8.78868 15.9793 8.92824 16.0721 9.04561 16.1895C9.16297 16.3069 9.25579 16.4464 9.31864 16.6001C9.38149 16.7537 9.41312 16.9183 9.41168 17.0843C9.41024 17.2502 9.37575 17.4143 9.31024 17.5668C9.24473 17.7193 9.1495 17.8572 9.03012 17.9725L6.34761 20.655ZM12.6176 7.54375C12.2861 7.54375 11.9682 7.41205 11.7337 7.17763C11.4993 6.94321 11.3676 6.62527 11.3676 6.29375V2.5C11.3676 2.16848 11.4993 1.85054 11.7337 1.61612C11.9682 1.3817 12.2861 1.25 12.6176 1.25C12.9491 1.25 13.2671 1.3817 13.5015 1.61612C13.7359 1.85054 13.8676 2.16848 13.8676 2.5V6.29375C13.8676 6.62527 13.7359 6.94321 13.5015 7.17763C13.2671 7.41205 12.9491 7.54375 12.6176 7.54375ZM2.50011 11.3675H6.29387C6.62539 11.3675 6.94333 11.4992 7.17775 11.7336C7.41217 11.968 7.54387 12.286 7.54387 12.6175C7.54387 12.949 7.41217 13.267 7.17775 13.5014C6.94333 13.7358 6.62539 13.8675 6.29387 13.8675H2.50011C2.16859 13.8675 1.85065 13.7358 1.61623 13.5014C1.38181 13.267 1.25011 12.949 1.25011 12.6175C1.25011 12.286 1.38181 11.968 1.61623 11.7336C1.85065 11.4992 2.16859 11.3675 2.50011 11.3675Z"
+								fill="#272727" />
+						</svg>
+					</div>
+							</a>
+		</div>
+	</div>
+
+
+	<!--'end_frame_cache_Zg1Ab0'-->
+<p>
+	 Безопасным HTTP называет метод, который не должен менять состояние ресурса по запросу клиента. К безопасным относятся GET, HEAD, OPTIONS, TRACE и QUERY.
+</p>
+<p>
+	 Речь не идёт о защите от атак. Сервер может сохранить запись в журнале, посчитать статистику или обновить внутреннюю метрику. Главное, что клиент не просит изменить сам ресурс.
+</p>
+<p>
+	 Идемпотентным называют метод, который можно повторить несколько раз с тем же предполагаемым конечным эффектом, что и один раз. GET, HEAD, PUT, DELETE, OPTIONS, TRACE и QUERY относятся к идемпотентным.
+</p>
+<p>
+	 Ответы при повторении могут различаться. Первый DELETE способен успешно удалить ресурс, второй сообщить, что ресурс уже отсутствует. Состояние при этом остаётся одинаковым.
+</p>
+<table>
+<thead>
+<tr>
+	<th>
+		 Метод
+	</th>
+	<th>
+		 Основное назначение
+	</th>
+	<th align="right">
+		 Безопасный
+	</th>
+	<th align="right">
+		 Идемпотентный
+	</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td>
+		 GET
+	</td>
+	<td>
+		 получение ресурса
+	</td>
+	<td align="right">
+		 да
+	</td>
+	<td align="right">
+		 да
+	</td>
+</tr>
+<tr>
+	<td>
+		 HEAD
+	</td>
+	<td>
+		 получение заголовков без тела
+	</td>
+	<td align="right">
+		 да
+	</td>
+	<td align="right">
+		 да
+	</td>
+</tr>
+<tr>
+	<td>
+		 POST
+	</td>
+	<td>
+		 передача данных на обработку
+	</td>
+	<td align="right">
+		 нет
+	</td>
+	<td align="right">
+		 нет
+	</td>
+</tr>
+<tr>
+	<td>
+		 PUT
+	</td>
+	<td>
+		 замена ресурса
+	</td>
+	<td align="right">
+		 нет
+	</td>
+	<td align="right">
+		 да
+	</td>
+</tr>
+<tr>
+	<td>
+		 PATCH
+	</td>
+	<td>
+		 частичное изменение
+	</td>
+	<td align="right">
+		 нет
+	</td>
+	<td align="right">
+		 нет
+	</td>
+</tr>
+<tr>
+	<td>
+		 DELETE
+	</td>
+	<td>
+		 удаление ресурса
+	</td>
+	<td align="right">
+		 нет
+	</td>
+	<td align="right">
+		 да
+	</td>
+</tr>
+<tr>
+	<td>
+		 OPTIONS
+	</td>
+	<td>
+		 получение возможностей ресурса
+	</td>
+	<td align="right">
+		 да
+	</td>
+	<td align="right">
+		 да
+	</td>
+</tr>
+<tr>
+	<td>
+		 TRACE
+	</td>
+	<td>
+		 диагностика HTTP-цепочки
+	</td>
+	<td align="right">
+		 да
+	</td>
+	<td align="right">
+		 да
+	</td>
+</tr>
+<tr>
+	<td>
+		 CONNECT
+	</td>
+	<td>
+		 создание туннеля
+	</td>
+	<td align="right">
+		 нет
+	</td>
+	<td align="right">
+		 нет
+	</td>
+</tr>
+<tr>
+	<td>
+		 QUERY
+	</td>
+	<td>
+		 безопасный запрос с телом
+	</td>
+	<td align="right">
+		 да
+	</td>
+	<td align="right">
+		 да
+	</td>
+</tr>
+</tbody>
+</table>
+<h2>GET</h2>
+<p>
+	 GET предназначен для получения представления ресурса. Через GET браузер загружает страницы и изображения, приложение получает записи из API, поисковая система запрашивает результаты по заданным параметрам.
+</p>
+<p>
+	 GET считается безопасным и идемпотентным. Поэтому браузеры, поисковые роботы, кеши и другие компоненты инфраструктуры вправе исходить из того, что повтор запроса не изменит состояние приложения.
+</p>
+<p>
+	 По этой причине через GET не следует выполнять удаление аккаунта, оформление заказа, изменение пароля или другие операции с побочным эффектом. Такой API может технически работать, но нарушает семантику HTTP и способен неожиданно взаимодействовать с кешами, роботами и механизмами предварительной загрузки.
+</p>
+<p>
+	 Параметры GET часто помещают в URL. Для поиска, сортировки и фильтров такой подход нормален. Пароли, токены и другие секреты передавать через URL не стоит, поскольку адрес может попасть в историю браузера, серверные журналы и системы аналитики.
+</p>
+<p>
+	 GET также плохо подходит для сложных структурированных запросов с большим телом. Семантика содержимого GET-запроса в HTTP не определена универсальным образом, а многие компоненты инфраструктуры подобный сценарий поддерживают непредсказуемо. В 2026 году для этой задачи появился отдельный метод QUERY.
+</p>
+<h2>HEAD</h2>
+<p>
+	 HEAD очень близок к GET, но сервер не возвращает тело ответа.
+</p>
+<p>
+	 Метод используют, когда клиенту нужны только метаданные ресурса. Например, статус, тип содержимого, размер, дата последнего изменения или ETag. Файл или страницу при этом передавать целиком не требуется.
+</p>
+<p>
+	 HEAD безопасен и идемпотентен. Заголовки ответа должны по возможности соответствовать тем, которые сервер отправил бы при GET.
+</p>
+<p>
+	 Метод часто считают облегчённой версией GET, но экономия относится прежде всего к сетевому трафику. Backend может выполнить почти всю ту же работу, что и при обычном GET, а затем просто не отправить тело ответа.
+</p>
+<h2>POST</h2>
+<p>
+	 POST передаёт данные ресурсу для обработки. Формулировка шире привычного «создать новый объект».
+</p>
+<p>
+	 Через POST можно создать пользователя или заказ, отправить форму, загрузить файл, начать платёж, запустить вычисление, инициировать задачу или выполнить другую операцию, для которой нет более подходящей семантики.
+</p>
+<p>
+	 POST не считается ни безопасным, ни идемпотентным. Повтор одного и того же запроса способен привести к повторной операции. Две отправки формы могут создать две записи, а повтор платёжного запроса потенциально провести вторую транзакцию, если API не добавил собственную защиту.
+</p>
+<p>
+	 Поэтому многие платёжные системы и другие API вводят отдельные ключи идемпотентности. Сам HTTP не делает POST идемпотентным, но приложение может построить такую гарантию поверх протокола.
+</p>
+<p>
+	 POST также может использоваться для сложного поиска. Такой подход долго был распространён, когда параметры уже неудобно помещать в URL. Новый QUERY появился в том числе для того, чтобы безопасные операции чтения не приходилось маскировать под POST.
+</p>
+<h2>PUT</h2>
+<p>
+	 PUT передаёт новое представление ресурса по известному адресу. Проще всего воспринимать его как команду «сделай ресурс таким».
+</p>
+<p>
+	 Главное отличие от PATCH состоит в семантике изменения. PUT описывает новое состояние ресурса целиком, тогда как PATCH передаёт набор частичных изменений.
+</p>
+<p>
+	 PUT идемпотентен. Повтор одинакового запроса должен приводить к тому же предполагаемому состоянию ресурса.
+</p>
+<p>
+	 Метод способен использоваться не только для обновления. Если ресурс по указанному адресу отсутствует и сервер разрешает создание таким способом, PUT может создать его. Поэтому формула «POST создаёт, PUT обновляет» слишком упрощает различие между методами.
+</p>
+<p>
+	 При проектировании API также нужно заранее определить, что сервер делает с полями, которые клиент не передал в PUT. Если API называет операцию полной заменой, молчаливое сохранение старых полей уже начинает приближать поведение к PATCH.
+</p>
+<h2>PATCH</h2>
+<p>
+	 PATCH предназначен для частичного изменения ресурса и описан в <a href="https://www.rfc-editor.org/rfc/rfc5789.html">RFC 5789</a>.
+</p>
+<p>
+	 В отличие от PUT, клиенту не требуется отправлять полное новое представление объекта. Можно передать только те изменения, которые необходимо применить.
+</p>
+<p>
+	 PATCH не считается идемпотентным по определению. Конкретная операция при этом вполне может быть идемпотентной. Установка фиксированного значения обычно даёт один результат при повторении, а команда увеличить счётчик или добавить новый элемент может менять состояние каждый раз.
+</p>
+<p>
+	 Сам PATCH не определяет формат тела. Сервер и клиент должны заранее договориться, каким образом описываются изменения.
+</p>
+<p>
+	 Один распространённый вариант называется JSON Merge Patch. Актуальная спецификация описана в <a href="https://www.rfc-editor.org/rfc/rfc7396.html">RFC 7396</a>. Клиент передаёт объект с изменяемыми полями. Формат удобен для простых структур, но значение <code>null</code> используется для удаления поля, а массивы обычно приходится заменять целиком.
+</p>
+<p>
+	 Другой вариант называется JSON Patch и описан в <a href="https://www.rfc-editor.org/rfc/rfc6902.html">RFC 6902</a>. Вместо нового фрагмента объекта клиент передаёт последовательность операций <code>add</code>, <code>remove</code>, <code>replace</code>, <code>move</code>, <code>copy</code> и <code>test</code>. Такой подход удобнее для точечных изменений сложных документов и массивов.
+</p>
+<p>
+	 Сервер может сообщить поддерживаемые форматы через заголовок <code>Accept-Patch</code>.
+</p>
+<h2>DELETE</h2>
+<p>
+	 DELETE просит удалить ресурс по указанному адресу.
+</p>
+<p>
+	 При этом HTTP не диктует, каким способом приложение должно хранить данные внутри. Ресурс можно физически удалить из базы, пометить как удалённый, перенести в архив или скрыть из обычной выдачи.
+</p>
+<p>
+	 Так называемое мягкое удаление широко используют там, где данные нужно восстановить после ошибки, сохранить историю действий или выполнить требования к срокам хранения.
+</p>
+<p>
+	 DELETE идемпотентен. Свойство относится к конечному эффекту, а не к ответу сервера. Первый запрос может вернуть успешный статус, а повторный сообщить, что ресурс больше не существует.
+</p>
+<p>
+	 Идемпотентность также не означает отсутствие внутренних действий. Сервер вправе записывать каждую попытку удаления в аудит или выполнять другие служебные операции.
+</p>
+<h2>OPTIONS</h2>
+<p>
+	 OPTIONS запрашивает информацию о возможностях сервера или конкретного ресурса.
+</p>
+<p>
+	 Через заголовок <code>Allow</code> сервер может сообщить, какие методы поддерживает endpoint. Дополнительные заголовки способны раскрывать другие возможности, например допустимые форматы PATCH.
+</p>
+<p>
+	 В браузерах OPTIONS чаще всего встречается при CORS. Перед некоторыми межсайтовыми запросами браузер сначала отправляет предварительный запрос и выясняет, разрешает ли сервер нужный метод и заголовки.
+</p>
+<p>
+	 OPTIONS считается безопасным и идемпотентным.
+</p>
+<p>
+	 Сам факт доступности OPTIONS не создаёт серьёзной уязвимости. Скрытие поддерживаемых методов также не заменяет нормальную аутентификацию и проверку прав.
+</p>
+<h2>TRACE</h2>
+<p>
+	 TRACE создавался как диагностический механизм. Сервер возвращает клиенту представление запроса, который получил, что позволяет анализировать прохождение данных через промежуточные HTTP-компоненты.
+</p>
+<p>
+	 Стандарт относит TRACE к безопасным и идемпотентным методам.
+</p>
+<p>
+	 В обычных веб-приложениях диагностическая возможность почти никогда не требуется. Из-за исторических проблем безопасности и небольшой практической пользы TRACE часто отключают на публичных серверах.
+</p>
+<p>
+	 Современные браузерные API также сильно ограничивают возможность отправлять TRACE из JavaScript, поэтому в прикладной веб-разработке метод встречается редко.
+</p>
+<h2>CONNECT</h2>
+<p>
+	 CONNECT предназначен для создания туннеля через HTTP-посредника.
+</p>
+<p>
+	 Классический сценарий связан с прокси-сервером. Клиент просит прокси установить соединение с другим узлом, после чего трафик проходит через созданный туннель. Именно так традиционно строится HTTPS-соединение через обычный HTTP-прокси.
+</p>
+<p>
+	 CONNECT не считается безопасным или идемпотентным.
+</p>
+<p>
+	 Для обычного сайта метод чаще всего не нужен. Для прокси, шлюзов и некоторых современных протоколов CONNECT остаётся нормальным рабочим механизмом.
+</p>
+<p>
+	 Разрешать произвольный CONNECT без контроля назначения опасно, поскольку неправильно настроенный сервер способен фактически превратиться в открытый прокси.
+</p>
+<h2>QUERY</h2>
+<p>
+	 QUERY стал самым заметным пополнением основного набора HTTP-методов за последние годы. Метод стандартизован в июне 2026 года в <a href="https://www.rfc-editor.org/rfc/rfc10008.html">RFC 10008</a>.
+</p>
+<p>
+	 QUERY предназначен для безопасных запросов, которым требуется содержимое в теле.
+</p>
+<p>
+	 До появления QUERY разработчики сталкивались с неудобным выбором. Простой поиск хорошо помещался в GET и сохранял правильную семантику чтения. Сложный запрос с десятками фильтров, вложенными условиями или большим выражением удобнее передавать в теле. Для подобных задач часто использовали POST.
+</p>
+<p>
+	 POST технически решал проблему, но сообщал инфраструктуре неправильную семантику. Прокси, кеш или библиотека видели потенциально изменяющую состояние операцию, хотя сервер просто выполнял поиск.
+</p>
+<p>
+	 QUERY закрывает этот разрыв. Метод безопасен и идемпотентен, но при этом рассчитан на содержимое запроса.
+</p>
+<p>
+	 RFC 10008 также определяет правила кеширования QUERY. Содержимое запроса участвует в формировании ключа кеша, поскольку два обращения к одному URI с разными телами могут означать совершенно разные запросы.
+</p>
+<p>
+	 Для QUERY появился заголовок <code>Accept-Query</code>, через который сервер может сообщить поддерживаемые форматы содержимого.
+</p>
+<p>
+	 Метод хорошо подходит поисковым движкам, аналитическим системам и API со сложной фильтрацией. Пока QUERY остаётся очень новым, поэтому часть старых серверов, прокси, библиотек и API-шлюзов может его не поддерживать или обрабатывать хуже привычных GET и POST.
+</p>
+<h2>WebDAV и другие методы</h2>
+<p>
+	 Привычные GET, POST, PUT и DELETE составляют только часть HTTP.
+</p>
+<p>
+	 В <a href="https://www.iana.org/assignments/http-methods/">официальном реестре IANA</a> зарегистрированы десятки дополнительных методов. Большинство появилось вместе со специализированными расширениями HTTP.
+</p>
+<p>
+	 WebDAV добавляет <code>PROPFIND</code> для получения свойств ресурсов, <code>PROPPATCH</code> для их изменения, <code>MKCOL</code> для создания коллекций, <code>COPY</code> и <code>MOVE</code> для копирования и перемещения, а также <code>LOCK</code> и <code>UNLOCK</code> для управления блокировками.
+</p>
+<p>
+	 Другие расширения добавили ещё больше методов. <code>MKCALENDAR</code> относится к календарным коллекциям, <code>ACL</code> к управлению списками доступа, а <code>CHECKIN</code>, <code>CHECKOUT</code>, <code>VERSION-CONTROL</code>, <code>MERGE</code> и ряд других методов обслуживают версионирование ресурсов.
+</p>
+<p>
+	 В реестре встречается и <code>PRI</code>, связанный с HTTP/2. Для обычного API такой метод использовать не нужно.
+</p>
+<p>
+	 Знать весь список наизусть нет смысла. Для большинства веб-разработчиков достаточно хорошо понимать основной набор и помнить, что HTTP допускает расширение новыми методами. QUERY как раз показывает, что протокол продолжает развиваться спустя десятилетия после появления первых GET и POST.
+</p>			</div>
+	</sape_index>          
+
+	<div class="webinar-shell">
+		<!--'start_frame_cache_MoecjV'--><a href="https://cyber-ed.securitylab.ru/ai_pentest_challenge/?utm_source=seclab_banner&utm_medium=website&utm_campaign=ai_challenge&utm_content=three_steps"
+   target="_blank"
+   rel="noopener"
+   class="sl-b43-link"
+   style="all:unset;display:block;cursor:pointer;width:100%;max-width:900px;">
+
+<div class="sl-b43">
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+
+/* =========================
+   LINK
+========================= */
+
+.sl-b43-link,
+.sl-b43-link:link,
+.sl-b43-link:visited,
+.sl-b43-link:hover,
+.sl-b43-link:focus,
+.sl-b43-link:active{
+  cursor:pointer !important;
+
+  text-decoration:none !important;
+  text-decoration-line:none !important;
+  text-decoration-color:transparent !important;
+
+  border-bottom:none !important;
+  outline:none !important;
+}
+
+.sl-b43-link *,
+.sl-b43-link:hover *,
+.sl-b43-link:focus *,
+.sl-b43-link:active *{
+  cursor:pointer !important;
+
+  text-decoration:none !important;
+  text-decoration-line:none !important;
+  text-decoration-color:transparent !important;
+}
+
+
+/* =========================
+   BANNER
+========================= */
+
+.sl-b43{
+  all:initial;
+  box-sizing:border-box;
+
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+
+  width:100%;
+  max-width:900px;
+
+  min-height:120px;
+  max-height:150px;
+
+  position:relative;
+  overflow:hidden;
+
+  --blue:#5967ff;
+  --blue2:#4665ff;
+  --cyan:#29d8ff;
+
+  --coral:#ff685b;
+  --orange:#ff8c42;
+
+  font-family:'Manrope',sans-serif;
+
+  color:#fff;
+
+  background:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(77,92,255,.30),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 74% 8%,
+      rgba(41,216,255,.13),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 96% 90%,
+      rgba(255,120,74,.13),
+      transparent 29%
+    ),
+    linear-gradient(
+      118deg,
+      #090e20 0%,
+      #111834 52%,
+      #0a1128 100%
+    );
+
+  border:1px solid rgba(116,135,255,.75);
+
+  border-radius:11px;
+
+  box-shadow:
+    0 8px 22px rgba(7,10,28,.28),
+    0 0 0 2px rgba(77,92,255,.08),
+    inset 0 1px 0 rgba(255,255,255,.08);
+
+  cursor:pointer;
+}
+
+
+.sl-b43 *,
+.sl-b43 *::before,
+.sl-b43 *::after{
+  box-sizing:border-box;
+}
+
+
+/* =========================
+   MOVING BACKGROUND
+========================= */
+
+.sl-b43::before{
+  content:'';
+
+  position:absolute;
+
+  width:380px;
+  height:180px;
+
+  left:-130px;
+  top:-95px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(77,92,255,.36) 0%,
+      rgba(77,92,255,.10) 45%,
+      transparent 72%
+    );
+
+  filter:blur(12px);
+
+  animation:b43Aurora 7s ease-in-out infinite alternate;
+
+  pointer-events:none;
+}
+
+
+@keyframes b43Aurora{
+
+  0%{
+    transform:
+      translate3d(0,0,0)
+      scale(1);
+  }
+
+  100%{
+    transform:
+      translate3d(220px,32px,0)
+      scale(1.25);
+  }
+
+}
+
+
+/* =========================
+   BOTTOM LIGHT
+========================= */
+
+.sl-b43::after{
+  content:'';
+
+  position:absolute;
+
+  left:-35%;
+  bottom:0;
+
+  width:35%;
+  height:2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      #5967ff 22%,
+      #29d8ff 52%,
+      #4665ff 80%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 10px rgba(41,216,255,.65),
+    0 0 16px rgba(89,103,255,.28);
+
+  animation:b43EdgeRun 4.8s linear infinite;
+
+  z-index:20;
+}
+
+
+@keyframes b43EdgeRun{
+
+  0%{
+    left:-35%;
+  }
+
+  100%{
+    left:105%;
+  }
+
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.sl-b43 .b43-grid{
+  position:absolute;
+  inset:0;
+
+  pointer-events:none;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size:28px 28px;
+
+  mask-image:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.85),
+      rgba(0,0,0,.4),
+      transparent
+    );
+
+  -webkit-mask-image:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.85),
+      rgba(0,0,0,.4),
+      transparent
+    );
+}
+
+
+/* =========================
+   TOP
+========================= */
+
+.sl-b43 .b43-top{
+  position:relative;
+  z-index:5;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:clamp(6px,1vw,10px);
+
+  min-width:0;
+
+  padding:
+    clamp(5px,.8vw,7px)
+    clamp(10px,1.8vw,17px)
+    1px
+    clamp(10px,1.8vw,18px);
+}
+
+
+.sl-b43 .b43-tag{
+  display:flex;
+  align-items:center;
+
+  gap:clamp(5px,.8vw,7px);
+
+  min-width:0;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:clamp(8px,1vw,10px);
+  line-height:1;
+
+  font-weight:700;
+
+  letter-spacing:clamp(.45px,.1vw,1px);
+  text-transform:uppercase;
+
+  color:#f4f6ff;
+
+  white-space:nowrap;
+}
+
+
+.sl-b43 .b43-tag::before{
+  content:'';
+
+  width:7px;
+  height:7px;
+
+  flex:0 0 auto;
+
+  border-radius:50%;
+
+  background:var(--cyan);
+
+  box-shadow:
+    0 0 0 3px rgba(41,216,255,.10),
+    0 0 9px rgba(41,216,255,.75);
+
+  animation:b43Status 1.8s ease-in-out infinite;
+}
+
+
+@keyframes b43Status{
+
+  0%,100%{
+    transform:scale(1);
+    opacity:1;
+  }
+
+  50%{
+    transform:scale(.72);
+    opacity:.55;
+  }
+
+}
+
+
+.sl-b43 .b43-brand{
+  min-width:0;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:clamp(6px,.75vw,7px);
+  line-height:1;
+
+  font-weight:600;
+
+  letter-spacing:clamp(.3px,.08vw,.7px);
+  text-transform:uppercase;
+
+  color:#a9b1ca;
+
+  white-space:nowrap;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.sl-b43 .b43-main{
+  position:relative;
+  z-index:5;
+
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    minmax(0,1.18fr)
+    minmax(0,1.15fr)
+    auto;
+
+  align-items:stretch;
+
+  min-width:0;
+
+  padding:
+    clamp(3px,.6vw,5px)
+    clamp(8px,1.6vw,15px)
+    clamp(3px,.6vw,5px)
+    clamp(10px,1.8vw,18px);
+}
+
+
+/* =========================
+   STEP
+========================= */
+
+.sl-b43 .b43-step{
+  --accent:#5967ff;
+  --text-accent:#7180ff;
+
+  position:relative;
+
+  min-width:0;
+  min-height:62px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  padding:
+    clamp(7px,1vw,9px)
+    clamp(8px,1.8vw,21px)
+    clamp(7px,1vw,9px)
+    clamp(7px,1.1vw,11px);
+
+  overflow:visible;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.085),
+      rgba(255,255,255,.025)
+    );
+
+  border-top:1px solid rgba(255,255,255,.11);
+  border-bottom:1px solid rgba(255,255,255,.11);
+  border-left:1px solid rgba(255,255,255,.11);
+
+  backdrop-filter:blur(3px);
+
+  transition:
+    transform .22s ease,
+    background .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease;
+}
+
+
+.sl-b43 .b43-step:nth-child(1){
+  --accent:#5967ff;
+  --text-accent:#7983ff;
+
+  border-radius:8px 0 0 8px;
+}
+
+
+.sl-b43 .b43-step:nth-child(2){
+  --accent:#29d8ff;
+  --text-accent:#45ddff;
+}
+
+
+.sl-b43 .b43-step:nth-child(3){
+  --accent:#5967ff;
+  --text-accent:#ff7669;
+
+  border-right:1px solid rgba(255,255,255,.11);
+
+  border-radius:0 8px 8px 0;
+}
+
+
+/* top line */
+
+.sl-b43 .b43-step::before{
+  content:'';
+
+  position:absolute;
+
+  top:-1px;
+  left:10px;
+
+  width:clamp(22px,3.3vw,30px);
+  height:2px;
+
+  border-radius:2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #5967ff,
+      #29d8ff
+    );
+
+  box-shadow:
+    0 0 8px rgba(41,216,255,.55);
+
+  transition:width .25s ease;
+}
+
+
+/* glow */
+
+.sl-b43 .b43-step::after{
+  content:'';
+
+  position:absolute;
+
+  width:70px;
+  height:70px;
+
+  right:-22px;
+  bottom:-40px;
+
+  border-radius:50%;
+
+  background:#5967ff;
+
+  opacity:.06;
+
+  filter:blur(13px);
+
+  pointer-events:none;
+}
+
+
+.sl-b43-link:hover .b43-step{
+  transform:translateY(-2px);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.13),
+      rgba(255,255,255,.045)
+    );
+
+  border-color:rgba(91,111,255,.26);
+
+  box-shadow:
+    0 7px 15px rgba(0,0,0,.14),
+    inset 0 0 16px rgba(71,94,255,.025);
+}
+
+
+.sl-b43-link:hover .b43-step::before{
+  width:clamp(38px,6vw,55px);
+}
+
+
+/* =========================
+   NUMBER
+========================= */
+
+.sl-b43 .b43-num{
+  display:block;
+
+  margin-bottom:clamp(3px,.5vw,5px);
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:clamp(6px,.75vw,7px);
+  line-height:1;
+
+  font-weight:700;
+
+  letter-spacing:.6px;
+
+  color:var(--accent);
+
+  text-shadow:
+    0 0 8px var(--accent);
+}
+
+
+/* =========================
+   PHRASE
+========================= */
+
+.sl-b43 .b43-phrase{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+  align-items:baseline;
+
+  flex-wrap:wrap;
+
+  column-gap:clamp(3px,.55vw,5px);
+  row-gap:2px;
+
+  min-width:0;
+
+  font-family:'Manrope',sans-serif;
+
+  line-height:1.02;
+
+  white-space:normal;
+}
+
+
+/* MAIN WORD */
+
+.sl-b43 .b43-word{
+  flex:0 0 auto;
+
+  font-family:'Manrope',sans-serif;
+
+  font-size:clamp(12px,1.75vw,18px);
+  line-height:1.02;
+
+  font-weight:800;
+
+  letter-spacing:-.4px;
+
+  color:#fff;
+
+  white-space:nowrap;
+
+  text-shadow:
+    0 2px 9px rgba(0,0,0,.25);
+}
+
+
+/* EXTRA */
+
+.sl-b43 .b43-extra{
+  min-width:0;
+
+  font-family:'Manrope',sans-serif;
+
+  font-size:clamp(10px,1.45vw,15px);
+  line-height:1.02;
+
+  font-weight:700;
+
+  letter-spacing:-.25px;
+
+  color:var(--text-accent);
+
+  white-space:normal;
+
+  overflow:visible;
+
+  text-overflow:clip;
+
+  word-break:normal;
+  overflow-wrap:normal;
+}
+
+
+/* =========================
+   CONNECTORS
+========================= */
+
+.sl-b43 .b43-connector{
+  position:absolute;
+
+  top:50%;
+  right:-12px;
+
+  width:24px;
+  height:12px;
+
+  transform:translateY(-50%);
+
+  z-index:12;
+}
+
+
+.sl-b43 .b43-connector::before{
+  content:'';
+
+  position:absolute;
+
+  left:0;
+  right:3px;
+  top:5px;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #5967ff,
+      #29d8ff
+    );
+
+  box-shadow:
+    0 0 5px rgba(41,216,255,.55);
+}
+
+
+.sl-b43 .b43-connector::after{
+  content:'';
+
+  position:absolute;
+
+  right:3px;
+  top:2px;
+
+  width:5px;
+  height:5px;
+
+  border-top:1px solid #64e5ff;
+  border-right:1px solid #64e5ff;
+
+  transform:rotate(45deg);
+}
+
+
+/* =========================
+   PULSE
+========================= */
+
+.sl-b43 .b43-pulse{
+  position:absolute;
+
+  left:0;
+  top:3px;
+
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:#29d8ff;
+
+  box-shadow:
+    0 0 5px #29d8ff,
+    0 0 10px rgba(41,216,255,.85);
+
+  animation:b43PulseMove 1.75s ease-in-out infinite;
+
+  z-index:13;
+}
+
+
+.sl-b43 .b43-step:nth-child(2) .b43-pulse{
+  animation-delay:.55s;
+}
+
+
+@keyframes b43PulseMove{
+
+  0%{
+    left:0;
+    transform:scale(.5);
+    opacity:0;
+  }
+
+  20%{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  80%{
+    opacity:1;
+  }
+
+  100%{
+    left:17px;
+    transform:scale(.55);
+    opacity:0;
+  }
+
+}
+
+
+/* =========================
+   CTA
+========================= */
+
+.sl-b43 .b43-ctacell{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+
+  min-height:62px;
+
+  padding-left:clamp(5px,1.2vw,11px);
+}
+
+
+.sl-b43 .b43-ctacell::before{
+  content:'';
+
+  position:absolute;
+
+  inset:13px -2px;
+
+  border-radius:18px;
+
+  background:#ff794d;
+
+  filter:blur(16px);
+
+  opacity:.15;
+
+  animation:b43CtaGlow 2.2s ease-in-out infinite;
+}
+
+
+@keyframes b43CtaGlow{
+
+  0%,100%{
+    opacity:.12;
+    transform:scale(.95);
+  }
+
+  50%{
+    opacity:.23;
+    transform:scale(1.05);
+  }
+
+}
+
+
+.sl-b43 .b43-cta{
+  position:relative;
+  z-index:2;
+
+  width:clamp(90px,15vw,142px);
+  min-height:43px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:clamp(4px,.8vw,8px);
+
+  padding:
+    clamp(8px,1vw,10px)
+    clamp(8px,1.4vw,13px);
+
+  overflow:hidden;
+
+  border-radius:8px;
+
+  background:
+    linear-gradient(
+      120deg,
+      #ff604f 0%,
+      #ff734c 48%,
+      #ff9744 100%
+    );
+
+  border:1px solid rgba(255,181,146,.55);
+
+  color:#fff;
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:clamp(7px,.9vw,9px);
+  line-height:1;
+
+  font-weight:700;
+
+  letter-spacing:clamp(.4px,.1vw,.9px);
+  text-transform:uppercase;
+
+  white-space:nowrap;
+
+  box-shadow:
+    0 7px 17px rgba(255,112,74,.28),
+    inset 0 1px 0 rgba(255,255,255,.32);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    filter .2s ease;
+}
+
+
+/* CTA SHINE */
+
+.sl-b43 .b43-cta::before{
+  content:'';
+
+  position:absolute;
+
+  top:-50%;
+  left:-60%;
+
+  width:35%;
+  height:200%;
+
+  transform:skewX(-18deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.5),
+      transparent
+    );
+
+  animation:b43CtaShine 3.2s ease-in-out infinite;
+}
+
+
+@keyframes b43CtaShine{
+
+  0%,55%{
+    left:-60%;
+  }
+
+  85%,100%{
+    left:130%;
+  }
+
+}
+
+
+.sl-b43-link:hover .b43-cta{
+  transform:
+    translateY(-2px)
+    scale(1.025);
+
+  filter:saturate(1.12);
+
+  box-shadow:
+    0 10px 22px rgba(255,112,74,.38),
+    inset 0 1px 0 rgba(255,255,255,.35);
+}
+
+
+/* CTA ICON */
+
+.sl-b43 .b43-cta em{
+  position:relative;
+
+  display:block;
+
+  width:15px;
+  height:15px;
+
+  flex:0 0 auto;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.20);
+
+  font-style:normal;
+
+  transition:
+    transform .2s ease,
+    background .2s ease;
+}
+
+
+.sl-b43 .b43-cta em::after{
+  content:'';
+
+  position:absolute;
+
+  left:5px;
+  top:4px;
+
+  width:4px;
+  height:4px;
+
+  border-top:1.5px solid #fff;
+  border-right:1.5px solid #fff;
+
+  transform:rotate(45deg);
+}
+
+
+.sl-b43-link:hover .b43-cta em{
+  transform:translateX(3px);
+
+  background:rgba(255,255,255,.30);
+}
+
+
+/* =========================
+   BOTTOM
+========================= */
+
+.sl-b43 .b43-bottom{
+  position:relative;
+  z-index:5;
+
+  display:flex;
+  align-items:center;
+
+  flex-wrap:wrap;
+
+  gap:clamp(4px,.7vw,7px);
+
+  min-width:0;
+
+  padding:
+    1px
+    clamp(10px,1.8vw,17px)
+    clamp(5px,.8vw,7px)
+    clamp(10px,1.8vw,18px);
+
+  font-family:'JetBrains Mono',monospace;
+
+  font-size:clamp(6px,.75vw,7px);
+  line-height:1;
+
+  font-weight:600;
+
+  letter-spacing:clamp(.3px,.07vw,.65px);
+  text-transform:uppercase;
+
+  color:#9fa7bd;
+}
+
+
+.sl-b43 .b43-date{
+  font-size:clamp(8px,1vw,9px);
+
+  font-weight:700;
+
+  letter-spacing:clamp(.4px,.08vw,.8px);
+
+  color:#ffffff;
+
+  white-space:nowrap;
+}
+
+
+.sl-b43 .b43-bottom .dot{
+  color:var(--cyan);
+
+  font-size:9px;
+
+  text-shadow:
+    0 0 6px rgba(41,216,255,.75);
+}
+
+
+/* =========================
+   BANNER HOVER
+========================= */
+
+.sl-b43-link:hover .sl-b43{
+  border-color:rgba(87,104,255,.95);
+
+  box-shadow:
+    0 10px 27px rgba(6,9,27,.36),
+    0 0 0 2px rgba(77,92,255,.13),
+    0 0 24px rgba(41,216,255,.08),
+    inset 0 1px 0 rgba(255,255,255,.09);
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width:700px){
+
+  .sl-b43 .b43-brand{
+    display:none;
+  }
+
+
+  .sl-b43 .b43-main{
+    grid-template-columns:
+      minmax(0,1fr)
+      minmax(0,1.12fr)
+      minmax(0,1.18fr)
+      auto;
+
+    padding-left:10px;
+    padding-right:9px;
+  }
+
+
+  .sl-b43 .b43-step{
+    padding-left:7px;
+    padding-right:12px;
+  }
+
+
+  .sl-b43 .b43-phrase{
+    flex-wrap:wrap;
+  }
+
+
+  .sl-b43 .b43-word{
+    font-size:clamp(11px,2.4vw,14px);
+  }
+
+
+  .sl-b43 .b43-extra{
+    font-size:clamp(9px,2vw,11px);
+  }
+
+
+  .sl-b43 .b43-cta{
+    width:clamp(82px,17vw,106px);
+  }
+
+}
+
+
+/* =========================
+   NARROW MOBILE
+   CTA ПЕРЕХОДИТ НА ВТОРУЮ СТРОКУ
+========================= */
+
+@media (max-width:560px){
+
+  .sl-b43{
+    min-height:120px;
+    max-height:150px;
+  }
+
+
+  .sl-b43 .b43-top{
+    padding-left:9px;
+    padding-right:9px;
+  }
+
+
+  .sl-b43 .b43-main{
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+
+    grid-template-rows:auto auto;
+
+    column-gap:0;
+    row-gap:clamp(3px,.8vw,5px);
+
+    padding:
+      3px
+      7px
+      2px
+      9px;
+  }
+
+
+  .sl-b43 .b43-step{
+    min-height:52px;
+
+    padding:
+      6px
+      7px;
+  }
+
+
+  .sl-b43 .b43-step:first-child{
+    border-radius:7px 0 0 7px;
+  }
+
+
+  .sl-b43 .b43-step:nth-child(3){
+    border-radius:0 7px 7px 0;
+  }
+
+
+  .sl-b43 .b43-num{
+    font-size:6px;
+    margin-bottom:3px;
+  }
+
+
+  .sl-b43 .b43-phrase{
+    display:block;
+    white-space:normal;
+  }
+
+
+  .sl-b43 .b43-word,
+  .sl-b43 .b43-extra{
+    display:block;
+
+    width:auto;
+
+    overflow:visible;
+
+    text-overflow:clip;
+
+    white-space:normal;
+  }
+
+
+  .sl-b43 .b43-word{
+    font-size:clamp(10px,3vw,13px);
+  }
+
+
+  .sl-b43 .b43-extra{
+    margin-top:2px;
+
+    font-size:clamp(8px,2.5vw,10px);
+  }
+
+
+  .sl-b43 .b43-connector{
+    display:none;
+  }
+
+
+  .sl-b43 .b43-ctacell{
+    grid-column:1 / -1;
+
+    min-height:0;
+
+    justify-content:flex-end;
+
+    padding-left:0;
+    padding-top:0;
+  }
+
+
+  .sl-b43 .b43-ctacell::before{
+    inset:2px -2px;
+  }
+
+
+  .sl-b43 .b43-cta{
+    width:auto;
+    min-width:clamp(92px,28vw,118px);
+
+    min-height:30px;
+
+    padding:
+      clamp(6px,1.5vw,8px)
+      clamp(9px,2vw,12px);
+
+    font-size:clamp(6px,1.8vw,8px);
+  }
+
+
+  .sl-b43 .b43-bottom{
+    padding-left:9px;
+    padding-right:9px;
+    padding-bottom:6px;
+  }
+
+
+  .sl-b43 .b43-date{
+    font-size:clamp(7px,2vw,8px);
+  }
+
+}
+
+
+/* =========================
+   VERY SMALL MOBILE
+========================= */
+
+@media (max-width:380px){
+
+  .sl-b43 .b43-tag{
+    font-size:7px;
+    letter-spacing:.3px;
+  }
+
+
+  .sl-b43 .b43-step{
+    padding:
+      5px
+      4px;
+  }
+
+
+  .sl-b43 .b43-word{
+    font-size:9px;
+  }
+
+
+  .sl-b43 .b43-extra{
+    font-size:7px;
+  }
+
+
+  .sl-b43 .b43-cta em{
+    display:none;
+  }
+
+
+  .sl-b43 .b43-bottom span:nth-child(n+3){
+    display:none;
+  }
+
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion:reduce){
+
+  .sl-b43::before,
+  .sl-b43::after,
+  .sl-b43 .b43-tag::before,
+  .sl-b43 .b43-pulse,
+  .sl-b43 .b43-ctacell::before,
+  .sl-b43 .b43-cta::before{
+    animation:none;
+  }
+
+}
+
+</style>
+
+
+<div class="b43-grid"></div>
+
+
+<div class="b43-top">
+
+  <span class="b43-tag">
+    AI-челлендж по пентесту
+  </span>
+
+  <span class="b43-brand">
+    CyberED × Standoff Hackbase
+  </span>
+
+</div>
+
+
+<div class="b43-main">
+
+
+  <div class="b43-step">
+
+    <span class="b43-num">
+      01
+    </span>
+
+    <div class="b43-phrase">
+
+      <span class="b43-word">
+        Собери
+      </span>
+
+      <span class="b43-extra">
+        агента
+      </span>
+
+    </div>
+
+    <span class="b43-connector">
+      <span class="b43-pulse"></span>
+    </span>
+
+  </div>
+
+
+  <div class="b43-step">
+
+    <span class="b43-num">
+      02
+    </span>
+
+    <div class="b43-phrase">
+
+      <span class="b43-word">
+        Выпусти
+      </span>
+
+      <span class="b43-extra">
+        на полигон
+      </span>
+
+    </div>
+
+    <span class="b43-connector">
+      <span class="b43-pulse"></span>
+    </span>
+
+  </div>
+
+
+  <div class="b43-step">
+
+    <span class="b43-num">
+      03
+    </span>
+
+    <div class="b43-phrase">
+
+      <span class="b43-word">
+        Посмотри
+      </span>
+
+      <span class="b43-extra">
+        кто победит
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="b43-ctacell">
+
+    <span class="b43-cta">
+
+      В челлендж
+
+      <em></em>
+
+    </span>
+
+  </div>
+
+
+</div>
+
+
+<div class="b43-bottom">
+
+  <span class="b43-date">
+    10–17 сентября
+  </span>
+
+  <span class="dot">
+    •
+  </span>
+
+  <span>
+    Публичный рейтинг
+  </span>
+
+</div>
+
+
+</div>
+
+</a>
+<p></p><!--'end_frame_cache_MoecjV'-->	</div>
+	<div class="share-block" id="share-block" data-print="false">
+		<label class="share-label">Поделиться новостью:</label>
+		<ul class="share-menu">
+			<li><a onclick="return false;" href="javascript:void(0)" class="social-share" data-title="HTTP-методы простыми словами. GET, POST, PUT, PATCH, DELETE и новый QUERY" data-text="Разбираем популярные заблуждения о браузерной безопасности и HTTP-методах." data-url="https://www.securitylab.ru/analytics/563109.php" data-type="twitter" title="Поделиться в Twitter"><i class="icon-twitter"></i></a></li>
+			<li><a onclick="return false;" href="javascript:void(0)" class="social-share" data-title="HTTP-методы простыми словами. GET, POST, PUT, PATCH, DELETE и новый QUERY" data-text="Разбираем популярные заблуждения о браузерной безопасности и HTTP-методах." data-url="https://www.securitylab.ru/analytics/563109.php" data-type="vk" title="Поделиться в Контакте"><i class="icon-vk"></i></a></li>
+			<li><a onclick="return false;" href="javascript:void(0)" class="social-share" data-title="HTTP-методы простыми словами. GET, POST, PUT, PATCH, DELETE и новый QUERY" data-text="Разбираем популярные заблуждения о браузерной безопасности и HTTP-методах." data-url="https://www.securitylab.ru/analytics/563109.php" data-type="telegram" title="Поделиться в Telegramm"><i class="icon-telegram"></i></a></li>
+			<li><a href="https://getpocket.com/edit.php?url=https://securitylab.ru/analytics/563109.php" target="_blank" title="Поделиться в Pocket"><i class="icon-pocket"></i></a></li>
+			<li><a href="javascript:void(0)" onclick="printDiv('#article_563109')" title="Распечатать"><i class="icon-print"></i></a></li>
+		</ul>
+	</div>
+</div>
+</div>
+				<div class="col-lg-3 d-none d-lg-block" data-print="false">
+				        <div class="aside-col">
+							
+<!--'start_frame_cache_vhh5NV'-->	<div class="text-center mb-6">
+		
+
+<style>
+.searchinform-ad-240x400 {
+    position: relative !important;
+    display: inline-block !important;
+    width: 240px !important;
+    height: 400px !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+}
+
+.searchinform-ad-240x400__link {
+    display: block !important;
+    width: 240px !important;
+    height: 400px !important;
+    line-height: 0 !important;
+    text-decoration: none !important;
+}
+
+.searchinform-ad-240x400__img {
+    display: block !important;
+    width: 240px !important;
+    height: 400px !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: fill !important;
+    border: 0 !important;
+}
+
+.searchinform-ad-240x400__btn {
+    position: absolute !important;
+    top: 6px !important;
+    right: 6px !important;
+    z-index: 30 !important;
+    width: 28px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    border: 1px solid rgba(255,255,255,0.35) !important;
+    border-radius: 4px !important;
+    background: rgba(0,0,0,0.45) !important;
+    color: #fff !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 26px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+}
+
+.searchinform-ad-240x400__info {
+    display: none;
+    position: absolute !important;
+    top: 40px !important;
+    right: 6px !important;
+    z-index: 40 !important;
+    width: 210px !important;
+    box-sizing: border-box !important;
+    padding: 12px 14px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    background: #fff !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+    color: #333 !important;
+    line-height: 1.5 !important;
+}
+
+.searchinform-ad-240x400__info a {
+    color: #c00 !important;
+    text-decoration: none !important;
+}
+
+.searchinform-ad-240x400__info a:hover {
+    text-decoration: underline !important;
+}
+</style>
+
+<div class="searchinform-ad-240x400">
+
+    <button
+        class="searchinform-ad-240x400__btn"
+        type="button"
+        aria-label="Информация о рекламодателе"
+        onclick="var box = this.nextElementSibling; box.style.display = box.style.display === 'block' ? 'none' : 'block';">
+        ···
+    </button>
+
+    <div class="searchinform-ad-240x400__info">
+        <strong>Рекламодатель</strong><br>
+        Реклама. АО «Позитив Текнолоджиз». ИНН 7718668887. 18+<br>
+        Сайт рекламодателя:
+        <a href="https://ptsecurity.com/" target="_blank" rel="noopener noreferrer">
+            ptsecurity.com
+        </a>
+    </div>
+
+    <a
+        class="searchinform-ad-240x400__link"
+        href="https://triz.tech/triztech-day?utm_source=seclab&utm_medium=banner&erid=2SDnjcLYzr7"
+        target="_blank"
+        rel="noopener noreferrer">
+
+        <img
+            width="240"
+            height="400"
+            src="https://www.securitylab.ru/upload/medialibrary/d8b/uwlg1q6a0va3v3p1cxpza6euy0wggocy.jpg"
+            class="searchinform-ad-240x400__img"
+            alt="Реклама">
+
+    </a>
+
+</div>	</div>
+	<!--'end_frame_cache_vhh5NV'-->          
+					</div>
+				</div>
+				<!-- /. aside-col -->
+				</div>
+			</div>
+			<!-- /.row -->
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+<!-- Section Newsletter -->
+<section class="p-section section-subscribe pb-6 pt-sm-6" id="subscribe-section">
+	<div class="section-body">
+		<form class="form-newsletter py-3 px-6" action="/subscribe/subscr_edit.php" method="post">
+			<input type="hidden" name="sessid" id="sessid" value="7cba166252577a282b36f78f4d709836" />			<div class="row align-items-center justify-content-center">
+				<div class="col-lg-9">
+					<div class="pb-3 text-center">
+						<h2 class="title mb-4 text-uppercase">Подпишитесь на email рассылку</h2>
+						<p class="description">Подпишитесь на получение последних материалов по безопасности от SecurityLab.ru —
+						новости, статьи, обзоры уязвимостей и мнения аналитиков.</p>
+					</div>
+					<div class="form-row">
+													<div class="col-md-6">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="sf_RUB_ID[]" id="sf_RUB_ID_20" value="20" checked /> 
+									<label class="form-check-label font-weight-bolder" for="sf_RUB_ID_20">Ежедневный выпуск от SecurityLab.Ru</label>
+								</div>
+							</div>
+													<div class="col-md-6">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="sf_RUB_ID[]" id="sf_RUB_ID_15" value="15" checked /> 
+									<label class="form-check-label font-weight-bolder" for="sf_RUB_ID_15">Еженедельный выпуск от SecurityLab.Ru</label>
+								</div>
+							</div>
+											</div>
+					<div class="form-row">
+						<div class="col-md-8">
+							<div class="form-group">
+								<input type="email" class="form-control" id="email" name="sf_EMAIL" size="20" value="" title="Введите ваш e-mail"  placeholder="E-mail для получения рассылки" required/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<button type="submit" name="OK" class="btn btn-danger font-weight-bolder w-100">Подписаться</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.row -->
+			<div class="d-none">
+<label data-bx-user-consent="{&quot;id&quot;:1,&quot;sec&quot;:&quot;zm27v7&quot;,&quot;autoSave&quot;:true,&quot;actionUrl&quot;:&quot;\/bitrix\/components\/bitrix\/main.userconsent.request\/ajax.php&quot;,&quot;replace&quot;:{&quot;button_caption&quot;:&quot;Ок&quot;,&quot;fields&quot;:[&quot;Email&quot;,&quot;IP-адрес&quot;]},&quot;url&quot;:null,&quot;required&quot;:null}" class="main-user-consent-request">
+	<input type="checkbox" value="Y"  name="">
+	<span class="main-user-consent-request-announce-link">Нажимая на кнопку, я принимаю условия соглашения.</span>
+</label>
+<div data-bx-template="main-user-consent-request-loader" style="display: none;">
+	<div class="main-user-consent-request-popup">
+		<div class="main-user-consent-request-popup-cont">
+			<div data-bx-head="" class="main-user-consent-request-popup-header"></div>
+			<div class="main-user-consent-request-popup-body">
+				<div data-bx-loader="" class="main-user-consent-request-loader">
+					<svg class="main-user-consent-request-circular" viewBox="25 25 50 50">
+						<circle class="main-user-consent-request-path" cx="50" cy="50" r="20" fill="none" stroke-width="1" stroke-miterlimit="10"></circle>
+					</svg>
+				</div>
+				<div data-bx-content="" class="main-user-consent-request-popup-content">
+					<div class="main-user-consent-request-popup-textarea-block">
+						<div data-bx-textarea="" class="main-user-consent-request-popup-text"></div>
+						<div data-bx-link="" style="display: none;" class="main-user-consent-request-popup-link">
+							<div>Ознакомьтесь с текстом по ссылке</div>
+							<div><a target="_blank"></a></div>
+						</div>
+					</div>
+					<div class="main-user-consent-request-popup-buttons">
+						<span data-bx-btn-accept="" class="main-user-consent-request-popup-button main-user-consent-request-popup-button-acc">Y</span>
+						<span data-bx-btn-reject="" class="main-user-consent-request-popup-button main-user-consent-request-popup-button-rej">N</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>			</div>
+		</form>
+		<!-- /.form-newsletter -->
+	</div>
+</section>
+<!-- /. Section Newsletter -->		</div>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer px-3">
+	<div class="container py-6">
+
+    <section class="p-section section-subscribe-social d-none d-sm-block">
+      <div class="text-center">
+        <h2 class="mb-2">Подписывайтесь на наши соц сети</h2>
+
+        <div class="social-links">
+          <ul class=" d-flex justify-content-between">
+            <li><a href="https://t.me/SecLabNews"><i class="icon-telegram-box"></i></a></li>
+            <li><a href="https://twitter.com/SecurityLabnews"><i class="icon-twitter-box"></i></a></li>
+            <li><a href="https://vk.com/public47494392"><i class="icon-vk-box"></i></a></li>
+            <li><a href="https://www.securitylab.ru/_services/export/rss/"><i class="icon-rss-box"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+		<div class="row pt-3 mb-md-6">
+			<div class="col-lg-3 col-md-4">
+				<nav class="footer-nav">
+					<a href="/news/">Новости</a>
+				</nav>
+				<nav class="footer-nav">
+					<a href="/vulnerability/">Уязвимости</a>
+					<ul class="d-none d-md-block">
+						<li><a href="/lab/">PT Research Lab</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<nav class="footer-nav">
+					<a href="/analytics/">Статьи</a>
+					<ul class="d-none d-md-block">
+						<li><a href="/opinion/">Мнения</a></li>
+						<li><a href="/contest/">Конкурсы</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-nav">
+					<a href="/blog/">Блоги</a>
+					<ul class="d-none d-md-block">
+						<li><a href="/blog/personal/">Личные блоги</a></li>
+						<li><a href="/blog/company/">Блоги компаний</a></li>
+						<li><a href="/blog/rules.php">Правила публикаций</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="d-none d-md-flex col-md-4 d-lg-none">
+				<nav class="footer-nav">
+					<ul>
+						<li><a href="/contacts.php">Контакты</a></li>
+						<li><a href="/advertiser.php">Реклама на сайте</a></li>
+						<li><a href="/about.php">О проекте</a></li>
+						<li><a href="/export/">Экспорт статей</a></li>
+						<li><a href="/rss.php">RSS</a></li>
+						<li><a href="/informer/">Информер история</a></li>
+						<li><a href="/policy.php">Политика обработки данных</a></li>
+						<li><a href="/map.php">Карта сайта</a></li>
+						<li><a href="/personal/">Личный кабинет</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<nav class="footer-nav">
+					<a href="/software/">Софт</a>
+					<ul class="d-none d-md-block">
+						<li><a href="/software/1218/">Системные утилиты</a></li>
+						<li><a href="/software/1219/">Сетевые утилиты</a></li>
+						<li><a href="/software/1425/">Беспроводные сети</a></li>
+						<li><a href="/software/1499/">Конкурентная разведка</a></li>
+						<li><a href="/software/1513/">Программы для Web мастеров</a></li>
+						<li><a href="/software/1524/">Разработка</a></li>
+						<li><a href="/software/1224/">Активное противодействие</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<nav class="footer-nav">
+					<a href="/phdays/">PHDays</a>
+				</nav>
+			</div>
+		</div>
+		<nav class="footer-bottom-menu d-none d-lg-block">
+	<ul>
+	        <li><a href="/content/who_we_are.php">Кто мы</a></li>
+	        <li><a href="/content/contacts.php">Контакты</a></li>
+	        <li><a href="/content/advertiser.php">Реклама</a></li>
+	        <li><a href="/content/policy.php">Политика конфиденциальности</a></li>
+	        <li><a href="/content/rules.php">Условия распространения персональных данных</a></li>
+	        <li><a href="/content/terms_of_use.php">Условия использования</a></li>
+
+	        <li><a href="/rss.php">RSS</a></li>
+	        <li><a href="/map.php">Карта сайта</a></li>
+	        <li><a href="https://www.securitylab.lat/" target="_blank">Español</a></li>
+	</ul>
+</nav>
+
+
+    <div class="social-links d-sm-none pt-4">
+      <ul class="d-flex flex-wrap">
+        <li class="my-5"><a href="https://t.me/SecLabNews"><i class="icon-telegram"></i></a></li>
+        <li class="my-5"><a href="https://twitter.com/SecurityLabnews"><i class="icon-twitter"></i></a></li>
+        <li class="my-5"><a href="https://vk.com/public47494392"><i class="icon-vk"></i></a></li>
+        <li class="my-5"><a href="https://www.securitylab.ru/_services/export/rss/"><i class="icon-rss"></i></a></li>
+      </ul>
+    </div>
+
+    <br>
+
+    <div class="row align-items-end pt-4 mb-3">
+      <div class="col-lg-9 col-md-8">
+        <div class="copyright">
+          <p>
+            Работает на CMS "1С-Битрикс: Управление сайтом" <br>Защищено CURATOR
+          </p>
+        </div>
+      </div>
+    </div>
+	</div>
+	<!-- /.container -->
+	<div class="div4copy"></div>
+</footer>
+<!-- /.Footer -->
+
+<!-- Yandex.Metrika counter -->
+<noscript><div><img src="https://mc.yandex.ru/watch/32292334" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+
+<script>if(!window.BX)window.BX={};if(!window.BX.message)window.BX.message=function(mess){if(typeof mess==='object'){for(let i in mess) {BX.message[i]=mess[i];} return true;}};</script>
+<script>(window.BX||top.BX).message({"MAIN_BASELINE_BROWSER_OUTDATED":"Вы используете устаревшую версию браузера. Обновите его для безопасной и стабильной работы","MAIN_BASELINE_DETAILS":"Подробнее","MAIN_BASELINE_CLOSE":"Закрыть"});</script><script src="/bitrix/js/main/baseline/dist/baseline.bundle.min.js?17873299574439"></script><script>(window.BX||top.BX).message({"JS_CORE_LOADING":"Загрузка...","JS_CORE_NO_DATA":"- Нет данных -","JS_CORE_WINDOW_CLOSE":"Закрыть","JS_CORE_WINDOW_EXPAND":"Развернуть","JS_CORE_WINDOW_NARROW":"Свернуть в окно","JS_CORE_WINDOW_SAVE":"Сохранить","JS_CORE_WINDOW_CANCEL":"Отменить","JS_CORE_WINDOW_CONTINUE":"Продолжить","JS_CORE_H":"ч","JS_CORE_M":"м","JS_CORE_S":"с","JSADM_AI_HIDE_EXTRA":"Скрыть лишние","JSADM_AI_ALL_NOTIF":"Показать все","JSADM_AUTH_REQ":"Требуется авторизация!","JS_CORE_WINDOW_AUTH":"Войти","JS_CORE_IMAGE_FULL":"Полный размер"});</script><script src="/bitrix/js/main/core/core.min.js?1787330026181429"></script><script>BX.Runtime.registerExtension({"name":"main.core","namespace":"BX","loaded":true});</script>
+<script>BX.setJSList(["\/bitrix\/js\/main\/core\/core_ajax.js","\/bitrix\/js\/main\/core\/core_promise.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/loadext\/loadext.js","\/bitrix\/js\/main\/loadext\/extension.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/includes\/js\/includes.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/ui\/polyfill\/closest\/js\/closest.js","\/bitrix\/js\/main\/polyfill\/fill\/main.polyfill.fill.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/core\/core.js","\/bitrix\/js\/main\/polyfill\/intersectionobserver\/js\/intersectionobserver.js","\/bitrix\/js\/main\/lazyload\/dist\/lazyload.bundle.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/parambag\/dist\/parambag.bundle.js"]);
+</script>
+<script>BX.Runtime.registerExtension({"name":"ui.a11y","namespace":"BX.UI.Accessibility","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"ui.design-tokens","namespace":"window","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"ui.fonts.opensans","namespace":"window","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"main.popup","namespace":"BX.Main","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"popup","namespace":"window","loaded":true});</script>
+<script>(window.BX||top.BX).message({"MAIN_USER_CONSENT_REQUEST_TITLE":"Согласие пользователя","MAIN_USER_CONSENT_REQUEST_BTN_ACCEPT":"Принимаю","MAIN_USER_CONSENT_REQUEST_BTN_REJECT":"Не принимаю","MAIN_USER_CONSENT_REQUEST_LOADING":"Загрузка..","MAIN_USER_CONSENT_REQUEST_ERR_TEXT_LOAD":"Не удалось загрузить текст соглашения.","MAIN_USER_CONSENT_REQUEST_URL_CONFIRM":"Ознакомьтесь с текстом по ссылке"});</script>
+<script>BX.Runtime.registerExtension({"name":"main_user_consent","namespace":"window","loaded":true});</script>
+<script>(window.BX||top.BX).message({"LANGUAGE_ID":"ru","FORMAT_DATE":"DD.MM.YYYY","FORMAT_DATETIME":"DD.MM.YYYY HH:MI:SS","COOKIE_PREFIX":"SL","SERVER_TZ_OFFSET":"10800","UTF_MODE":"Y","SITE_ID":"ru","SITE_DIR":"\/","USER_ID":"","SERVER_TIME":1789468286,"USER_TZ_OFFSET":0,"USER_TZ_AUTO":"Y","bitrix_sessid":"7cba166252577a282b36f78f4d709836"});</script><script src="/bitrix/js/ui/a11y/dist/a11y.bundle.min.js?178732995531192"></script>
+<script src="/bitrix/js/main/popup/dist/main.popup.bundle.min.js?178733002671647"></script>
+<script>BX.setJSList(["\/bitrix\/components\/bitrix\/main.userconsent.request\/templates\/.default\/user_consent.js"]);</script>
+<script>BX.setCSSList(["\/css\/custom.css","\/local\/templates\/.default\/components\/bitrix\/subscribe.form\/section-subscribe\/style.css","\/bitrix\/components\/bitrix\/main.userconsent.request\/templates\/.default\/user_consent.css","\/local\/templates\/securitylab_detail\/template_styles.css"]);</script>
+<script src="/js/links.js?v=20251202-02" type="text/javascript" ></script>
+<script  src="/bitrix/cache/js/ru/securitylab_detail/template_f3be1056194bd31b62f9048ce7310331/template_f3be1056194bd31b62f9048ce7310331_v1.js?17894663419054"></script>
+
+<script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Конфигурация
+            const CONFIG = {
+                storageKey: 'promo_banner_closed_at_FIXED',
+                hoursToWait: 8,
+            };
+
+            // DOM элементы
+            const els = {
+                wrapper: document.getElementById('js-banner-wrapper-6aa91e7ec9e04'),
+                toggleBtn: document.getElementById('js-toggle-mode-6aa91e7ec9e04'),
+                legalBlock: document.getElementById('js-legal-info-6aa91e7ec9e04'),
+                contentBlock: document.getElementById('js-main-content-6aa91e7ec9e04'),
+                closeBtn: document.getElementById('js-close-banner-6aa91e7ec9e04'),
+            };
+
+            if (!els.wrapper) return;
+
+            /**
+             * Проверяет, можно ли показывать баннер.
+             */
+            const shouldShowBanner = () => {
+                const closedAt = localStorage.getItem(CONFIG.storageKey);
+                if (!closedAt) return true;
+
+                const now = Date.now();
+                const timePassed = now - parseInt(closedAt, 10);
+                const waitTimeMs = CONFIG.hoursToWait * 60 * 60 * 1000;
+
+                return timePassed > waitTimeMs;
+            };
+
+            /**
+             * Показывает баннер.
+             */
+            const showBanner = () => {
+                els.wrapper.classList.add('sticky-wrapper--visible');
+            };
+
+            /**
+             * Полностью закрывает баннер и сохраняет время.
+             */
+            const closeBannerPermanently = () => {
+                els.wrapper.classList.remove('sticky-wrapper--visible');
+                localStorage.setItem(CONFIG.storageKey, Date.now().toString());
+            };
+
+            /**
+             * Переключает видимость между контентом и юридической информацией.
+             */
+            const toggleInfoMode = () => {
+                const isLegalActive = els.legalBlock.classList.contains('promo-banner__legal--active');
+
+                if (isLegalActive) {
+                    // Режим "Юр. инфо" активен -> Возвращаемся к контенту
+                    els.legalBlock.classList.remove('promo-banner__legal--active');
+                    els.contentBlock.classList.add('promo-banner__content--active');
+                    // Возвращаем кнопку в исходное состояние
+                    els.closeBtn.classList.remove('promo-banner__close--return');
+                    els.closeBtn.setAttribute('aria-label', 'Закрыть баннер');
+                } else {
+                    // Режим контента активен -> Показываем "Юр. инфо"
+                    els.contentBlock.classList.remove('promo-banner__content--active');
+                    els.legalBlock.classList.add('promo-banner__legal--active');
+                    // Меняем вид и поведение кнопки закрытия
+                    els.closeBtn.classList.add('promo-banner__close--return');
+                    els.closeBtn.setAttribute('aria-label', 'Вернуться к баннеру');
+                }
+            };
+
+            /**
+             * НОВЫЙ ОБРАБОТЧИК КЛИКА НА КРЕСТИК
+             * Он решает, закрыть баннер полностью или просто вернуться назад.
+             */
+            const handleCloseClick = (e) => {
+                e.preventDefault();
+
+                // Если у кнопки есть модификатор --return, то просто переключаем режим.
+                if (els.closeBtn.classList.contains('promo-banner__close--return')) {
+                    toggleInfoMode();
+                } else {
+                    // Иначе — закрываем баннер полностью.
+                    closeBannerPermanently();
+                }
+            };
+
+            // Инициализация событий
+            els.closeBtn.addEventListener('click', handleCloseClick);
+            els.toggleBtn.addEventListener('click', toggleInfoMode);
+
+            // Запуск логики показа
+            if (shouldShowBanner()) {
+                setTimeout(showBanner, 1000);
+            }
+        });
+    </script>
+
+<script src="https://mc.yandex.ru/metrika/watch.js" type="text/javascript" ></script>
+<script type="text/javascript" >
+try {
+    var yaCounter32292334 = new Ya.Metrika({
+        id:32292334,
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+    });
+} catch(e) { }
+</script>
+<script src="/js/main.js?v=1785765490"></script>
+<script src="/js/image_croper.js?v=1785765490"></script>
+<script src="/js/infinity-artile-scroll.js?v=1785765490"></script>
+<script src="/js/cpb.js?v=1777981238"></script>
+
+</body>
+</html>
+<style>
+/*.phdays .call-to-action p {color: #85868a}*/
+</style>

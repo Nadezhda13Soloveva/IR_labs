@@ -1,0 +1,1557 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<title>Подбор паролей с hashcat. Почему сложный пароль иногда сдаётся первым</title>
+	<link rel="preload" href="/css/fonts/noto-sans/noto-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/css/fonts/noto-sans/noto-sans-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/css/fonts/noto-serif/noto-serif-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Noto Sans";font-style:normal;font-weight:400;font-display:swap;src:url("/css/fonts/noto-sans/noto-sans-400.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans";font-style:normal;font-weight:700;font-display:swap;src:url("/css/fonts/noto-sans/noto-sans-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif";font-style:normal;font-weight:400;font-display:swap;src:url("/css/fonts/noto-serif/noto-serif-400.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif";font-style:normal;font-weight:700;font-display:swap;src:url("/css/fonts/noto-serif/noto-serif-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans Fallback";font-style:normal;font-weight:400;src:local("Arial"),local("Helvetica");size-adjust:105.5%;ascent-override:100%;descent-override:26%;line-gap-override:0%}
+@font-face{font-family:"Noto Sans Fallback";font-style:normal;font-weight:700;src:local("Arial Bold"),local("Arial"),local("Helvetica");size-adjust:105.5%;ascent-override:100%;descent-override:26%;line-gap-override:0%}
+@font-face{font-family:"Noto Serif Fallback";font-style:normal;font-weight:400;src:local("Times New Roman"),local("Times");size-adjust:108.7%;ascent-override:91%;descent-override:24%;line-gap-override:0%}
+@font-face{font-family:"Noto Serif Fallback";font-style:normal;font-weight:700;src:local("Times New Roman Bold"),local("Times New Roman"),local("Times");size-adjust:108.7%;ascent-override:91%;descent-override:24%;line-gap-override:0%}
+</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script data-skip-moving="true">(function(w, d, n) {var cl = "bx-core";var ht = d.documentElement;var htc = ht ? ht.className : undefined;if (htc === undefined || htc.indexOf(cl) !== -1){return;}var ua = n.userAgent;if (/(iPad;)|(iPhone;)/i.test(ua)){cl += " bx-ios";}else if (/Windows/i.test(ua)){cl += ' bx-win';}else if (/Macintosh/i.test(ua)){cl += " bx-mac";}else if (/Linux/i.test(ua) && !/Android/i.test(ua)){cl += " bx-linux";}else if (/Android/i.test(ua)){cl += " bx-android";}cl += (/(ipad|iphone|android|mobile|touch)/i.test(ua) ? " bx-touch" : " bx-no-touch");cl += w.devicePixelRatio && w.devicePixelRatio >= 2? " bx-retina": " bx-no-retina";if (/Safari/i.test(ua) && !/Chrome/i.test(ua)){cl += " bx-safari";}else if (/AppleWebKit/.test(ua)){cl += " bx-chrome";}else if (/Opera/.test(ua)){cl += " bx-opera";}else if (/Firefox/.test(ua)){cl += " bx-firefox";}ht.className = htc ? htc + " " + cl : cl;})(window, document, navigator);</script>
+
+
+<link href="/bitrix/js/ui/design-tokens/dist/ui.design-tokens.min.css?174384203023463" type="text/css" rel="stylesheet"/>
+<link href="/bitrix/js/ui/fonts/opensans/ui.font.opensans.min.css?16639293882320" type="text/css" rel="stylesheet"/>
+<link href="/bitrix/js/main/popup/dist/main.popup.bundle.min.css?178733002322500" type="text/css" rel="stylesheet"/>
+<link href="/bitrix/cache/css/ru/securitylab_detail/template_5df5dc9eff90289af869d1f484b95d94/template_5df5dc9eff90289af869d1f484b95d94_v1.css?178946634134971" type="text/css" rel="stylesheet" data-template-style="true"/>
+
+
+<script type="extension/settings" data-extension="main.baseline">{"collectData":false,"helpUrl":"https:\/\/helpdesk.bitrix24.ru\/open\/code_27229654\/","helpCode":"redirect=detail\u0026code=27229654"}</script>
+
+
+
+
+
+
+<script type="extension/settings" data-extension="ui.a11y">{"restoreLostFocus":false,"useFocusTrapInDialogs":false}</script>
+
+
+
+<link rel="canonical" href="https://www.securitylab.ru/analytics/529609.php" />
+<meta property="og:url" content="https://www.securitylab.ru/analytics/529609.php"/>
+<meta name="title" content="Подбор паролей с hashcat. Почему сложный пароль иногда сдаётся первым" />
+<meta name="description" content="Цифры и восклицательный знак помогают пройти проверку сложности, но знакомый шаблон может поставить пароль в начало очереди на подбор." />
+<meta property="og:title" content="Подбор паролей с hashcat. Почему сложный пароль иногда сдаётся первым"/>
+<meta property="og:description" content="Цифры и восклицательный знак помогают пройти проверку сложности, но знакомый шаблон может поставить пароль в начало очереди на подбор."/>
+<meta name="twitter:creator" content="@SecurityLabnews"/>
+<meta name="twitter:title" content="Подбор паролей с hashcat. Почему сложный пароль иногда сдаётся первым"/>
+<meta name="twitter:description" content="Цифры и восклицательный знак помогают пройти проверку сложности, но знакомый шаблон может поставить пароль в начало очереди на подбор."/>
+<meta name="article:published_time" content="2026-09-12T11:41:25+03:00"/>
+<meta property="og:image:height" content="572"/>
+<meta property="og:image:width" content="1024"/>
+<link rel="image_src" href="https://www.securitylab.ru/upload/iblock/5de/u9q6myiqrljvzomkvwk2552i7ofpge2j.jpg" />
+<meta property="og:image" content="https://www.securitylab.ru/upload/iblock/5de/u9q6myiqrljvzomkvwk2552i7ofpge2j.jpg"/>
+<meta name="twitter:image" content="https://www.securitylab.ru/upload/iblock/5de/u9q6myiqrljvzomkvwk2552i7ofpge2j.jpg"/>
+<meta property="og_image" content="https://www.securitylab.ru/upload/iblock/5de/u9q6myiqrljvzomkvwk2552i7ofpge2j.jpg"/>
+
+
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/faveicons/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/img/faveicons/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/img/faveicons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/img/faveicons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/img/faveicons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/img/faveicons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/img/faveicons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/img/faveicons/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/img/faveicons/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="/img/faveicons/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/img/faveicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/img/faveicons/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/img/faveicons/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/img/faveicons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<meta name="author" itemprop="author" content="Alexander Antipov">
+	<meta name="telegram:channel" content="@SecLabNews">
+
+	<meta name="robots" content="max-image-preview:large">
+	<link rel="alternate" type="application/rss+xml" href="https://www.securitylab.ru/_services/export/rss/news/">
+</head>
+
+<body >
+		<div class="wrap">
+		
+						
+
+		<header class="shadow" id="header">
+			<!-- блок с соц.сетями в хедере -->
+			<div class="header-social-links">
+				<div class="banner-mobile-only">
+					<!--'start_frame_cache_y0XwfU'-->
+	<!-- header-banner -->
+	<div class="header-banner-mobile" style="position:relative;width:100%;overflow:hidden;aspect-ratio:728/240">
+		<style>
+.svad-728x240-202608 {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 728px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+.svad-728x240-202608__link {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important;
+    text-decoration: none !important;
+}
+
+.svad-728x240-202608__img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+/* Компактная маркировка "Реклама 18+" */
+.svad-728x240-202608__label {
+    position: absolute !important;
+    right: 36px !important;
+    bottom: 6px !important;
+    z-index: 30 !important;
+
+    margin: 0 !important;
+    padding: 2px 4px !important;
+
+    border: 0 !important;
+    border-radius: 3px !important;
+
+    background: rgba(0, 0, 0, 0.55) !important;
+    color: #fff !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 9px !important;
+    font-weight: normal !important;
+    line-height: 12px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+
+    pointer-events: none !important;
+}
+
+/* Кнопка с тремя точками */
+.svad-728x240-202608__btn {
+    position: absolute !important;
+    right: 6px !important;
+    bottom: 6px !important;
+    z-index: 30 !important;
+
+    width: 26px !important;
+    height: 18px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    border-radius: 3px !important;
+
+    background: rgba(0, 0, 0, 0.55) !important;
+    color: #fff !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    line-height: 14px !important;
+    text-align: center !important;
+
+    cursor: pointer !important;
+}
+
+/* Раскрывающаяся информация */
+.svad-728x240-202608__info {
+    display: none !important;
+    position: absolute !important;
+
+    right: 6px !important;
+    bottom: 30px !important;
+    z-index: 40 !important;
+
+    width: 320px !important;
+    max-width: calc(100% - 12px) !important;
+
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    box-sizing: border-box !important;
+
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    border-radius: 7px !important;
+
+    background: rgba(255, 255, 255, 0.97) !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2) !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: normal !important;
+    color: #333 !important;
+    line-height: 1.4 !important;
+    text-align: left !important;
+    white-space: normal !important;
+}
+
+.svad-728x240-202608__info.is-open {
+    display: block !important;
+}
+
+.svad-728x240-202608__info a {
+    color: #c00 !important;
+    text-decoration: none !important;
+}
+
+.svad-728x240-202608__info a:hover {
+    text-decoration: underline !important;
+}
+
+@media (max-width: 480px) {
+
+    .svad-728x240-202608__label {
+        right: 33px !important;
+        bottom: 5px !important;
+
+        padding: 1px 3px !important;
+
+        font-size: 8px !important;
+        line-height: 11px !important;
+    }
+
+    .svad-728x240-202608__btn {
+        right: 5px !important;
+        bottom: 5px !important;
+
+        width: 24px !important;
+        height: 16px !important;
+
+        font-size: 13px !important;
+        line-height: 12px !important;
+    }
+
+    .svad-728x240-202608__info {
+        right: 5px !important;
+        bottom: 26px !important;
+
+        width: calc(100% - 10px) !important;
+        max-width: none !important;
+
+        padding: 6px 8px !important;
+
+        font-size: 10px !important;
+        line-height: 1.25 !important;
+    }
+}
+</style>
+
+<div class="svad-728x240-202608">
+
+    <a
+        class="svad-728x240-202608__link"
+        href="https://www.securityvision.ru/blog/security-vision-siem-ot-kontrolya-kachestva-dannykh-do-rassledovaniya-i-reagirovaniya-v-edinom-kontu/?utm_source=website&utm_medium=banner_180&utm_campaign=seclab&utm_content=siem&erid=2SDnjcywVi3"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        <img
+            class="svad-728x240-202608__img"
+            src="https://www.securitylab.ru/upload/medialibrary/7b1/felzslyjp2gz0ar1t0g21w2dev9thqht.png"
+            alt="Security Vision SIEM"
+            width="728"
+            height="240"
+        >
+    </a>
+
+    <span class="svad-728x240-202608__label">Реклама 18+</span>
+
+    <button
+        class="svad-728x240-202608__btn"
+        type="button"
+        aria-label="Информация о рекламе"
+        aria-expanded="false"
+        onclick="
+            var box = this.nextElementSibling;
+            var isOpen = box.classList.contains('is-open');
+
+            box.classList.toggle('is-open', !isOpen);
+            this.setAttribute(
+                'aria-expanded',
+                isOpen ? 'false' : 'true'
+            );
+        "
+    >···</button>
+
+    <div class="svad-728x240-202608__info">
+        Реклама.<br>
+        Рекламодатель ООО «Интеллектуальная безопасность»<br>
+        ИНН: 7719435412<br>
+        <a
+            href="https://www.securityvision.ru/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >securityvision.ru↗</a>
+    </div>
+
+</div>	</div>
+	<!-- header-banner end -->
+
+	<!--'end_frame_cache_y0XwfU'-->				</div>
+			</div>
+			<div class="container d-none d-lg-block">
+				<div class="header-top py-3 d-flex justify-content-between align-items-center">
+					<a class="navbar-brand" href="/">
+						<img src="/img/logo/logo-header.svg" width="312" height="70" alt="Security Lab">					</a>
+					<!--'start_frame_cache_2DJmFo'-->
+	<!-- header-banner -->
+	<div class="header-banner banner_728-90-desktop">
+	<style>
+.svad-728x90-202608 {
+    position: relative !important;
+    display: block !important;
+    width: 728px !important;
+    height: 90px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+.svad-728x90-202608__link {
+    display: block !important;
+    width: 728px !important;
+    height: 90px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important;
+    text-decoration: none !important;
+}
+
+.svad-728x90-202608__img {
+    display: block !important;
+    width: 728px !important;
+    height: 90px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: fill !important;
+    border: 0 !important;
+}
+
+/* Текст "Реклама 18+" */
+.svad-728x90-202608__label {
+    position: absolute !important;
+    right: 35px !important;
+    bottom: 1px !important;
+    z-index: 30 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    background: transparent !important;
+
+    color: rgba(210, 210, 210, 0.82) !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 9px !important;
+    font-weight: normal !important;
+    line-height: 14px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+
+    pointer-events: none !important;
+}
+
+/* Кнопка с тремя точками */
+.svad-728x90-202608__btn {
+    position: absolute !important;
+    right: 4px !important;
+    bottom: 4px !important;
+    z-index: 30 !important;
+
+    width: 26px !important;
+    height: 18px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 1px solid rgba(200, 200, 200, 0.75) !important;
+    border-radius: 3px !important;
+
+    background: transparent !important;
+    color: rgba(210, 210, 210, 0.85) !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    line-height: 13px !important;
+    text-align: center !important;
+
+    cursor: pointer !important;
+}
+
+.svad-728x90-202608__btn:hover {
+    border-color: rgba(230, 230, 230, 0.95) !important;
+    color: rgba(235, 235, 235, 0.95) !important;
+}
+
+/* Раскрывающаяся информация */
+.svad-728x90-202608__info {
+    display: none !important;
+    position: absolute !important;
+
+    top: 5px !important;
+    right: 35px !important;
+    z-index: 40 !important;
+
+    width: 340px !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 7px 10px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #ddd !important;
+    border-radius: 6px !important;
+
+    background: rgba(255, 255, 255, 0.97) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: normal !important;
+    color: #333 !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
+    white-space: normal !important;
+}
+
+.svad-728x90-202608__info.is-open {
+    display: block !important;
+}
+
+.svad-728x90-202608__info a {
+    color: #c00 !important;
+    text-decoration: none !important;
+}
+
+.svad-728x90-202608__info a:hover {
+    text-decoration: underline !important;
+}
+</style>
+
+<div class="svad-728x90-202608">
+
+    <span class="svad-728x90-202608__label">Реклама 18+</span>
+
+    <button
+        class="svad-728x90-202608__btn"
+        type="button"
+        aria-label="Информация о рекламе"
+        aria-expanded="false"
+        onclick="
+            var box = this.nextElementSibling;
+            var isOpen = box.classList.contains('is-open');
+
+            box.classList.toggle('is-open', !isOpen);
+            this.setAttribute(
+                'aria-expanded',
+                isOpen ? 'false' : 'true'
+            );
+        "
+    >···</button>
+
+    <div class="svad-728x90-202608__info">
+        Реклама.<br>
+        Рекламодатель ООО «Интеллектуальная безопасность»<br>
+        ИНН: 7719435412<br>
+        <a
+            href="https://www.securityvision.ru/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >securityvision.ru↗</a>
+    </div>
+
+    <a
+        class="svad-728x90-202608__link"
+        href="https://www.securityvision.ru/blog/security-vision-siem-ot-kontrolya-kachestva-dannykh-do-rassledovaniya-i-reagirovaniya-v-edinom-kontu/?utm_source=website&utm_medium=banner_90&utm_campaign=seclab&utm_content=siem&erid=2SDnjcywVi3"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        <img
+            class="svad-728x90-202608__img"
+            src="https://www.securitylab.ru/upload/medialibrary/9e6/6xwa47ibvipodd9g8r7t6w0wzrdqw5ti.png"
+            alt="Security Vision SIEM"
+            width="728"
+            height="90"
+        >
+    </a>
+
+</div>	</div>
+	<!-- header-banner end -->
+	
+	<!--'end_frame_cache_2DJmFo'-->					<!-- кнопка "Подписаться на рассылку" в хедере -->
+					<div class="nav-banner d-none">
+						<button onclick="doScrollTo('#subscribe-section')" class="btn btn-primary">Подписаться на рассылку</button>
+					</div>
+				</div>
+			</div>
+					<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg">
+			<div class="container">
+				<a class="navbar-brand d-lg-none" href="/">
+					<img src="/img/logo/logo-header.svg" width="312" height="70" alt="Security Lab">
+				</a>
+				<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">МЕНЮ</span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav">
+						<li class="nav-item ">
+							<a class="nav-link" href="/news/">Новости</a>
+						</li>
+						<li class="nav-item dropdown active">
+							<a class="nav-link dropdown-toggle" href="/analytics/" id="group_2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Статьи</a>
+							<ul class="dropdown-menu" aria-labelledby="group_2">
+								<li class="nav-item"><a class="nav-link" href="/analytics/">Статьи</a></li>
+								<li class="nav-item"><a class="nav-link" href="/contest/">Конкурсы</a></li>
+								<li class="nav-item"><a class="nav-link" href="/opinion/">Мнения</a></li>
+							</ul>
+						</li>
+						<li class="nav-item ">
+							<a class="nav-link" href="/blog/">Блоги</a>
+						</li>
+
+						<li class="nav-item ">
+							<a class="nav-link" href="/glossary/">Глоссарий</a>
+						</li>
+					</ul>
+    
+					<form action="/search/" id="global-search" class="global-search form-inline" method="get">
+						<div class="form-content">
+							<button class="search-btn" type="submit"><i class="icon-search"></i></button>
+							<a href="javascript:void(0)" onclick="document.getElementById('global-search').value='';document.getElementById('global-search').classList.toggle('active');" class="search-switch">
+								<i class="icon-search"></i>
+							</a>
+							<input id="shopSearchInput" class="form-control" type="text" name="q" placeholder="Поиск по сайту" aria-label="Search">
+						</div>
+					</form>
+				</div>
+			</div>
+		</nav>
+		<!-- /.Navigation -->		</header>
+        <!--'start_frame_cache_ALOAcH'-->
+    <div class="sticky-wrapper" id="js-banner-wrapper-6aa91eb5749cc">
+        <div class="container">
+            <div class="sticky-wrapper__shell">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="articl-text">
+                                                        <div class="promo-banner" style="
+                                                                                                                                            "
+                            >
+                                                                    <!-- Лейбл теперь по центру сверху -->
+                                    <button class="promo-banner__label" type="button" id="js-toggle-mode-6aa91eb5749cc">
+                                        Реклама
+                                    </button>
+                                
+                                <!-- Кнопка закрытия теперь "висит" на углу -->
+                                <!-- Иконка - простой крестик (X) -->
+                                <button class="promo-banner__close" type="button" id="js-close-banner-6aa91eb5749cc" aria-label="Закрыть баннер">
+                                    <svg class="promo-banner__close-icon" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+
+                                <div class="promo-banner__inner">
+                                                                            <!-- Юридическая инфа -->
+                                        <div class="promo-banner__legal" id="js-legal-info-6aa91eb5749cc">
+                                            <div class="promo-banner__legal-line">Реклама. АО «Позитив Текнолоджиз». ИНН 7718668887. 18+</div>                                        </div>
+                                    
+
+                                    <!-- Контент -->
+                                    <a href="https://triz.tech/triztech-day?utm_source=seclab&amp;utm_medium=cpm&amp;utm_campaign=triztech_day_2026&amp;utm_content=begunok_cr_3&amp;utm_term=digital&amp;erid=2SDnjd3zHQF" target="_blank" class="promo-banner__content promo-banner__content--active" id="js-main-content-6aa91eb5749cc">
+                                        <div class="promo-banner__image-box">
+                                            <!-- Заглушка картинки -->
+                                            <img class="promo-banner__image" src="/upload/rk/378/xqxeuc8eyju5acn2bu5odsf3n16b1w1w.png" alt="Image">
+                                        </div>
+                                        <div class="promo-banner__text-box">
+                                            <h3 class="promo-banner__title">
+                                                За этим будущее кибербеза                                            </h3>
+                                            <div class="promo-banner__desc">
+                                                                                                    24.09 узнай, над чем работает ТризТех после PT NGFW                                                                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    	<!--'end_frame_cache_ALOAcH'-->		<!-- Page Content -->
+		<div class="container">
+			
+		<!-- Breadcrumbs -->
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb px-3" itemscope itemtype="https://schema.org/BreadcrumbList">
+
+			<li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="/" title="Главная"><span itemprop="name">Главная</span><meta itemprop="position" content="0"></a></li>
+			<li class="breadcrumb-item active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="/analytics/" title="Статьи"><span itemprop="name">Статьи</span><meta itemprop="position" content="1"></a></li>
+			</ol>
+		</nav>
+		<!-- /. Breadcrumbs -->
+		</div>
+				<div class="dynamic-tape" data-url="/analytics/ajax.php">
+							<div id="article_529609" class="tape-element"
+					data-element-url="https://www.securitylab.ru/analytics/529609.php"
+					data-element-page="/analytics/529609.php"
+					data-title="Подбор паролей с hashcat. Почему сложный пароль иногда сдаётся первым"
+					data-description="Цифры и восклицательный знак помогают пройти проверку сложности, но знакомый шаблон может поставить пароль в начало очереди на подбор."
+					data-canonical="https://www.securitylab.ru/analytics/529609.php">
+									<div class="container cpb" data-print="true">
+                        						<h1 class="page-title pt-3 px-3">Подбор паролей с hashcat. Почему сложный пароль иногда сдаётся первым</h1>
+                        												<div class="article-options px-3 d-flex justify-content-between">
+            <div class="d-inline-flex align-items-center article-options-details">
+            <time datetime="2026-09-12T11:41:25+03:00">11:41 / 12 сентября, 2026</time>
+                            <span class="d-inline-flex align-items-center ml-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                    </svg>
+                    <span class="ml-2">81318</span>
+                </span>
+                    </div>
+    
+	<div class="article-tags">
+			</div>
+</div>
+						<div class="row"><div class="col-lg-9">
+
+
+
+ 
+
+<div class="articl-text" itemscope itemtype="http://schema.org/NewsArticle">
+	<sape_index>
+	<div itemprop="headline" class="d-none">Подбор паролей с hashcat. Почему сложный пароль иногда сдаётся первым</div>
+	<link itemprop="url" href="https://www.securitylab.ru/analytics/529609.php" />
+        		<time class="d-none" itemprop="dateCreated" datetime="2026-09-12T11:41:25+03:00">11:41 / 12 сентября, 2026</time>
+		<time itemprop="datePublished" class="d-none">2026-09-12T11:41:25+03:00</time>
+	<div itemprop="author" itemscope itemtype="https://schema.org/Person" class="d-none"><meta itemprop="name" content="Alexander Antipov"><link itemprop="url" href="https://www.securitylab.ru/contacts.php"></div>	<div itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+		<link itemprop="sameAs" href="https://www.securitylab.ru/" />
+		<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject"> 
+			<link itemprop="url image" href="https://www.securitylab.ru/img/logo/logo.png"/>
+		</div> 
+		<meta itemprop="name" content="SecurityLab">
+	</div>
+	<div itemprop="articleSection" class="d-none">
+			</div>
+			<p itemprop="description">Цифры и восклицательный знак помогают пройти проверку сложности, но знакомый шаблон может поставить пароль в начало очереди на подбор.</p>
+	
+        								<div class="articl-text-cover" style="position:relative;width:100%;max-width:800px;margin-left:auto;margin-right:auto;aspect-ratio:1024/572;margin-bottom:2rem;overflow:hidden">
+				<img alt="image" src="/upload/iblock/5de/u9q6myiqrljvzomkvwk2552i7ofpge2j.jpg" itemprop="image" width="1024" height="572" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;margin:0;max-width:none">
+			</div>
+			          
+	<div itemprop="articleBody">
+					<p>
+	 Пароль <code>Summer2026!</code> выглядит прилично. Заглавная буква, цифры, специальный символ, достаточная для многих форм регистрации длина. Но программа подбора может проверить подобную комбинацию гораздо раньше, чем короткую случайную последовательность. Причина проста. Люди придумывают пароли по узнаваемым шаблонам, а программы умеют воспроизводить привычки людей.
+</p>
+<p>
+	 Hashcat и John the Ripper помогают восстанавливать забытые пароли и проверять, насколько хорошо защищены учётные записи. Результат зависит от алгоритма хранения, оборудования и порядка проверки вариантов. Разберём работу на собственных файлах, учебных примерах и данных, доступ к которым входит в согласованный аудит.
+</p>
+<h2>Что происходит при подборе пароля</h2>
+<p>
+	 Сервису обычно незачем хранить пароль в открытом виде. При регистрации приложение вычисляет проверочное значение с помощью специальной функции, а при входе повторяет вычисление для введённого пароля. Совпадение позволяет принять пароль. В разговорной речи всю сохранённую запись называют хешем, хотя запись может включать также название алгоритма, соль и параметры вычислений.
+</p>
+<p>
+	 Хеширование отличается от шифрования. У шифрования предусмотрена обратная операция с ключом, а у криптографического хеширования такого ключа нет. Программа подбора предлагает кандидат, выполняет нужные вычисления и сравнивает результат с сохранённым значением. Слабый пароль можно угадать, не обращая хеш-функцию. Известные проблемы MD5 и SHA-1 с коллизиями, когда разные сообщения дают одинаковый хеш, тоже не означают возможность мгновенно восстановить любой пароль.
+</p><!--'start_frame_cache_Zg1Ab0'-->
+
+	<div class="banner-detailed">
+		<div class="banner-detailed__shell">
+			<div class="banner-detailed__title">
+									5 миллионов читают SecurityLab. 							</div>
+			<a href="https://max.ru/SecLabNews"
+				target="_blank" class="banner-detailed__button">
+									<span>В MAX — пока единицы. Будьте редким умным человеком в этом мессенджере.</span>
+					<div class="banner-detailed__arrow">
+						<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M20.5375 34.4392L22.465 31.7392C22.5739 31.5872 22.7145 31.4607 22.8772 31.3684C23.0399 31.2762 23.2207 31.2205 23.407 31.2052C23.5934 31.1898 23.7809 31.2152 23.9564 31.2796C24.132 31.344 24.2915 31.4458 24.4237 31.578L29.6025 36.758C30.0787 37.2333 30.724 37.5002 31.3969 37.5002C32.0697 37.5002 32.715 37.2333 33.1912 36.758L36.7575 33.1917C37.2328 32.7155 37.4998 32.0702 37.4998 31.3973C37.4998 30.7245 37.2328 30.0792 36.7575 29.603L31.5775 24.4242C31.4453 24.2919 31.3435 24.1325 31.2791 23.9569C31.2147 23.7814 31.1893 23.5939 31.2047 23.4075C31.22 23.2211 31.2757 23.0404 31.368 22.8777C31.4602 22.715 31.5867 22.5743 31.7387 22.4655L34.4387 20.538C34.6405 20.3939 34.7965 20.1947 34.8878 19.9641C34.9791 19.7336 35.0018 19.4816 34.9534 19.2385C34.9049 18.9953 34.7873 18.7713 34.6146 18.5934C34.442 18.4155 34.2216 18.2912 33.98 18.2355L13.5112 13.5117L18.235 33.9805C18.2907 34.2221 18.415 34.4425 18.5929 34.6151C18.7708 34.7878 18.9948 34.9054 19.238 34.9539C19.4812 35.0023 19.7331 34.9795 19.9637 34.8882C20.1942 34.7969 20.3934 34.641 20.5375 34.4392Z"
+								fill="#FFD98C" />
+							<path
+								d="M34.0751 37.6413C33.3582 38.3389 32.3973 38.7293 31.397 38.7293C30.3966 38.7293 29.4358 38.3389 28.7189 37.6413L23.4826 32.4663L21.5539 35.165C21.2699 35.5626 20.8773 35.8698 20.423 36.0497C19.9688 36.2295 19.4723 36.2744 18.9931 36.179C18.514 36.0836 18.0726 35.8518 17.7219 35.5117C17.3713 35.1715 17.1263 34.7373 17.0164 34.2613L12.2926 13.7925C12.2447 13.5858 12.2502 13.3702 12.3086 13.1662C12.367 12.9622 12.4764 12.7764 12.6264 12.6263C12.7765 12.4763 12.9623 12.3669 13.1663 12.3085C13.3703 12.2501 13.5859 12.2446 13.7926 12.2925L34.2614 17.0175C34.7374 17.1271 35.1717 17.3719 35.512 17.7225C35.8523 18.073 36.0841 18.5144 36.1795 18.9935C36.275 19.4726 36.23 19.9691 36.0501 20.4233C35.8701 20.8775 35.5628 21.27 35.1651 21.5538L32.4614 23.54L37.6414 28.7188C38.3498 29.43 38.7476 30.393 38.7476 31.3969C38.7476 32.4008 38.3498 33.3637 37.6414 34.075L34.0751 37.6413ZM35.8751 30.4863L30.6951 25.3075C30.4344 25.047 30.2336 24.7328 30.1068 24.3868C29.9799 24.0407 29.9299 23.6712 29.9604 23.3039C29.9908 22.9366 30.101 22.5804 30.2831 22.26C30.4653 21.9396 30.7151 21.6628 31.0151 21.4488L33.6989 19.4488L15.1851 15.1763L19.5001 33.7275L19.5139 33.7113L21.4414 31.0125C21.6555 30.7124 21.9325 30.4626 22.253 30.2805C22.5735 30.0983 22.9298 29.9882 23.2972 29.9577C23.6646 29.9272 24.0342 29.9772 24.3803 30.1041C24.7264 30.231 25.0407 30.4318 25.3014 30.6925L30.4864 35.875C30.728 36.1163 31.0555 36.2518 31.397 36.2518C31.7385 36.2518 32.066 36.1163 32.3076 35.875L35.8751 32.3075C36.1161 32.0657 36.2514 31.7383 36.2514 31.3969C36.2514 31.0555 36.1161 30.728 35.8751 30.4863ZM8.14636 9.385C7.98292 9.38706 7.82069 9.35675 7.66901 9.29583C7.51733 9.2349 7.37921 9.14455 7.26261 9.03L4.58011 6.3475C4.35242 6.11175 4.22643 5.796 4.22927 5.46825C4.23212 5.1405 4.36358 4.82699 4.59534 4.59523C4.8271 4.36347 5.14062 4.23201 5.46836 4.22916C5.79611 4.22631 6.11186 4.3523 6.34761 4.58L9.03012 7.2625C9.20107 7.43787 9.31674 7.65959 9.36277 7.90013C9.4088 8.14068 9.38315 8.38944 9.28901 8.61553C9.19487 8.84162 9.03639 9.03508 8.83325 9.17188C8.63011 9.30867 8.39126 9.38278 8.14636 9.385ZM17.9726 9.03C17.7362 9.26044 17.419 9.3894 17.0889 9.3894C16.7587 9.3894 16.4416 9.26044 16.2051 9.03C15.9708 8.79559 15.8391 8.47771 15.8391 8.14625C15.8391 7.8148 15.9708 7.49691 16.2051 7.2625L18.8876 4.58C19.0029 4.46061 19.1409 4.36538 19.2934 4.29987C19.4459 4.23436 19.6099 4.19988 19.7759 4.19844C19.9418 4.197 20.1064 4.22862 20.2601 4.29147C20.4137 4.35432 20.5532 4.44714 20.6706 4.56451C20.788 4.68187 20.8808 4.82144 20.9436 4.97506C21.0065 5.12868 21.0381 5.29328 21.0367 5.45925C21.0352 5.62523 21.0008 5.78925 20.9352 5.94176C20.8697 6.09426 20.7745 6.23219 20.6551 6.3475L17.9726 9.03ZM6.34761 20.655C6.11146 20.886 5.79423 21.0154 5.46386 21.0154C5.1335 21.0154 4.81627 20.886 4.58011 20.655C4.34578 20.4206 4.21413 20.1027 4.21413 19.7713C4.21413 19.4398 4.34578 19.1219 4.58011 18.8875L7.26261 16.205C7.37792 16.0856 7.51585 15.9904 7.66836 15.9249C7.82086 15.8594 7.98489 15.8249 8.15086 15.8234C8.31684 15.822 8.48144 15.8536 8.63506 15.9165C8.78868 15.9793 8.92824 16.0721 9.04561 16.1895C9.16297 16.3069 9.25579 16.4464 9.31864 16.6001C9.38149 16.7537 9.41312 16.9183 9.41168 17.0843C9.41024 17.2502 9.37575 17.4143 9.31024 17.5668C9.24473 17.7193 9.1495 17.8572 9.03012 17.9725L6.34761 20.655ZM12.6176 7.54375C12.2861 7.54375 11.9682 7.41205 11.7337 7.17763C11.4993 6.94321 11.3676 6.62527 11.3676 6.29375V2.5C11.3676 2.16848 11.4993 1.85054 11.7337 1.61612C11.9682 1.3817 12.2861 1.25 12.6176 1.25C12.9491 1.25 13.2671 1.3817 13.5015 1.61612C13.7359 1.85054 13.8676 2.16848 13.8676 2.5V6.29375C13.8676 6.62527 13.7359 6.94321 13.5015 7.17763C13.2671 7.41205 12.9491 7.54375 12.6176 7.54375ZM2.50011 11.3675H6.29387C6.62539 11.3675 6.94333 11.4992 7.17775 11.7336C7.41217 11.968 7.54387 12.286 7.54387 12.6175C7.54387 12.949 7.41217 13.267 7.17775 13.5014C6.94333 13.7358 6.62539 13.8675 6.29387 13.8675H2.50011C2.16859 13.8675 1.85065 13.7358 1.61623 13.5014C1.38181 13.267 1.25011 12.949 1.25011 12.6175C1.25011 12.286 1.38181 11.968 1.61623 11.7336C1.85065 11.4992 2.16859 11.3675 2.50011 11.3675Z"
+								fill="#272727" />
+						</svg>
+					</div>
+							</a>
+		</div>
+	</div>
+
+
+	<!--'end_frame_cache_Zg1Ab0'-->
+<p>
+	 Обычные MD5, SHA-1 и SHA-256 слишком быстро вычисляются для непосредственного хранения человеческих паролей. Даже криптографически стойкий SHA-256 без специальной парольной схемы позволяет проверять множество догадок. Для защиты применяют функции, которые намеренно расходуют процессорное время, а современные варианты ещё и заметный объём памяти.
+</p>
+<p>
+	 После получения базы проверочных значений подбор может идти локально. Ограничение попыток входа, задержки на сайте и CAPTCHA в подобных вычислениях не участвуют. Многофакторная аутентификация защищает вход в аккаунт, но сама по себе не мешает подбирать пароль по уже скопированному хешу.
+</p>
+<h2>Зачем нужны соль и дорогие вычисления</h2>
+<p>
+	 Соль представляет собой случайное значение, которое создают отдельно для каждой парольной записи и сохраняют вместе с результатом вычислений. Скрывать соль не требуется. Разные соли позволяют получить разные проверочные значения даже для одинаковых паролей и лишают атакующего возможности использовать одну заранее вычисленную таблицу для всей базы.
+</p>
+<p>
+	 У несолёных хешей одного типа программа может вычислить кандидат один раз и сравнить результат сразу с множеством записей. При разных солях дорогостоящую часть приходится повторять для каждой соли. Однако утверждение «миллион записей всегда подбирается ровно в миллион раз дольше» некорректно. Время зависит от числа уникальных солей, параметров функции, оборудования, найденных совпадений и организации вычислений.
+</p>
+<p>
+	 Соль не делает отдельную попытку автоматически медленной. За цену попытки отвечают алгоритм и его настройки. У bcrypt параметр <code>cost</code> задаёт вычислительную сложность по экспоненте. При прочих равных переход с 10 на 12 увеличивает основную работу примерно в четыре раза. У Argon2id на стоимость влияют объём памяти, число проходов и степень параллелизма. Названия алгоритма без параметров недостаточно для оценки защиты.
+</p>
+<h2>Какие форматы встречаются сегодня</h2>
+<p>
+	 Перед запуском нужно выяснить, что именно находится в файле. Последовательность из 32 шестнадцатеричных знаков может оказаться MD5, NT-хешем или другим значением. Длина строки даёт подсказку, но не определяет алгоритм однозначно. Происхождение записи, код приложения и полный формат обычно полезнее автоматического распознавания.
+</p>
+<p>
+	 В системах встречаются как собственно хеши паролей, так и данные для проверки догадок по зашифрованному документу или сетевому обмену. Назвать весь набор «хешами» удобно, но для выбора режима hashcat различия принципиальны.
+</p>
+<table>
+<thead>
+<tr>
+	<th>
+		 Формат
+	</th>
+	<th>
+		 Что нужно учитывать
+	</th>
+	<th>
+		 Режим hashcat
+	</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td>
+		 NT-хеш, часто называемый NTLM-хешем
+	</td>
+	<td>
+		 MD4 от пароля в UTF-16LE без соли. Встречается в механизмах хранения паролей Windows.
+	</td>
+	<td>
+ <code>-m 1000</code>
+	</td>
+</tr>
+<tr>
+	<td>
+		 NetNTLMv2
+	</td>
+	<td>
+		 Данные ответа на запрос при сетевой аутентификации. Для проверки нужны дополнительные поля обмена, а не только короткий хеш.
+	</td>
+	<td>
+ <code>-m 5600</code>
+	</td>
+</tr>
+<tr>
+	<td>
+		 sha512crypt
+	</td>
+	<td>
+		 Парольная схема с солью и повторными вычислениями, обычно с префиксом <code>$6$</code>. Отличается от обычного SHA-512.
+	</td>
+	<td>
+ <code>-m 1800</code>
+	</td>
+</tr>
+<tr>
+	<td>
+		 bcrypt
+	</td>
+	<td>
+		 Соль и параметр стоимости входят в запись. Часто встречаются префиксы <code>$2a$</code>, <code>$2b$</code> и <code>$2y$</code>.
+	</td>
+	<td>
+ <code>-m 3200</code>
+	</td>
+</tr>
+<tr>
+	<td>
+		 Переносимый формат phpass
+	</td>
+	<td>
+		 Старые записи с префиксами <code>$P$</code> и <code>$H$</code>. Название WordPress в описании режима не охватывает все современные пароли WordPress.
+	</td>
+	<td>
+ <code>-m 400</code>
+	</td>
+</tr>
+<tr>
+	<td>
+		 Argon2id и yescrypt
+	</td>
+	<td>
+		 Схемы с затратами памяти. Поддержку конкретного формата и способ вычислений нужно проверять в используемой сборке.
+	</td>
+	<td>
+		 Выбирается по полной записи и возможностям сборки.
+	</td>
+</tr>
+</tbody>
+</table>
+<p>
+	 В Linux локальные парольные записи обычно находятся в <code>/etc/shadow</code>, но единого алгоритма для всех дистрибутивов нет. Многие современные системы, включая Debian, Ubuntu и Fedora, перешли на yescrypt с префиксом <code>$y$</code>. Старые записи могут сохранять sha512crypt до смены пароля. Поэтому обновлённая операционная система ещё не означает, что все учётные записи используют новый формат.
+</p>
+<p>
+	 Похожая ситуация возникла в WordPress. Начиная с версии 6.8 стандартная схема пользовательских паролей использует bcrypt с предварительной обработкой на основе SHA-384. Новые записи по умолчанию начинаются с <code>$wp$2y$</code>. Просто удалить <code>$wp</code> и запустить обычный bcrypt недостаточно, поскольку изменена обработка входного пароля. Старые записи phpass продолжают проверяться и обычно обновляются при следующем успешном входе или смене пароля.
+</p>
+<p>
+	 Документы, архивы, кэшированные доменные учётные данные и материалы Kerberos требуют собственных форматов. Например, извлечённая запись зашифрованного архива может содержать соль, параметры получения ключа и фрагмент шифротекста. Расширение файла или знакомое слово в названии приложения не заменяет проверки конкретной схемы.
+</p>
+<h2>Как подготовить данные и инструменты</h2>
+<p>
+	 Hashcat удобен для управляемого перебора с разными способами построения кандидатов и поддерживает вычисления на совместимом оборудовании. John the Ripper, особенно расширенная сборка Jumbo, полезен разнообразием форматов и утилитами подготовки данных из документов и контейнеров. Формат вывода такой утилиты не всегда подходит hashcat без изменений.
+</p>
+<p>
+	 Работайте с копией исходного файла и сохраняйте полную парольную запись. Не удаляйте соль, число итераций и служебные поля, пока не выясните их назначение. Перед подбором сопоставьте структуру с <a href="https://hashcat.net/wiki/doku.php?id=example_hashes">примерами хешей</a> выбранного режима и проверьте обработку одной записи с заранее известным паролем.
+</p>
+<p>
+	 В hashcat полезно начать с проверки версии, доступных вычислительных устройств и возможных типов входных данных. Ниже и далее предполагается, что команда <code>hashcat</code> доступна из командной строки. В Windows исполняемый файл обычно называется <code>hashcat.exe</code>.
+</p>
+ <pre><code>hashcat --version
+hashcat -I
+hashcat --identify hashes.txt</code></pre>
+<p>
+	 Опция <code>--identify</code> может предложить несколько подходящих алгоритмов. Выбирать первый результат наугад нельзя. Сообщение об ошибке загрузки часто означает неверный режим или повреждённую запись, а успешная загрузка ещё не доказывает правильность выбора. Контрольный пример помогает отделить ошибку подготовки от неудачного словаря.
+</p>
+<h2>Почему видеокарта не гарантирует высокую скорость</h2>
+<p>
+	 Графический процессор хорошо справляется с большим количеством однотипных независимых вычислений. Быстрые хеши особенно выгодно считать параллельно. Но преимущество зависит от алгоритма, реализации и конкретного оборудования. Правило «bcrypt лучше подбирать на обычном процессоре» слишком грубое, как и обещание одинакового ускорения для любых форматов.
+</p>
+<p>
+	 Argon2id, scrypt и yescrypt усложняют массовый перебор затратами памяти. Значение имеют её объём, пропускная способность и характер обращений. Даже у одного алгоритма скорость меняется с параметрами записи. Сравнивать результаты для bcrypt с <code>cost=5</code> и <code>cost=12</code> без поправки на настройки бессмысленно.
+</p>
+<p>
+	 Встроенный тест производительности позволяет оценить оборудование, но не заменяет короткого запуска на рабочем наборе. Число солей, длина кандидатов, правила, нагрев и ограничения мощности способны изменить результат. Например, команда ниже проверяет bcrypt на тестовых параметрах программы, которые могут отличаться от параметров вашей базы.
+</p>
+ <pre><code>hashcat -b -m 3200</code></pre>
+<p>
+	 Маленький словарь может не загрузить видеокарту полностью. Причиной бывают недостаточный объём параллельной работы, накладные расходы и способ генерации кандидатов. Добавлять бессмысленные миллиарды вариантов ради красивой загрузки тоже незачем. Для аудита полезнее число новых найденных слабых паролей за отведённое время.
+</p>
+<h2>Словарь и правила на коротком примере</h2>
+<p>
+	 Словарный режим проверяет готовые варианты из текстового файла. Правила преобразуют каждое слово, например меняют регистр, добавляют цифры или заменяют буквы. Такой подход позволяет проверить человеческие шаблоны без полного перебора всех строк заданной длины.
+</p>
+<p>
+	 Создадим учебный хеш пароля <code>Orbit2026!</code>, словарь из двух слов и одно правило. Команды рассчитаны на Bash в Linux с установленными hashcat и стандартными утилитами. Обычный SHA-256 выбран для наглядности. Хранить реальные пользовательские пароли таким способом не следует.
+</p>
+ <pre><code>printf '%s' 'Orbit2026!' | sha256sum | cut -d ' ' -f 1 &gt; hashes.txt
+printf '%s\n' orbit comet &gt; words.txt
+printf '%s\n' 'c$2$0$2$6$!' &gt; demo.rule
+
+hashcat -m 1400 -a 0 hashes.txt words.txt -r demo.rule --session demo --potfile-path demo.potfile
+hashcat -m 1400 hashes.txt --show --potfile-path demo.potfile</code></pre>
+<p>
+	 Параметр <code>-m 1400</code> выбирает SHA-256, <code>-a 0</code> включает словарный режим, а <code>-r</code> задаёт файл правил. Операция <code>c</code> делает первую букву заглавной, остальные строчными. Последовательность <code>$2$0$2$6$!</code> добавляет символы <code>2026!</code> в конец. Из слова <code>orbit</code> получается нужный кандидат. Опция <code>--show</code> выводит уже найденные результаты из указанного файла.
+</p>
+<table>
+<thead>
+<tr>
+	<th>
+		 Правило
+	</th>
+	<th>
+		 Действие
+	</th>
+	<th>
+		 Пример
+	</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td>
+ <code>$1$2$3</code>
+	</td>
+	<td>
+		 Добавить 123 в конец
+	</td>
+	<td>
+ <code>orbit</code> превращается в <code>orbit123</code>
+	</td>
+</tr>
+<tr>
+	<td>
+ <code>^3^2^1</code>
+	</td>
+	<td>
+		 Последовательно добавить символы в начало
+	</td>
+	<td>
+ <code>orbit</code> превращается в <code>123orbit</code>
+	</td>
+</tr>
+<tr>
+	<td>
+ <code>so0</code>
+	</td>
+	<td>
+		 Заменить все строчные o на нули
+	</td>
+	<td>
+ <code>robot</code> превращается в <code>r0b0t</code>
+	</td>
+</tr>
+<tr>
+	<td>
+ <code>o10</code>
+	</td>
+	<td>
+		 Записать ноль в позицию 1, считая от нуля
+	</td>
+	<td>
+ <code>robot</code> превращается в <code>r0bot</code>
+	</td>
+</tr>
+</tbody>
+</table>
+<p>
+	 Последний пример показывает, что hashcat умеет менять отдельные позиции. Ограничение «только все вхождения или ни одного» относится к конкретной операции замены, а не ко всем возможностям программы. Для проверки сложного набора правил используйте <code>--stdout</code>, чтобы сначала увидеть кандидатов без подбора хешей.
+</p>
+ <pre><code>hashcat --stdout words.txt -r demo.rule</code></pre>
+<h2>Маски и реальный размер перебора</h2>
+<p>
+	 Маска описывает допустимые символы в каждой позиции. Подход полезен, когда известна структура пароля, например пять латинских букв и четыре цифры. Словарь при таком переборе не обязателен, программа сама строит комбинации из заданных наборов.
+</p>
+<p>
+	 Встроенные обозначения не охватывают автоматически любые языки и символы Unicode. Особенно легко ошибиться с <code>?a</code>, приняв набор печатных ASCII-символов за все возможные символы компьютера.
+</p>
+<ul>
+	<li><code>?l</code> задаёт 26 строчных латинских букв.</li>
+	<li><code>?u</code> задаёт 26 заглавных латинских букв.</li>
+	<li><code>?d</code> задаёт десять цифр.</li>
+	<li><code>?s</code> задаёт специальные печатные ASCII-символы, включая пробел.</li>
+	<li><code>?a</code> объединяет предыдущие наборы и содержит 95 символов.</li>
+	<li><code>?b</code> задаёт любой из 256 вариантов байта, а не произвольный символ Unicode.</li>
+</ul>
+<p>
+	 Маска <code>?u?l?l?l?l?d?d?d?d</code> охватывает 118 813 760 000 комбинаций. Если условная измеренная скорость составляет миллион проверок в секунду, полный проход займёт около 33 часов. При тысяче проверок в секунду потребуется примерно 3,8 года. Расчёт предполагает одну проверяемую запись, постоянную скорость и полный проход без досрочной остановки.
+</p>
+<p>
+	 Без дополнительных параметров маска задаёт фиксированную длину. Для перебора более коротких вариантов включают <code>--increment</code> и явно задают границы. Например, следующая команда проверяет цифровые строки длиной от четырёх до шести знаков. Пароль из учебного примера в такой набор не входит.
+</p>
+ <pre><code>hashcat -m 1400 -a 3 hashes.txt '?d?d?d?d?d?d' --increment --increment-min 4 --increment-max 6</code></pre>
+<h2>Комбинации, парольные фразы и статистические модели</h2>
+<p>
+	 Словарь и маску можно объединять. Режим <code>-a 6</code> добавляет маску после словарного слова, а <code>-a 7</code> ставит перед ним. Режим <code>-a 1</code> соединяет слова из двух списков. Если первый список содержит 100 тысяч записей, а второй тысячу, получится до 100 миллионов комбинаций ещё до дополнительных преобразований.
+</p>
+<p>
+	 Несколько файлов правил также способны резко увеличить объём работы. При последовательном применении двух наборов hashcat комбинирует правила между собой. Поэтому очередной большой файл может увеличить длительность запуска гораздо сильнее, чем число полезных кандидатов. Начинать разумно с небольших наборов и добавлять преобразования, которые проверяют конкретную гипотезу.
+</p>
+<p>
+	 Длинная парольная фраза не обязательно непредсказуема. Известная цитата, строка песни или распространённое выражение могут попасть в словарь целиком. Случайно выбранные независимые слова дают другую модель стойкости, но здесь важен именно случайный выбор. Придуманная человеком фраза обычно сохраняет смысловые связи и привычный порядок слов.
+</p>
+<p>
+	 Модели Маркова используют статистику последовательностей символов, а нейросетевые генераторы учатся предлагать вероятные пароли по примерам. Оба подхода помогают строить кандидатов, но не устраняют необходимость проверять каждый вариант. Полезность генератора нужно измерять на отдельном наборе, который не использовали при обучении и настройке, иначе программа может просто воспроизводить знакомые записи.
+</p>
+<h2>Кодировки и ограничения длины</h2>
+<p>
+	 Пароль проходит через несколько представлений. Человек видит символы, текстовый файл хранит байты, а алгоритм может требовать определённую кодировку. Для NT-хеша пароль представляют в UTF-16LE. В UTF-8 обычная русская буква занимает два байта. Перепутанная кодировка словаря способна оставить правильный на вид пароль за пределами фактически проверенных кандидатов.
+</p>
+<p>
+	 Визуально одинаковый текст тоже может иметь разные последовательности Unicode, например готовую букву с диакритическим знаком и букву с отдельным комбинируемым знаком. Некоторые приложения приводят ввод к нормальной форме. При аудите нужно воспроизвести обработку конкретного приложения, включая нормализацию, если приложение её выполняет. Искажённый вывод терминала сам по себе ещё не доказывает неправильные вычисления.
+</p>
+<p>
+	 У обычного bcrypt широко распространён предел в 72 байта. В зависимости от библиотеки слишком длинный ввод может обрезаться или отклоняться. Для кириллицы предел достигается раньше, чем для латиницы. У hashcat существует отдельное ограничение, связанное с оптимизированными вычислительными ядрами. Флаг <code>-O</code> может ускорить работу, одновременно уменьшив поддерживаемую длину кандидатов. Перед запуском проверьте заявленные программой границы.
+</p>
+<h2>Как читать результат и не обмануть себя</h2>
+<p>
+	 Статус <code>Exhausted</code> означает, что программа закончила заданный набор кандидатов. Такой результат не доказывает стойкость оставшихся паролей. Причиной отсутствия совпадений могут быть неподходящий словарь, неправильный формат, кодировка, слишком узкая маска или ограничение длины. Сначала исключите технические ошибки на контрольной записи, затем расширяйте гипотезы.
+</p>
+<p>
+	 Файл <code>potfile</code> сохраняет найденные соответствия между хешами и паролями. При повторном запуске hashcat может пропустить уже известные записи. Для рабочего восстановления такая экономия полезна, но сравнение двух методов на общей истории результатов легко исказить. Сравнивайте одинаковые исходные наборы с раздельными файлами результатов и одинаковым бюджетом времени.
+</p>
+<p>
+	 Для аудита фиксируйте алгоритм и параметры, число учётных записей, число уникальных хешей и солей, оборудование, версию программы и длительность запусков. Доля найденных уникальных хешей может отличаться от доли затронутых аккаунтов. Один подобранный несолёный хеш способен соответствовать паролю нескольких пользователей.
+</p>
+<p>
+	 Опции <code>--debug-mode=4</code> и <code>--debug-file</code> помогают увидеть исходное слово, успешное правило и полученный кандидат. Такой журнал показывает успешные совпадения, но не является полным счётчиком всех применений правила. Пересекающиеся преобразования и порядок запуска влияют на то, как распределяются находки между методами.
+</p>
+<p>
+	 Хеши, найденные пароли и отладочные журналы остаются чувствительными данными. Храните рабочие файлы в защищённом месте, ограничивайте доступ и заранее определяйте срок удаления. Для отчёта обычно достаточно обезличенных примеров и статистики. Копировать действующие пароли в презентацию или загружать корпоративную базу в публичный сервис подбора незачем.
+</p>
+<h2>Что менять после проверки</h2>
+<p>
+	 Для нового приложения разумно выбирать <a href="https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html">Argon2id</a> через поддерживаемую библиотеку. Параметры нужно подбирать под сервер, допустимое время входа и пиковое число одновременных запросов. Единой оптимальной задержки в 100 миллисекунд для всех сервисов нет. Слишком дешёвая проверка облегчает подбор, чрезмерно дорогая способна перегрузить сам сервис.
+</p>
+<p>
+	 При переходе на новую схему пересчитывайте запись после успешного входа или смены пароля. Для давно неактивных аккаунтов нужен отдельный план, поскольку старые хеши могут оставаться в базе годами. Дополнительный секрет, часто называемый перцем, можно хранить отдельно от базы паролей. Такая защита помогает при утечке одной базы, но не заменяет правильного алгоритма и требует продуманной смены секрета.
+</p>
+<p>
+	 Пользователям полезнее длинные уникальные пароли и менеджер паролей, чем обязательная перестановка цифры и восклицательного знака. При создании и смене пароля проверяйте варианты по списку распространённых и скомпрометированных значений, разрешайте длинные фразы и вставку из менеджера. Плановая смена ради календаря часто приводит к предсказуемым продолжениям старого пароля. При признаках компрометации пароль, напротив, нужно менять.
+</p>
+<p>
+	 В Windows защита не заканчивается сложностью пароля. При подходящих условиях похищенный NT-хеш позволяет пройти аутентификацию без восстановления исходного текста пароля. Такой приём называется Pass-the-Hash. Поэтому вместе с аудитом нужны защита учётных данных, ограничение административных прав и сокращение ненужного использования NTLM. Даже пароль, который не удалось подобрать, не делает украденный материал аутентификации безвредным.
+</p>			</div>
+	</sape_index>          
+
+	<div class="webinar-shell">
+		<!--'start_frame_cache_MoecjV'--><a href="https://roadshow.searchinform.ru/?utm_source=media_p&utm_medium=securitylab&utm_campaign=roadshow_2026&utm_content=event&utm_term=banner&erid=2SDnjcQ1XGX" target="_blank" rel="noopener" style="all:unset;display:block;cursor:pointer;width:100%;max-width:900px;">
+<div class="sl-b02">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;600&display=swap');
+.sl-b02{all:initial;box-sizing:border-box;position:relative;display:flex;align-items:center;width:100%;max-width:900px;min-height:120px;font-family:'JetBrains Mono',monospace;background:radial-gradient(circle at 82% 45%,#1c3762 0%,#122c52 30%,#0a1a34 68%,#060f22 100%);cursor:pointer;}
+.sl-b02 *{box-sizing:border-box;word-break:normal;overflow-wrap:normal;hyphens:none;}
+.sl-b02 .sl02-decor{position:absolute;top:0;left:0;right:0;height:120px;overflow:hidden;pointer-events:none;z-index:1;}
+.sl-b02 .sl02-source{position:absolute;top:44%;right:60px;width:10px;height:10px;border-radius:50%;background:#fff6e6;box-shadow:0 0 16px 6px rgba(255,200,120,0.85),0 0 34px 14px rgba(255,140,0,0.35);}
+.sl-b02 .sl02-beam{position:absolute;top:44%;right:60px;width:190px;height:6px;transform-origin:100% 50%;background:linear-gradient(to left,rgba(255,196,110,0.55),rgba(255,196,110,0));filter:blur(4px);animation:sl02sway 3.2s ease-in-out infinite alternate;}
+.sl-b02 .sl02-beam2{opacity:0.5;animation-delay:0.15s;}
+@keyframes sl02sway{0%{transform:translateY(-50%) rotate(-16deg);}100%{transform:translateY(-50%) rotate(16deg);}}
+.sl-b02 .sl02-glow{position:absolute;top:44%;right:60px;width:16px;height:16px;border-radius:50%;transform:translate(50%,-50%);border:1px solid rgba(255,178,71,0.7);animation:sl02glowpulse 2.6s ease-out infinite;}
+@keyframes sl02glowpulse{0%{transform:translate(50%,-50%) scale(0.8);opacity:0.9;}100%{transform:translate(50%,-50%) scale(7);opacity:0;}}
+@media (max-width:460px){.sl-b02 .sl02-decor{display:none;}}
+.sl-b02 .sl02-content{position:relative;z-index:4;display:flex;flex-wrap:wrap;align-items:center;width:100%;gap:6px 12px;padding:10px 16px;}
+.sl-b02 .sl02-left{flex:0 1 auto;min-width:0;}
+.sl-b02 .sl02-logo{color:#ffffff;font-size:9px;font-weight:600;letter-spacing:2.5px;margin-bottom:4px;opacity:0.85;position:relative;display:inline-block;overflow:hidden;}
+.sl-b02 .sl02-logo span{color:#ff8c00;}
+.sl-b02 .sl02-logo::after{content:'';position:absolute;top:0;left:-70%;width:35%;height:100%;background:linear-gradient(115deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.9) 50%,rgba(255,255,255,0) 100%);transform:skewX(-18deg);animation:sl02shine 3.2s ease-in-out infinite;}
+@keyframes sl02shine{0%{left:-70%;}55%{left:130%;}100%{left:130%;}}
+.sl-b02 .sl02-title-main{display:inline;font-family:'Archivo Black',sans-serif;font-weight:900;text-transform:uppercase;font-size:20px;line-height:1.3;color:#ff8c00;letter-spacing:0.4px;}
+.sl-b02 .sl02-title-sub{display:inline;font-family:'Archivo Black',sans-serif;font-size:14px;line-height:1.3;color:#ffffff;letter-spacing:0.2px;margin-left:6px;}
+.sl-b02 .sl02-cta{flex:0 0 auto;margin-left:auto;background:#ff8c00;color:#ffffff;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:9px;letter-spacing:0.8px;padding:9px 12px;border-radius:2px;text-align:center;line-height:1.35;max-width:110px;animation:sl02ctapulse 2.4s ease-in-out infinite;}
+@keyframes sl02ctapulse{0%,100%{box-shadow:0 0 0 0 rgba(255,140,0,0.55);}50%{box-shadow:0 0 0 8px rgba(255,140,0,0);}}
+.sl-b02 .sl02-disc{position:relative;z-index:4;flex-basis:100%;font-size:7px;color:rgba(255,255,255,0.5);text-align:right;padding:0 16px 4px;order:99;}
+@media (min-width:520px){.sl-b02 .sl02-disc{position:absolute;bottom:3px;right:6px;flex-basis:auto;padding:0;max-width:60%;}}
+</style>
+<div class="sl02-decor">
+  <div class="sl02-beam sl02-beam2"></div>
+  <div class="sl02-beam"></div>
+  <div class="sl02-glow"></div>
+  <div class="sl02-source"></div>
+</div>
+<div class="sl02-content">
+  <div class="sl02-left">
+    <div class="sl02-logo">SEARCH<wbr><span>INFORM</span></div>
+    <div><span class="sl02-title-main">ИИ-АССИСТЕНТ</span><span class="sl02-title-sub">в «СёрчИнформ КИБ»</span></div>
+  </div>
+  <div class="sl02-cta">Выяви скрытые инциденты!</div>
+  <div class="sl02-disc">Реклама. ООО «СёрчИнформ», ИНН 7704306397, 18+</div>
+</div>
+</div>
+</a>
+
+<p>
+</p><!--'end_frame_cache_MoecjV'-->	</div>
+	<div class="share-block" id="share-block" data-print="false">
+		<label class="share-label">Поделиться новостью:</label>
+		<ul class="share-menu">
+			<li><a onclick="return false;" href="javascript:void(0)" class="social-share" data-title="Подбор паролей с hashcat. Почему сложный пароль иногда сдаётся первым" data-text="Цифры и восклицательный знак помогают пройти проверку сложности, но знакомый шаблон может поставить пароль в начало очереди на подбор." data-url="https://www.securitylab.ru/analytics/529609.php" data-type="twitter" title="Поделиться в Twitter"><i class="icon-twitter"></i></a></li>
+			<li><a onclick="return false;" href="javascript:void(0)" class="social-share" data-title="Подбор паролей с hashcat. Почему сложный пароль иногда сдаётся первым" data-text="Цифры и восклицательный знак помогают пройти проверку сложности, но знакомый шаблон может поставить пароль в начало очереди на подбор." data-url="https://www.securitylab.ru/analytics/529609.php" data-type="vk" title="Поделиться в Контакте"><i class="icon-vk"></i></a></li>
+			<li><a onclick="return false;" href="javascript:void(0)" class="social-share" data-title="Подбор паролей с hashcat. Почему сложный пароль иногда сдаётся первым" data-text="Цифры и восклицательный знак помогают пройти проверку сложности, но знакомый шаблон может поставить пароль в начало очереди на подбор." data-url="https://www.securitylab.ru/analytics/529609.php" data-type="telegram" title="Поделиться в Telegramm"><i class="icon-telegram"></i></a></li>
+			<li><a href="https://getpocket.com/edit.php?url=https://securitylab.ru/analytics/529609.php" target="_blank" title="Поделиться в Pocket"><i class="icon-pocket"></i></a></li>
+			<li><a href="javascript:void(0)" onclick="printDiv('#article_529609')" title="Распечатать"><i class="icon-print"></i></a></li>
+		</ul>
+	</div>
+</div>
+</div>
+				<div class="col-lg-3 d-none d-lg-block" data-print="false">
+				        <div class="aside-col">
+							
+<!--'start_frame_cache_vhh5NV'-->	<div class="text-center mb-6">
+		
+
+<style>
+.searchinform-ad-240x400 {
+    position: relative !important;
+    display: inline-block !important;
+    width: 240px !important;
+    height: 400px !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+}
+
+.searchinform-ad-240x400__link {
+    display: block !important;
+    width: 240px !important;
+    height: 400px !important;
+    line-height: 0 !important;
+    text-decoration: none !important;
+}
+
+.searchinform-ad-240x400__img {
+    display: block !important;
+    width: 240px !important;
+    height: 400px !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: fill !important;
+    border: 0 !important;
+}
+
+.searchinform-ad-240x400__btn {
+    position: absolute !important;
+    top: 6px !important;
+    right: 6px !important;
+    z-index: 30 !important;
+    width: 28px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    border: 1px solid rgba(255,255,255,0.35) !important;
+    border-radius: 4px !important;
+    background: rgba(0,0,0,0.45) !important;
+    color: #fff !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 26px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+}
+
+.searchinform-ad-240x400__info {
+    display: none;
+    position: absolute !important;
+    top: 40px !important;
+    right: 6px !important;
+    z-index: 40 !important;
+    width: 210px !important;
+    box-sizing: border-box !important;
+    padding: 12px 14px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    background: #fff !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+    color: #333 !important;
+    line-height: 1.5 !important;
+}
+
+.searchinform-ad-240x400__info a {
+    color: #c00 !important;
+    text-decoration: none !important;
+}
+
+.searchinform-ad-240x400__info a:hover {
+    text-decoration: underline !important;
+}
+</style>
+
+<div class="searchinform-ad-240x400">
+
+    <button
+        class="searchinform-ad-240x400__btn"
+        type="button"
+        aria-label="Информация о рекламодателе"
+        onclick="var box = this.nextElementSibling; box.style.display = box.style.display === 'block' ? 'none' : 'block';">
+        ···
+    </button>
+
+    <div class="searchinform-ad-240x400__info">
+        <strong>Рекламодатель</strong><br>
+        Реклама. АО «Позитив Текнолоджиз». ИНН 7718668887. 18+<br>
+        Сайт рекламодателя:
+        <a href="https://ptsecurity.com/" target="_blank" rel="noopener noreferrer">
+            ptsecurity.com
+        </a>
+    </div>
+
+    <a
+        class="searchinform-ad-240x400__link"
+        href="https://triz.tech/triztech-day?utm_source=seclab&utm_medium=banner&erid=2SDnjcLYzr7"
+        target="_blank"
+        rel="noopener noreferrer">
+
+        <img
+            width="240"
+            height="400"
+            src="https://www.securitylab.ru/upload/medialibrary/d8b/uwlg1q6a0va3v3p1cxpza6euy0wggocy.jpg"
+            class="searchinform-ad-240x400__img"
+            alt="Реклама">
+
+    </a>
+
+</div>	</div>
+	<!--'end_frame_cache_vhh5NV'-->          
+					</div>
+				</div>
+				<!-- /. aside-col -->
+				</div>
+			</div>
+			<!-- /.row -->
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+<!-- Section Newsletter -->
+<section class="p-section section-subscribe pb-6 pt-sm-6" id="subscribe-section">
+	<div class="section-body">
+		<form class="form-newsletter py-3 px-6" action="/subscribe/subscr_edit.php" method="post">
+			<input type="hidden" name="sessid" id="sessid" value="7cba166252577a282b36f78f4d709836" />			<div class="row align-items-center justify-content-center">
+				<div class="col-lg-9">
+					<div class="pb-3 text-center">
+						<h2 class="title mb-4 text-uppercase">Подпишитесь на email рассылку</h2>
+						<p class="description">Подпишитесь на получение последних материалов по безопасности от SecurityLab.ru —
+						новости, статьи, обзоры уязвимостей и мнения аналитиков.</p>
+					</div>
+					<div class="form-row">
+													<div class="col-md-6">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="sf_RUB_ID[]" id="sf_RUB_ID_20" value="20" checked /> 
+									<label class="form-check-label font-weight-bolder" for="sf_RUB_ID_20">Ежедневный выпуск от SecurityLab.Ru</label>
+								</div>
+							</div>
+													<div class="col-md-6">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="sf_RUB_ID[]" id="sf_RUB_ID_15" value="15" checked /> 
+									<label class="form-check-label font-weight-bolder" for="sf_RUB_ID_15">Еженедельный выпуск от SecurityLab.Ru</label>
+								</div>
+							</div>
+											</div>
+					<div class="form-row">
+						<div class="col-md-8">
+							<div class="form-group">
+								<input type="email" class="form-control" id="email" name="sf_EMAIL" size="20" value="" title="Введите ваш e-mail"  placeholder="E-mail для получения рассылки" required/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<button type="submit" name="OK" class="btn btn-danger font-weight-bolder w-100">Подписаться</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.row -->
+			<div class="d-none">
+<label data-bx-user-consent="{&quot;id&quot;:1,&quot;sec&quot;:&quot;zm27v7&quot;,&quot;autoSave&quot;:true,&quot;actionUrl&quot;:&quot;\/bitrix\/components\/bitrix\/main.userconsent.request\/ajax.php&quot;,&quot;replace&quot;:{&quot;button_caption&quot;:&quot;Ок&quot;,&quot;fields&quot;:[&quot;Email&quot;,&quot;IP-адрес&quot;]},&quot;url&quot;:null,&quot;required&quot;:null}" class="main-user-consent-request">
+	<input type="checkbox" value="Y"  name="">
+	<span class="main-user-consent-request-announce-link">Нажимая на кнопку, я принимаю условия соглашения.</span>
+</label>
+<div data-bx-template="main-user-consent-request-loader" style="display: none;">
+	<div class="main-user-consent-request-popup">
+		<div class="main-user-consent-request-popup-cont">
+			<div data-bx-head="" class="main-user-consent-request-popup-header"></div>
+			<div class="main-user-consent-request-popup-body">
+				<div data-bx-loader="" class="main-user-consent-request-loader">
+					<svg class="main-user-consent-request-circular" viewBox="25 25 50 50">
+						<circle class="main-user-consent-request-path" cx="50" cy="50" r="20" fill="none" stroke-width="1" stroke-miterlimit="10"></circle>
+					</svg>
+				</div>
+				<div data-bx-content="" class="main-user-consent-request-popup-content">
+					<div class="main-user-consent-request-popup-textarea-block">
+						<div data-bx-textarea="" class="main-user-consent-request-popup-text"></div>
+						<div data-bx-link="" style="display: none;" class="main-user-consent-request-popup-link">
+							<div>Ознакомьтесь с текстом по ссылке</div>
+							<div><a target="_blank"></a></div>
+						</div>
+					</div>
+					<div class="main-user-consent-request-popup-buttons">
+						<span data-bx-btn-accept="" class="main-user-consent-request-popup-button main-user-consent-request-popup-button-acc">Y</span>
+						<span data-bx-btn-reject="" class="main-user-consent-request-popup-button main-user-consent-request-popup-button-rej">N</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>			</div>
+		</form>
+		<!-- /.form-newsletter -->
+	</div>
+</section>
+<!-- /. Section Newsletter -->		</div>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer px-3">
+	<div class="container py-6">
+
+    <section class="p-section section-subscribe-social d-none d-sm-block">
+      <div class="text-center">
+        <h2 class="mb-2">Подписывайтесь на наши соц сети</h2>
+
+        <div class="social-links">
+          <ul class=" d-flex justify-content-between">
+            <li><a href="https://t.me/SecLabNews"><i class="icon-telegram-box"></i></a></li>
+            <li><a href="https://twitter.com/SecurityLabnews"><i class="icon-twitter-box"></i></a></li>
+            <li><a href="https://vk.com/public47494392"><i class="icon-vk-box"></i></a></li>
+            <li><a href="https://www.securitylab.ru/_services/export/rss/"><i class="icon-rss-box"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+		<div class="row pt-3 mb-md-6">
+			<div class="col-lg-3 col-md-4">
+				<nav class="footer-nav">
+					<a href="/news/">Новости</a>
+				</nav>
+				<nav class="footer-nav">
+					<a href="/vulnerability/">Уязвимости</a>
+					<ul class="d-none d-md-block">
+						<li><a href="/lab/">PT Research Lab</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<nav class="footer-nav">
+					<a href="/analytics/">Статьи</a>
+					<ul class="d-none d-md-block">
+						<li><a href="/opinion/">Мнения</a></li>
+						<li><a href="/contest/">Конкурсы</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-nav">
+					<a href="/blog/">Блоги</a>
+					<ul class="d-none d-md-block">
+						<li><a href="/blog/personal/">Личные блоги</a></li>
+						<li><a href="/blog/company/">Блоги компаний</a></li>
+						<li><a href="/blog/rules.php">Правила публикаций</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="d-none d-md-flex col-md-4 d-lg-none">
+				<nav class="footer-nav">
+					<ul>
+						<li><a href="/contacts.php">Контакты</a></li>
+						<li><a href="/advertiser.php">Реклама на сайте</a></li>
+						<li><a href="/about.php">О проекте</a></li>
+						<li><a href="/export/">Экспорт статей</a></li>
+						<li><a href="/rss.php">RSS</a></li>
+						<li><a href="/informer/">Информер история</a></li>
+						<li><a href="/policy.php">Политика обработки данных</a></li>
+						<li><a href="/map.php">Карта сайта</a></li>
+						<li><a href="/personal/">Личный кабинет</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<nav class="footer-nav">
+					<a href="/software/">Софт</a>
+					<ul class="d-none d-md-block">
+						<li><a href="/software/1218/">Системные утилиты</a></li>
+						<li><a href="/software/1219/">Сетевые утилиты</a></li>
+						<li><a href="/software/1425/">Беспроводные сети</a></li>
+						<li><a href="/software/1499/">Конкурентная разведка</a></li>
+						<li><a href="/software/1513/">Программы для Web мастеров</a></li>
+						<li><a href="/software/1524/">Разработка</a></li>
+						<li><a href="/software/1224/">Активное противодействие</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<nav class="footer-nav">
+					<a href="/phdays/">PHDays</a>
+				</nav>
+			</div>
+		</div>
+		<nav class="footer-bottom-menu d-none d-lg-block">
+	<ul>
+	        <li><a href="/content/who_we_are.php">Кто мы</a></li>
+	        <li><a href="/content/contacts.php">Контакты</a></li>
+	        <li><a href="/content/advertiser.php">Реклама</a></li>
+	        <li><a href="/content/policy.php">Политика конфиденциальности</a></li>
+	        <li><a href="/content/rules.php">Условия распространения персональных данных</a></li>
+	        <li><a href="/content/terms_of_use.php">Условия использования</a></li>
+
+	        <li><a href="/rss.php">RSS</a></li>
+	        <li><a href="/map.php">Карта сайта</a></li>
+	        <li><a href="https://www.securitylab.lat/" target="_blank">Español</a></li>
+	</ul>
+</nav>
+
+
+    <div class="social-links d-sm-none pt-4">
+      <ul class="d-flex flex-wrap">
+        <li class="my-5"><a href="https://t.me/SecLabNews"><i class="icon-telegram"></i></a></li>
+        <li class="my-5"><a href="https://twitter.com/SecurityLabnews"><i class="icon-twitter"></i></a></li>
+        <li class="my-5"><a href="https://vk.com/public47494392"><i class="icon-vk"></i></a></li>
+        <li class="my-5"><a href="https://www.securitylab.ru/_services/export/rss/"><i class="icon-rss"></i></a></li>
+      </ul>
+    </div>
+
+    <br>
+
+    <div class="row align-items-end pt-4 mb-3">
+      <div class="col-lg-9 col-md-8">
+        <div class="copyright">
+          <p>
+            Работает на CMS "1С-Битрикс: Управление сайтом" <br>Защищено CURATOR
+          </p>
+        </div>
+      </div>
+    </div>
+	</div>
+	<!-- /.container -->
+	<div class="div4copy"></div>
+</footer>
+<!-- /.Footer -->
+
+<!-- Yandex.Metrika counter -->
+<noscript><div><img src="https://mc.yandex.ru/watch/32292334" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+
+<script>if(!window.BX)window.BX={};if(!window.BX.message)window.BX.message=function(mess){if(typeof mess==='object'){for(let i in mess) {BX.message[i]=mess[i];} return true;}};</script>
+<script>(window.BX||top.BX).message({"MAIN_BASELINE_BROWSER_OUTDATED":"Вы используете устаревшую версию браузера. Обновите его для безопасной и стабильной работы","MAIN_BASELINE_DETAILS":"Подробнее","MAIN_BASELINE_CLOSE":"Закрыть"});</script><script src="/bitrix/js/main/baseline/dist/baseline.bundle.min.js?17873299574439"></script><script>(window.BX||top.BX).message({"JS_CORE_LOADING":"Загрузка...","JS_CORE_NO_DATA":"- Нет данных -","JS_CORE_WINDOW_CLOSE":"Закрыть","JS_CORE_WINDOW_EXPAND":"Развернуть","JS_CORE_WINDOW_NARROW":"Свернуть в окно","JS_CORE_WINDOW_SAVE":"Сохранить","JS_CORE_WINDOW_CANCEL":"Отменить","JS_CORE_WINDOW_CONTINUE":"Продолжить","JS_CORE_H":"ч","JS_CORE_M":"м","JS_CORE_S":"с","JSADM_AI_HIDE_EXTRA":"Скрыть лишние","JSADM_AI_ALL_NOTIF":"Показать все","JSADM_AUTH_REQ":"Требуется авторизация!","JS_CORE_WINDOW_AUTH":"Войти","JS_CORE_IMAGE_FULL":"Полный размер"});</script><script src="/bitrix/js/main/core/core.min.js?1787330026181429"></script><script>BX.Runtime.registerExtension({"name":"main.core","namespace":"BX","loaded":true});</script>
+<script>BX.setJSList(["\/bitrix\/js\/main\/core\/core_ajax.js","\/bitrix\/js\/main\/core\/core_promise.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/loadext\/loadext.js","\/bitrix\/js\/main\/loadext\/extension.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/includes\/js\/includes.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/ui\/polyfill\/closest\/js\/closest.js","\/bitrix\/js\/main\/polyfill\/fill\/main.polyfill.fill.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/core\/core.js","\/bitrix\/js\/main\/polyfill\/intersectionobserver\/js\/intersectionobserver.js","\/bitrix\/js\/main\/lazyload\/dist\/lazyload.bundle.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/parambag\/dist\/parambag.bundle.js"]);
+</script>
+<script>BX.Runtime.registerExtension({"name":"ui.a11y","namespace":"BX.UI.Accessibility","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"ui.design-tokens","namespace":"window","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"ui.fonts.opensans","namespace":"window","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"main.popup","namespace":"BX.Main","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"popup","namespace":"window","loaded":true});</script>
+<script>(window.BX||top.BX).message({"MAIN_USER_CONSENT_REQUEST_TITLE":"Согласие пользователя","MAIN_USER_CONSENT_REQUEST_BTN_ACCEPT":"Принимаю","MAIN_USER_CONSENT_REQUEST_BTN_REJECT":"Не принимаю","MAIN_USER_CONSENT_REQUEST_LOADING":"Загрузка..","MAIN_USER_CONSENT_REQUEST_ERR_TEXT_LOAD":"Не удалось загрузить текст соглашения.","MAIN_USER_CONSENT_REQUEST_URL_CONFIRM":"Ознакомьтесь с текстом по ссылке"});</script>
+<script>BX.Runtime.registerExtension({"name":"main_user_consent","namespace":"window","loaded":true});</script>
+<script>(window.BX||top.BX).message({"LANGUAGE_ID":"ru","FORMAT_DATE":"DD.MM.YYYY","FORMAT_DATETIME":"DD.MM.YYYY HH:MI:SS","COOKIE_PREFIX":"SL","SERVER_TZ_OFFSET":"10800","UTF_MODE":"Y","SITE_ID":"ru","SITE_DIR":"\/","USER_ID":"","SERVER_TIME":1789468341,"USER_TZ_OFFSET":0,"USER_TZ_AUTO":"Y","bitrix_sessid":"7cba166252577a282b36f78f4d709836"});</script><script src="/bitrix/js/ui/a11y/dist/a11y.bundle.min.js?178732995531192"></script>
+<script src="/bitrix/js/main/popup/dist/main.popup.bundle.min.js?178733002671647"></script>
+<script>BX.setJSList(["\/bitrix\/components\/bitrix\/main.userconsent.request\/templates\/.default\/user_consent.js"]);</script>
+<script>BX.setCSSList(["\/css\/custom.css","\/local\/templates\/.default\/components\/bitrix\/subscribe.form\/section-subscribe\/style.css","\/bitrix\/components\/bitrix\/main.userconsent.request\/templates\/.default\/user_consent.css","\/local\/templates\/securitylab_detail\/template_styles.css"]);</script>
+<script src="/js/links.js?v=20251202-02" type="text/javascript" ></script>
+<script  src="/bitrix/cache/js/ru/securitylab_detail/template_f3be1056194bd31b62f9048ce7310331/template_f3be1056194bd31b62f9048ce7310331_v1.js?17894663419054"></script>
+
+<script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Конфигурация
+            const CONFIG = {
+                storageKey: 'promo_banner_closed_at_FIXED',
+                hoursToWait: 8,
+            };
+
+            // DOM элементы
+            const els = {
+                wrapper: document.getElementById('js-banner-wrapper-6aa91eb5749cc'),
+                toggleBtn: document.getElementById('js-toggle-mode-6aa91eb5749cc'),
+                legalBlock: document.getElementById('js-legal-info-6aa91eb5749cc'),
+                contentBlock: document.getElementById('js-main-content-6aa91eb5749cc'),
+                closeBtn: document.getElementById('js-close-banner-6aa91eb5749cc'),
+            };
+
+            if (!els.wrapper) return;
+
+            /**
+             * Проверяет, можно ли показывать баннер.
+             */
+            const shouldShowBanner = () => {
+                const closedAt = localStorage.getItem(CONFIG.storageKey);
+                if (!closedAt) return true;
+
+                const now = Date.now();
+                const timePassed = now - parseInt(closedAt, 10);
+                const waitTimeMs = CONFIG.hoursToWait * 60 * 60 * 1000;
+
+                return timePassed > waitTimeMs;
+            };
+
+            /**
+             * Показывает баннер.
+             */
+            const showBanner = () => {
+                els.wrapper.classList.add('sticky-wrapper--visible');
+            };
+
+            /**
+             * Полностью закрывает баннер и сохраняет время.
+             */
+            const closeBannerPermanently = () => {
+                els.wrapper.classList.remove('sticky-wrapper--visible');
+                localStorage.setItem(CONFIG.storageKey, Date.now().toString());
+            };
+
+            /**
+             * Переключает видимость между контентом и юридической информацией.
+             */
+            const toggleInfoMode = () => {
+                const isLegalActive = els.legalBlock.classList.contains('promo-banner__legal--active');
+
+                if (isLegalActive) {
+                    // Режим "Юр. инфо" активен -> Возвращаемся к контенту
+                    els.legalBlock.classList.remove('promo-banner__legal--active');
+                    els.contentBlock.classList.add('promo-banner__content--active');
+                    // Возвращаем кнопку в исходное состояние
+                    els.closeBtn.classList.remove('promo-banner__close--return');
+                    els.closeBtn.setAttribute('aria-label', 'Закрыть баннер');
+                } else {
+                    // Режим контента активен -> Показываем "Юр. инфо"
+                    els.contentBlock.classList.remove('promo-banner__content--active');
+                    els.legalBlock.classList.add('promo-banner__legal--active');
+                    // Меняем вид и поведение кнопки закрытия
+                    els.closeBtn.classList.add('promo-banner__close--return');
+                    els.closeBtn.setAttribute('aria-label', 'Вернуться к баннеру');
+                }
+            };
+
+            /**
+             * НОВЫЙ ОБРАБОТЧИК КЛИКА НА КРЕСТИК
+             * Он решает, закрыть баннер полностью или просто вернуться назад.
+             */
+            const handleCloseClick = (e) => {
+                e.preventDefault();
+
+                // Если у кнопки есть модификатор --return, то просто переключаем режим.
+                if (els.closeBtn.classList.contains('promo-banner__close--return')) {
+                    toggleInfoMode();
+                } else {
+                    // Иначе — закрываем баннер полностью.
+                    closeBannerPermanently();
+                }
+            };
+
+            // Инициализация событий
+            els.closeBtn.addEventListener('click', handleCloseClick);
+            els.toggleBtn.addEventListener('click', toggleInfoMode);
+
+            // Запуск логики показа
+            if (shouldShowBanner()) {
+                setTimeout(showBanner, 1000);
+            }
+        });
+    </script>
+
+<script src="https://mc.yandex.ru/metrika/watch.js" type="text/javascript" ></script>
+<script type="text/javascript" >
+try {
+    var yaCounter32292334 = new Ya.Metrika({
+        id:32292334,
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+    });
+} catch(e) { }
+</script>
+<script src="/js/main.js?v=1785765490"></script>
+<script src="/js/image_croper.js?v=1785765490"></script>
+<script src="/js/infinity-artile-scroll.js?v=1785765490"></script>
+<script src="/js/cpb.js?v=1777981238"></script>
+
+</body>
+</html>
+<style>
+/*.phdays .call-to-action p {color: #85868a}*/
+</style>

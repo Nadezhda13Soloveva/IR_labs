@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="ru-RU" prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile# fb: http://ogp.me/ns/fb#">
+
+<head>
+<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="https://xakep.ru/xmlrpc.php" />
+<meta name="mailru-verification" content="19264888db6819ce" />
+<title>Delta Chat изнутри. Как устроен мессенджер, работающий поверх электронной почты &#8212; Хакер</title>
+<meta name='robots' content='max-image-preview:large' />
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel='dns-prefetch' href='//www.google.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="Хакер &raquo; Лента" href="https://xakep.ru/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Хакер &raquo; Лента комментариев" href="https://xakep.ru/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Хакер &raquo; Лента комментариев к &laquo;Delta Chat изнутри. Как устроен мессенджер, работающий поверх электронной почты&raquo;" href="https://xakep.ru/2026/04/17/deltachat/feed/" />
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(88149838, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/88149838" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+  <script>
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', "/wp-admin/admin-ajax.php?action=xakep_view&pid=574106", true);
+    xhr.send(null);
+  </script>
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/xakep.ru\/wp-includes\/js\/wp-emoji-release.min.js"}};
+/*! This file is auto-generated */
+!function(s,n){var o,i,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),a=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===a[t]})}function u(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);for(var n=e.getImageData(16,16,1,1),a=0;a<n.data.length;a++)if(0!==n.data[a])return!1;return!0}function f(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\udedf")}return!1}function g(e,t,n,a){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):s.createElement("canvas"),o=r.getContext("2d",{willReadFrequently:!0}),i=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(function(e){i[e]=t(o,e,n,a)}),i}function t(e){var t=s.createElement("script");t.src=e,t.defer=!0,s.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",i=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){s.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+g.toString()+"("+[JSON.stringify(i),f.toString(),p.toString(),u.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"}),r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=function(e){c(n=e.data),r.terminate(),t(n)})}catch(e){}c(n=g(i,f,p,u))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://xakep.ru/wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='foobox-free-min-css' href='https://xakep.ru/wp-content/plugins/foobox-image-lightbox/free/css/foobox.free.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-polls-css' href='https://xakep.ru/wp-content/plugins/wp-polls/polls-css.css' type='text/css' media='all' />
+<style id='wp-polls-inline-css' type='text/css'>
+.wp-polls .pollbar {
+	margin: 1px;
+	font-size: 6px;
+	line-height: 8px;
+	height: 8px;
+	background: #dd2200;
+	border: 1px solid #dd2200;
+}
+
+</style>
+<link rel='stylesheet' id='Roboto-css' href='https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C300%2C300italic%2Cregular%2Citalic%2C500%2C500italic%2C700%2C700italic%2C900%2C900italic&#038;subset=latin%2Ccyrillic' type='text/css' media='all' />
+<link rel='stylesheet' id='woohoo-default-css' href='https://xakep.ru/wp-content/themes/woohoo/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='woohoo-main-css' href='https://xakep.ru/wp-content/themes/woohoo/css/main.css' type='text/css' media='all' />
+<link rel='stylesheet' id='woohoo-product-shelf-css' href='https://xakep.ru/wp-content/themes/woohoo/assets/css/product-shelf.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wpdiscuz-frontend-css-css' href='https://xakep.ru/wp-content/plugins/wpdiscuz/themes/default/style.css' type='text/css' media='all' />
+<style id='wpdiscuz-frontend-css-inline-css' type='text/css'>
+ #wpdcom .wpd-blog-administrator .wpd-comment-label{color:#ffffff;background-color:#0f0000;border:none}#wpdcom .wpd-blog-administrator .wpd-comment-author, #wpdcom .wpd-blog-administrator .wpd-comment-author a{color:#0f0000}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-administrator .wpd-avatar img{border-color:#0f0000}#wpdcom.wpd-layout-2 .wpd-comment.wpd-reply .wpd-comment-wrap.wpd-blog-administrator{border-left:3px solid #0f0000}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-administrator .wpd-avatar img{border-bottom-color:#0f0000}#wpdcom.wpd-layout-3 .wpd-blog-administrator .wpd-comment-subheader{border-top:1px dashed #0f0000}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-administrator .wpd-comment-right{border-left:1px solid #0f0000}#wpdcom .wpd-blog-author .wpd-comment-label{color:#ffffff;background-color:#d20000;border:none}#wpdcom .wpd-blog-author .wpd-comment-author, #wpdcom .wpd-blog-author .wpd-comment-author a{color:#d20000}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-author .wpd-avatar img{border-color:#d20000}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-author .wpd-avatar img{border-bottom-color:#d20000}#wpdcom.wpd-layout-3 .wpd-blog-author .wpd-comment-subheader{border-top:1px dashed #d20000}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-author .wpd-comment-right{border-left:1px solid #d20000}#wpdcom .wpd-blog-contributor .wpd-comment-label{color:#ffffff;background-color:#d20000;border:none}#wpdcom .wpd-blog-contributor .wpd-comment-author, #wpdcom .wpd-blog-contributor .wpd-comment-author a{color:#d20000}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-contributor .wpd-avatar img{border-color:#d20000}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-contributor .wpd-avatar img{border-bottom-color:#d20000}#wpdcom.wpd-layout-3 .wpd-blog-contributor .wpd-comment-subheader{border-top:1px dashed #d20000}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-contributor .wpd-comment-right{border-left:1px solid #d20000}#wpdcom .wpd-blog-editor .wpd-comment-label{color:#ffffff;background-color:#0f0101;border:none}#wpdcom .wpd-blog-editor .wpd-comment-author, #wpdcom .wpd-blog-editor .wpd-comment-author a{color:#0f0101}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-editor .wpd-avatar img{border-color:#0f0101}#wpdcom.wpd-layout-2 .wpd-comment.wpd-reply .wpd-comment-wrap.wpd-blog-editor{border-left:3px solid #0f0101}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-editor .wpd-avatar img{border-bottom-color:#0f0101}#wpdcom.wpd-layout-3 .wpd-blog-editor .wpd-comment-subheader{border-top:1px dashed #0f0101}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-editor .wpd-comment-right{border-left:1px solid #0f0101}#wpdcom .wpd-blog-subscriber .wpd-comment-label{color:#ffffff;background-color:#d20000;border:none}#wpdcom .wpd-blog-subscriber .wpd-comment-author, #wpdcom .wpd-blog-subscriber .wpd-comment-author a{color:#d20000}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-subscriber .wpd-avatar img{border-bottom-color:#d20000}#wpdcom.wpd-layout-3 .wpd-blog-subscriber .wpd-comment-subheader{border-top:1px dashed #d20000}#wpdcom .wpd-blog-newsmaker .wpd-comment-label{color:#ffffff;background-color:#d20000;border:none}#wpdcom .wpd-blog-newsmaker .wpd-comment-author, #wpdcom .wpd-blog-newsmaker .wpd-comment-author a{color:#d20000}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-newsmaker .wpd-avatar img{border-color:#d20000}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-newsmaker .wpd-avatar img{border-bottom-color:#d20000}#wpdcom.wpd-layout-3 .wpd-blog-newsmaker .wpd-comment-subheader{border-top:1px dashed #d20000}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-newsmaker .wpd-comment-right{border-left:1px solid #d20000}#wpdcom .wpd-blog-translator .wpd-comment-label{color:#ffffff;background-color:#d20000;border:none}#wpdcom .wpd-blog-translator .wpd-comment-author, #wpdcom .wpd-blog-translator .wpd-comment-author a{color:#d20000}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-translator .wpd-avatar img{border-color:#d20000}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-translator .wpd-avatar img{border-bottom-color:#d20000}#wpdcom.wpd-layout-3 .wpd-blog-translator .wpd-comment-subheader{border-top:1px dashed #d20000}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-translator .wpd-comment-right{border-left:1px solid #d20000}#wpdcom .wpd-blog-company .wpd-comment-label{color:#ffffff;background-color:#00B38F;border:none}#wpdcom .wpd-blog-company .wpd-comment-author, #wpdcom .wpd-blog-company .wpd-comment-author a{color:#00B38F}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-company .wpd-avatar img{border-color:#00B38F}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-company .wpd-avatar img{border-bottom-color:#00B38F}#wpdcom.wpd-layout-3 .wpd-blog-company .wpd-comment-subheader{border-top:1px dashed #00B38F}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-company .wpd-comment-right{border-left:1px solid #00B38F}#wpdcom .wpd-blog-post_author .wpd-comment-label{color:#ffffff;background-color:#dd9933;border:none}#wpdcom .wpd-blog-post_author .wpd-comment-author, #wpdcom .wpd-blog-post_author .wpd-comment-author a{color:#dd9933}#wpdcom .wpd-blog-post_author .wpd-avatar img{border-color:#dd9933}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-post_author .wpd-avatar img{border-color:#dd9933}#wpdcom.wpd-layout-2 .wpd-comment.wpd-reply .wpd-comment-wrap.wpd-blog-post_author{border-left:3px solid #dd9933}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-post_author .wpd-avatar img{border-bottom-color:#dd9933}#wpdcom.wpd-layout-3 .wpd-blog-post_author .wpd-comment-subheader{border-top:1px dashed #dd9933}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-post_author .wpd-comment-right{border-left:1px solid #dd9933}#wpdcom .wpd-blog-guest .wpd-comment-label{color:#ffffff;background-color:#d20000;border:none}#wpdcom .wpd-blog-guest .wpd-comment-author, #wpdcom .wpd-blog-guest .wpd-comment-author a{color:#d20000}#wpdcom.wpd-layout-3 .wpd-blog-guest .wpd-comment-subheader{border-top:1px dashed #d20000}#comments, #respond, .comments-area, #wpdcom{}#wpdcom .ql-editor > *{color:#777777}#wpdcom .ql-editor::before{}#wpdcom .ql-toolbar{border:1px solid #DDDDDD;border-top:none}#wpdcom .ql-container{border:1px solid #DDDDDD;border-bottom:none}#wpdcom .wpd-form-row .wpdiscuz-item input[type="text"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="email"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="url"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="color"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="date"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="datetime"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="datetime-local"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="month"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="number"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="time"], #wpdcom textarea, #wpdcom select{border:1px solid #DDDDDD;color:#777777}#wpdcom .wpd-form-row .wpdiscuz-item textarea{border:1px solid #DDDDDD}#wpdcom input::placeholder, #wpdcom textarea::placeholder, #wpdcom input::-moz-placeholder, #wpdcom textarea::-webkit-input-placeholder{}#wpdcom .wpd-comment-text{color:#777777}#wpdcom .wpd-thread-head .wpd-thread-info{border-bottom:2px solid #d20000}#wpdcom .wpd-thread-head .wpd-thread-info.wpd-reviews-tab svg{fill:#d20000}#wpdcom .wpd-thread-head .wpdiscuz-user-settings{border-bottom:2px solid #d20000}#wpdcom .wpd-thread-head .wpdiscuz-user-settings:hover{color:#d20000}#wpdcom .wpd-comment .wpd-follow-link:hover{color:#d20000}#wpdcom .wpd-comment-status .wpd-sticky{color:#d20000}#wpdcom .wpd-thread-filter .wpdf-active{color:#d20000;border-bottom-color:#d20000}#wpdcom .wpd-comment-info-bar{border:1px dashed #db3333;background:#fbe6e6}#wpdcom .wpd-comment-info-bar .wpd-current-view i{color:#d20000}#wpdcom .wpd-filter-view-all:hover{background:#d20000}#wpdcom .wpdiscuz-item .wpdiscuz-rating > label{color:#DDDDDD}#wpdcom .wpdiscuz-item .wpdiscuz-rating:not(:checked) > label:hover, .wpdiscuz-rating:not(:checked) > label:hover ~ label{}#wpdcom .wpdiscuz-item .wpdiscuz-rating > input ~ label:hover, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:not(:checked) ~ label:hover ~ label, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:not(:checked) ~ label:hover ~ label{color:#FFED85}#wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label:hover, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label:hover, #wpdcom .wpdiscuz-item .wpdiscuz-rating > label:hover ~ input:checked ~ label, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked + label:hover ~ label, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label:hover ~ label, .wpd-custom-field .wcf-active-star, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label{color:#FFD700}#wpd-post-rating .wpd-rating-wrap .wpd-rating-stars svg .wpd-star{fill:#DDDDDD}#wpd-post-rating .wpd-rating-wrap .wpd-rating-stars svg .wpd-active{fill:#FFD700}#wpd-post-rating .wpd-rating-wrap .wpd-rate-starts svg .wpd-star{fill:#DDDDDD}#wpd-post-rating .wpd-rating-wrap .wpd-rate-starts:hover svg .wpd-star{fill:#FFED85}#wpd-post-rating.wpd-not-rated .wpd-rating-wrap .wpd-rate-starts svg:hover ~ svg .wpd-star{fill:#DDDDDD}.wpdiscuz-post-rating-wrap .wpd-rating .wpd-rating-wrap .wpd-rating-stars svg .wpd-star{fill:#DDDDDD}.wpdiscuz-post-rating-wrap .wpd-rating .wpd-rating-wrap .wpd-rating-stars svg .wpd-active{fill:#FFD700}#wpdcom .wpd-comment .wpd-follow-active{color:#ff7a00}#wpdcom .page-numbers{color:#555;border:#555 1px solid}#wpdcom span.current{background:#555}#wpdcom.wpd-layout-1 .wpd-new-loaded-comment > .wpd-comment-wrap > .wpd-comment-right{background:#FFFAD6}#wpdcom.wpd-layout-2 .wpd-new-loaded-comment.wpd-comment > .wpd-comment-wrap > .wpd-comment-right{background:#FFFAD6}#wpdcom.wpd-layout-2 .wpd-new-loaded-comment.wpd-comment.wpd-reply > .wpd-comment-wrap > .wpd-comment-right{background:transparent}#wpdcom.wpd-layout-2 .wpd-new-loaded-comment.wpd-comment.wpd-reply > .wpd-comment-wrap{background:#FFFAD6}#wpdcom.wpd-layout-3 .wpd-new-loaded-comment.wpd-comment > .wpd-comment-wrap > .wpd-comment-right{background:#FFFAD6}#wpdcom .wpd-follow:hover i, #wpdcom .wpd-unfollow:hover i, #wpdcom .wpd-comment .wpd-follow-active:hover i{color:#d20000}#wpdcom .wpdiscuz-readmore{cursor:pointer;color:#d20000}.wpd-custom-field .wcf-pasiv-star, #wpcomm .wpdiscuz-item .wpdiscuz-rating > label{color:#DDDDDD}.wpd-wrapper .wpd-list-item.wpd-active{border-top:3px solid #d20000}#wpdcom.wpd-layout-2 .wpd-comment.wpd-reply.wpd-unapproved-comment .wpd-comment-wrap{border-left:3px solid #FFFAD6}#wpdcom.wpd-layout-3 .wpd-comment.wpd-reply.wpd-unapproved-comment .wpd-comment-right{border-left:1px solid #FFFAD6}#wpdcom .wpd-prim-button{background-color:#d20000;color:#FFFFFF}#wpdcom .wpd_label__check i.wpdicon-on{color:#d20000;border:1px solid #e98080}#wpd-bubble-wrapper #wpd-bubble-all-comments-count{color:#d20000}#wpd-bubble-wrapper > div{background-color:#d20000}#wpd-bubble-wrapper > #wpd-bubble #wpd-bubble-add-message{background-color:#d20000}#wpd-bubble-wrapper > #wpd-bubble #wpd-bubble-add-message::before{border-left-color:#d20000;border-right-color:#d20000}#wpd-bubble-wrapper.wpd-right-corner > #wpd-bubble #wpd-bubble-add-message::before{border-left-color:#d20000;border-right-color:#d20000}.wpd-inline-icon-wrapper path.wpd-inline-icon-first{fill:#d20000}.wpd-inline-icon-count{background-color:#d20000}.wpd-inline-icon-count::before{border-right-color:#d20000}.wpd-inline-form-wrapper::before{border-bottom-color:#d20000}.wpd-inline-form-question{background-color:#d20000}.wpd-inline-form{background-color:#d20000}.wpd-last-inline-comments-wrapper{border-color:#d20000}.wpd-last-inline-comments-wrapper::before{border-bottom-color:#d20000}.wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments{background:#d20000}.wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments:hover,.wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments:active,.wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments:focus{background-color:#d20000}#wpdcom .ql-snow .ql-tooltip[data-mode="link"]::before{content:"Введите ссылку:"}#wpdcom .ql-snow .ql-tooltip.ql-editing a.ql-action::after{content:"Сохранить"}.comments-area{width:auto}
+</style>
+<link rel='stylesheet' id='wpdiscuz-fa-css' href='https://xakep.ru/wp-content/plugins/wpdiscuz/assets/third-party/font-awesome-5.13.0/css/fa.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wpdiscuz-combo-css-css' href='https://xakep.ru/wp-content/plugins/wpdiscuz/assets/css/wpdiscuz-combo.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='xakep-css' href='https://xakep.ru/wp-content/plugins/xakep-core/style.css?1790702121' type='text/css' media='all' />
+<link rel='stylesheet' id='xakep-xmd-css' href='https://xakep.ru/wp-content/plugins/xakep-core/xmd.css?1790702121' type='text/css' media='all' />
+<link rel='stylesheet' id='xakep-banners-css' href='https://xakep.ru/wp-content/plugins/xakep-core/banners/style.css?1790702121' type='text/css' media='all' />
+<link rel='stylesheet' id='xakep-ads-css-css' href='https://xakep.ru/wp-content/plugins/xakep-core/ads/style.css' type='text/css' media='all' />
+<script type="text/javascript" id="jquery-core-js-extra">
+/* <![CDATA[ */
+var bd_w_blocks = {"bdaia_w_ajax_url":"https:\/\/xakep.ru\/wp-admin\/admin-ajax.php","bdaia_w_ajax_nonce":"a7788ef2a0"};
+var bd_blocks = {"bdaia_ajax_url":"https:\/\/xakep.ru\/wp-admin\/admin-ajax.php","bdaia_ajaxnonce":"a7788ef2a0"};
+var bd_script = {"post_id":"574106","ajaxurl":"https:\/\/xakep.ru\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://xakep.ru/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-includes/js/jquery/jquery-migrate.min.js" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/plugins/xakep-core/ads/script.js" id="xakep-ads-js-js"></script>
+<script type="text/javascript" id="woohoo-views-js-extra">
+/* <![CDATA[ */
+var woohoo_views_c = {"admin_ajax_url":"https:\/\/xakep.ru\/wp-admin\/admin-ajax.php","post_id":"574106"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/js/views.js" id="woohoo-views-js"></script>
+<script type="text/javascript" id="foobox-free-min-js-before">
+/* <![CDATA[ */
+/* Run FooBox FREE (v2.7.43) */
+var FOOBOX = window.FOOBOX = {
+	ready: true,
+	disableOthers: false,
+	o: {wordpress: { enabled: true }, captions: { dataTitle: ["captionTitle","title"], dataDesc: ["captionDesc","description"] }, rel: '', excludes:'.fbx-link,.nofoobox,.nolightbox,a[href*="pinterest.com/pin/create/button/"]', affiliate : { enabled: false }, error: "Could not load the item"},
+	selectors: [
+		".gallery", ".wp-block-gallery", ".wp-caption", ".wp-block-image", "a:has(img[class*=wp-image-])", ".foobox"
+	],
+	pre: function( $ ){
+		// Custom JavaScript (Pre)
+		
+	},
+	post: function( $ ){
+		// Custom JavaScript (Post)
+		
+		// Custom Captions Code
+		
+	},
+	custom: function( $ ){
+		// Custom Extra JS
+		
+	}
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/plugins/foobox-image-lightbox/free/js/foobox.free.min.js" id="foobox-free-min-js"></script>
+<link rel="https://api.w.org/" href="https://xakep.ru/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://xakep.ru/wp-json/wp/v2/posts/574106" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://xakep.ru/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.8.6" />
+<link rel="canonical" href="https://xakep.ru/2026/04/17/deltachat/" />
+<link rel='shortlink' href='https://xakep.ru/?p=574106' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://xakep.ru/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fxakep.ru%2F2026%2F04%2F17%2Fdeltachat%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://xakep.ru/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fxakep.ru%2F2026%2F04%2F17%2Fdeltachat%2F&#038;format=xml" />
+<style type="text/css">
+    #wpadminbar .quicklinks {margin: 0 4px;}
+    #wpadminbar .quicklinks a {color: #aaa !important;}
+    #wpadminbar .quicklinks a strong {color: #fff; font-weight: bold;}
+    #wpadminbar .quicklinks li:hover>a,
+    #wpadminbar .quicklinks li a:hover,
+    #wpadminbar .quicklinks li a:focus {color: #fff !important; background-color: transparent !important;}
+    #wpadminbar .quicklinks #wp-admin-bar-bp-login,
+    #wpadminbar .quicklinks #wp-admin-bar-bp-register {display: none;}
+    #wpadminbar .quicklinks #wp-admin-bar-login,
+    #wpadminbar .quicklinks #wp-admin-bar-register {float: right;}
+    @media screen and (max-width: 782px){
+      #wpadminbar .quicklinks #wp-admin-bar-login,
+      #wpadminbar .quicklinks #wp-admin-bar-register {display: block; padding: 0 12px;}
+    }
+    @media print{
+      @page{size:16in 200in;margin:0}
+    }
+  </style>        <script type="text/javascript">
+            /* <![CDATA[ */
+            var sf_position = '0';
+            var sf_templates = "<a href=\"{search_url_escaped}\"><span class=\"sf_text\">\u041f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0432\u0441\u0435 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b<\/span><\/a>";
+            var sf_input = '.search-live';
+            jQuery(document).ready(function(){if(typeof jQuery(sf_input).ajaxyLiveSearch === 'function'){
+                jQuery(sf_input).ajaxyLiveSearch({"expand":false,"searchUrl":"https:\/\/xakep.ru\/?s=%s","text":"Search","delay":500,"iwidth":180,"width":315,"ajaxUrl":"https:\/\/xakep.ru\/wp-admin\/admin-ajax.php","rtl":0});
+                jQuery(".live-search_ajaxy-selective-input").keyup(function() {
+                    var width = jQuery(this).val().length * 8;
+                    if(width < 50) {
+                        width = 50;
+                    }
+                    jQuery(this).width(width);
+                });
+                jQuery(".live-search_ajaxy-selective-search").click(function() {
+                    jQuery(this).find(".live-search_ajaxy-selective-input").focus();
+                });
+                jQuery(".live-search_ajaxy-selective-close").click(function() {
+                    jQuery(this).parent().remove();
+                });
+            }});
+            /* ]]> */
+        </script>
+    <link rel="shortcut icon" href="https://xakep.ru/wp-content/uploads/2016/09/favicon.ico" type="image/x-icon" />	<script type="text/javascript">
+		var bdaia_theme_uri = 'https://xakep.ru/wp-content/themes/woohoo';
+	</script>
+	<style type="text/css">
+.bdaia-post-content, .bdaia-post-content p, .bdaia-post-content h1, .bdaia-post-content h2, .bdaia-post-content h3, .bdaia-post-content h4, .bdaia-post-content h5, .bdaia-post-content h6, .bdaia-post-content blockquote p, blockquote p {color: 333333;}.bdaia-post-content a{color: #2283B3;}.bdaia-post-content a:hover{color: #3AA0E8;}body {}
+a:hover{color:#dd2200}
+::selection{background:#dd2200}
+a.more-link, button, .btn-link, input[type="button"], input[type="reset"], input[type="submit"] { background-color:#dd2200}
+button:active, .btn-link:active, input[type="button"]:active, input[type="reset"]:active, input[type="submit"]:active { background-color:#dd2200}
+.gotop:hover { background-color:#dd2200}
+.top-search { background-color:#dd2200}
+.primary-menu ul#menu-primary > li.current-menu-parent, .primary-menu ul#menu-primary > li.current-menu-ancestor, .primary-menu ul#menu-primary > li.current-menu-item, .primary-menu ul#menu-primary > li.current_page_item { color: #dd2200; }
+.primary-menu ul#menu-primary > li.current-menu-parent > a, .primary-menu ul#menu-primary > li.current-menu-ancestor > a, .primary-menu ul#menu-primary > li.current-menu-item > a, .primary-menu ul#menu-primary > li.current_page_item > a { color: #dd2200; }
+.primary-menu ul#menu-primary > li:hover > a { color: #dd2200; }
+.primary-menu ul#menu-primary li.bd_menu_item ul.sub-menu li:hover > ul.sub-menu, .primary-menu ul#menu-primary li.bd_mega_menu:hover > ul.bd_mega.sub-menu, .primary-menu ul#menu-primary li.bd_menu_item:hover > ul.sub-menu, .primary-menu ul#menu-primary .sub_cats_posts { border-top-color: #dd2200; }
+div.nav-menu.primary-menu-dark a.menu-trigger:hover i, div.nav-menu.primary-menu-light a.menu-trigger:hover i, div.nav-menu.primary-menu-light a.menu-trigger.active i, div.nav-menu.primary-menu-dark a.menu-trigger.active i { background: #dd2200; }
+span.bd-criteria-percentage { background: #dd2200; color: #dd2200; }
+.divider-colors { background: #dd2200; }
+.blog-v1 article .entry-meta a { color: #dd2200; }
+.blog-v1 article .article-formats { background-color: #dd2200; }
+.cat-links { background-color: #dd2200; }
+.new-box { border-top-color: #dd2200; }
+.widget a:hover { color: #dd2200; }
+.timeline-article a:hover i {
+    color: #dd2200;
+}
+h4.block-title:before {background: #dd2200;}
+#header.bdayh-header.a {background: #dd2200;}
+.bdaia-load-comments-btn a:hover,
+.bd-more-btn:hover{
+    border-color: #dd2200 ;
+    background-color: #dd2200 ;
+}
+#bdaia-cats-builder ul.slick-dots li.slick-active button{
+	background: #dd2200;
+}
+.bdaia-cats-more-btn,
+.bbd-post-cat-content, .bbd-post-cat-content a,
+.blog-v1 article a.more-link { color: #dd2200; }
+#big-grids .flex-next:hover,
+#big-grids .flex-prev:hover,
+.featured-title:hover .featured-cat a,
+.featured-title .featured-comment a,
+.big-grids-container .flex-control-paging li a.flex-active,
+.tagcloud a:hover { background: #dd2200; }
+.featured-title:hover .bd-cat-link:before {border-top-color: #dd2200;}
+.featured-title .featured-comment a:after {
+    border-color: #dd2200 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+}
+ul.tabs_nav li.active a { background: #dd2200; }
+.bd-tweets ul.tweet_list li.twitter-item a { color: #dd2200; }
+.widget.bd-login .login_user .bio-author-desc a { color: #dd2200; }
+.comment-reply-link, .comment-reply-link:link, .comment-reply-link:active { color: #dd2200; }
+.gallery-caption { background-color: #dd2200; }
+.slider-flex ol.flex-control-paging li a.flex-active { background: #dd2200; }
+#folio-main ul#filters li a.selected { background: #dd2200; }
+.search-mobile button.search-button { background: #dd2200; }
+.bdaia-pagination .current {
+background-color: #dd2200;
+border-color: #dd2200;
+}
+.gotop{background: #dd2200;}
+.ei-slider-thumbs li.ei-slider-element {background: #dd2200;}
+.ei-title h2,
+.ei-title h3 {border-right-color: #dd2200;}
+.sk-circle .sk-child:before,
+#reading-position-indicator{background: #dd2200;}
+#bdCheckAlso{border-top-color: #dd2200;}
+.woocommerce .product .onsale, .woocommerce .product a.button:hover, .woocommerce .product #respond input#submit:hover, .woocommerce .checkout input#place_order:hover, .woocommerce .woocommerce.widget .button:hover, .single-product .product .summary .cart .button:hover, .woocommerce-cart .woocommerce table.cart .button:hover, .woocommerce-cart .woocommerce .shipping-calculator-form .button:hover, .woocommerce .woocommerce-message .button:hover, .woocommerce .woocommerce-error .button:hover, .woocommerce .woocommerce-info .button:hover, .woocommerce-checkout .woocommerce input.button:hover, .woocommerce-page .woocommerce a.button:hover, .woocommerce-account div.woocommerce .button:hover, .woocommerce.widget .ui-slider .ui-slider-handle, .woocommerce.widget.widget_layered_nav_filters ul li a {background: none repeat scroll 0 0 #dd2200 !important}
+.bdaia-ns-wrap:after {background:#dd2200}
+.bdaia-header-default #navigation .primary-menu ul#menu-primary > li >.bd_mega.sub-menu,
+.bdaia-header-default #navigation .primary-menu ul#menu-primary > li > .sub-menu,
+.bdaia-header-default #navigation .primary-menu ul#menu-primary .sub_cats_posts {border-top-color: #dd2200}
+.bdaia-header-default #navigation .primary-menu ul#menu-primary > li:hover > a:after,
+.bdaia-header-default #navigation .primary-menu ul#menu-primary > li.current-menu-item > a:after,
+.bdaia-header-default #navigation .primary-menu ul#menu-primary > li.current-menu-ancestor > a:after,
+.bdaia-header-default #navigation .primary-menu ul#menu-primary > li.current-menu-parent > a:after {background:#dd2200}
+.bdaia-header-default #navigation .primary-menu #menu-primary > li:hover > a{color: #dd2200}
+.bdayh-click-open{background:#dd2200}
+div.bdaia-alert-new-posts-inner,
+.bdaia-header-default .header-wrapper{border-top-color: #dd2200}
+.bdaia-post-content blockquote{border-color: #dd2200}
+.bdaia-post-content a {color: #dd2200}
+div.widget.bdaia-widget.bdaia-widget-timeline .widget-inner a:hover,
+div.widget.bdaia-widget.bdaia-widget-timeline .widget-inner a:hover span.bdayh-date {
+    color: #dd2200;
+}
+div.widget.bdaia-widget.bdaia-widget-timeline .widget-inner a:hover span.bdayh-date:before {
+    background: #dd2200;
+    border-color: #dd2200;
+}
+#navigation .bdaia-alert-new-posts,
+#navigation .bdaia-cart span.shooping-count,
+div.bdaia-tabs.horizontal-tabs ul.nav-tabs li.current:before,
+div.bdaia-toggle h4.bdaia-toggle-head.toggle-head-open span.bdaia-sio {
+    background: #dd2200;
+}
+.woocommerce .product .onsale, .woocommerce .product a.button:hover, .woocommerce .product #respond input#submit:hover, .woocommerce .checkout input#place_order:hover, .woocommerce .woocommerce.widget .button:hover, .single-product .product .summary .cart .button:hover, .woocommerce-cart .woocommerce table.cart .button:hover, .woocommerce-cart .woocommerce .shipping-calculator-form .button:hover, .woocommerce .woocommerce-message .button:hover, .woocommerce .woocommerce-error .button:hover, .woocommerce .woocommerce-info .button:hover, .woocommerce-checkout .woocommerce input.button:hover, .woocommerce-page .woocommerce a.button:hover, .woocommerce-account div.woocommerce .button:hover, .woocommerce.widget .ui-slider .ui-slider-handle, .woocommerce.widget.widget_layered_nav_filters ul li a {
+    background: none repeat scroll 0 0 #dd2200 !important
+}
+div.bdaia-post-count {border-left-color :#dd2200}
+#bdaia-selector #bdaia-selector-toggle {background:#dd2200}
+div.bdaia-blocks.bdaia-block22 div.block-article hr{background:#dd2200}
+div.bdaia-blocks.bdaia-block22 div.block-article .post-more-btn a,
+div.bdaia-blocks.bdaia-block22 div.block-article .post-more-btn a:hover,
+div.bdaia-blocks.bdaia-block22 div.block-article .bdaia-post-cat-list a,
+div.bdaia-blocks.bdaia-block22 div.block-article .bdaia-post-cat-list a:hover{color:#dd2200}
+body{font-size : 15px; }
+.bdaia-header-default .topbar .top-nav > li > a{font-size : 13px; }
+.bdaia-header-default #navigation .primary-menu #menu-primary > li > a{font-size : 14px; font-weight: bold; }
+#bd-MobileSiderbar #mobile-menu a{font-weight: bolder; }
+.bdaia-crumb-container{font-family: 'Roboto'; }
+.bdaia-feature-posts.bdaia-fp-s1 .bdaia-post-title .entry-title{font-family: 'Roboto'; }
+.bdaia-feature-posts.bdaia-fp-s2 .big-grids .featured-title h2{font-family: 'Roboto'; }
+.bdaia-feature-posts.bdaia-fp-s2 .big-grids.big-grid1 .big-grid-1 .featured-title h2{font-size : 36px; line-height : 36px; }
+.bdaia-feature-posts.bdaia-fp-s3 .big-grids.big-grid2 .big-grid-1 .featured-title h2, .bdaia-feature-posts.bdaia-fp-s3 .big-grids.big-grid2 .big-grid-2 .featured-title h2{font-family: 'Roboto'; font-size : 36px; line-height : 36px; }
+.bd-post-carousel-item article .bd-meta-info-align h3{font-family: 'Roboto'; }
+.bd-cat-link{font-family: 'Roboto'; }
+.bd-more-btn, .bdaia-wb-wrap .bdaia-wb-more-btn .bdaia-wb-mb-inner, .bdaia-load-more-news-btn, button, input[type="button"], input[type="reset"], input[type="submit"]{font-family: 'Roboto'; text-transform: uppercase; }
+.bdaia-block-wrap h4.block-title, .bdaia-template-head h4.block-title{font-family: 'Roboto'; font-size : 26px; line-height : 32px; }
+.bdaia-block-wrap .bdaia-blocks p.block-exb, .bdaia-slider-block .ei-title h3{font-size : 15px; }
+.bdaia-blocks.bdaia-block1 h3{font-family: 'Roboto'; }
+.bdaia-blocks.bdaia-block2 h3{font-family: 'Roboto'; }
+.bdaia-blocks.bdaia-block3 h3{font-family: 'Roboto'; }
+.bdaia-blocks.bdaia-block4 h3{font-family: 'Roboto'; }
+.bdaia-blocks.bdaia-block5 h3{font-family: 'Roboto'; }
+.bdaia-blocks.bdaia-block6 h3{font-family: 'Roboto'; font-weight: bolder; }
+.bdaia-blocks.bdaia-block7 h3{font-family: 'Roboto'; }
+.bdaia-blocks.bdaia-block8 .block-article.block-first-article h3{font-family: 'Roboto'; }
+.bdaia-blocks.bdaia-block9 .block-article.block-first-article h3{font-family: 'Roboto'; }
+.bdaia-blocks.bdaia-block10 .block-article.block-first-article h3{font-family: 'Roboto'; }
+.bdaia-blocks.bdaia-block11 .block-article.block-first-article h3{font-family: 'Roboto'; }
+.bdaia-wb-wrap .bwb-article-content-wrapper footer{font-size : 13px; line-height : 16px; font-weight: normal; }
+.bdaia-wb-wrap .bdaia-wb-article p.block-exb, .check-also-post p{font-size : 14px; }
+div.widget.bdaia-widget .widget-inner li, div.widget.bdaia-widget .widget-inner h3, div.widget.bdaia-widget .widget-inner h4, div.widget.bdaia-widget.bd-tweets .widget-inner p.twitter-text, .check-also-post .post-title, .bdaia-posts-grid-post.post .entry-title, .bdaia-posts-grid-post h3{font-size : 15px; line-height : 18px; font-weight: 400; }
+.bdaia-wb-wrap .bdaia-wb-article.bdaia-wba-big .entry-title, .bdaia-wb-wrap .bdaia-wb-article.bdaia-wba-bigsh .entry-title{font-family: 'Roboto'; }
+.single .bdaia-meta-info, .page .bdaia-meta-info{font-family: 'Roboto'; }
+.bdaia-post-title .entry-title{font-family: 'Roboto'; }
+.single .bdaia-site-content h4.block-title, .page .bdaia-site-content h4.block-title, .bdaia-author-box .authorBlock-header-title{font-family: 'Roboto'; }
+.single .bdaia-site-content .bdaia-post-content, .single .bdaia-site-content .bdaia-post-content p, .page .bdaia-site-content .bdaia-post-content, .page .bdaia-site-content .bdaia-post-content p{font-size : 18px; line-height : 26px; }
+.single .bdaia-site-content .bdaia-post-content blockquote, .single .bdaia-site-content .bdaia-post-content blockquote p, .page .bdaia-site-content .bdaia-post-content blockquote, .page .bdaia-site-content .bdaia-post-content blockquote p{font-size : 16px; line-height : 22px; font-weight: 400; text-transform: none; }
+.bdaia-site-content .bdaia-post-content h1{font-family: 'Roboto'; }
+.bdaia-site-content .bdaia-post-content h2{font-family: 'Roboto'; }
+.bdaia-site-content .bdaia-post-content h3{font-family: 'Roboto'; }
+.bdaia-site-content .bdaia-post-content h4{font-family: 'Roboto'; }
+.bdaia-site-content .bdaia-post-content h5{font-family: 'Roboto'; }
+.bdaia-site-content .bdaia-post-content h6{font-family: 'Roboto'; }
+
+</style>
+<!--[if IE]>
+<script type="text/javascript">jQuery(document).ready(function (){ jQuery(".menu-item").has("ul").children("a").attr("aria-haspopup", "true");});</script>
+<![endif]-->
+<!--[if lt IE 9]>
+<script src="https://xakep.ru/wp-content/themes/woohoo/js/html5.js"></script>
+<script src="https://xakep.ru/wp-content/themes/woohoo/js/selectivizr-min.js"></script>
+<![endif]-->
+<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" media="all" href="https://xakep.ru/wp-content/themes/woohoo/css/ie9.css" />
+<![endif]-->
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" media="all" href="https://xakep.ru/wp-content/themes/woohoo/css/ie8.css" />
+<![endif]-->
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" media="all" href="https://xakep.ru/wp-content/themes/woohoo/css/ie7.css" />
+<![endif]-->
+	<link rel="icon" href="https://xakep.ru/wp-content/uploads/2017/06/xakep-favicon-93x93.png" sizes="32x32" />
+<link rel="icon" href="https://xakep.ru/wp-content/uploads/2017/06/xakep-favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://xakep.ru/wp-content/uploads/2017/06/xakep-favicon.png" />
+<meta name="msapplication-TileImage" content="https://xakep.ru/wp-content/uploads/2017/06/xakep-favicon.png" />
+		<style type="text/css" id="wp-custom-css">
+			#xakep-socials {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+  margin: 0;
+}
+
+#xakep-socials a {
+    max-width: 100px;
+    width: 100%;
+    opacity: 0.8;
+    line-height: 0px;
+    display: relative;
+    margin: 0;
+}
+
+#xakep-socials svg {
+    max-width: 100px;
+    width 100%;
+    height: auto;
+}
+
+.login__selection:has(#register:checked) ~ .inputs #company-register-wrap {
+	display: none;
+}
+		</style>
+		
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="https://xakep.ru/2026/04/17/deltachat/" />
+	<meta property="og:title" content="Delta Chat изнутри. Как устроен мессенджер, работающий поверх электронной почты" />
+	<meta property="og:description" content="Мессенджер без собственных серверов, без номера телефона, без привязки к облаку — и при этом с end-to-end-шифрованием из коробки. Delta Chat работает поверх обычной электронной почты: сообщения идут по IMAP и SMTP, но шифруются через OpenPGP. Снаружи — привычный чат с контактами, группами и мгновенной доставкой. Внутри — нетривиальная связка криптографии, протоколов рукопожатия и жестких ограничений на формат пакетов." />
+	<meta property="og:image" content="https://xakep.ru/wp-content/uploads/2026/04/574106/deltachat.jpg" />
+
+</head>
+<body class="wp-singular post-template-default single single-post postid-574106 single-format-standard wp-theme-woohoo " itemscope itemtype="http://schema.org/WebPage">
+
+<div class="bdaia-header-default bdaia-post-template-style7  bdaia-sidebar-none  page-outer">
+	<div class="bg-cover"></div>
+	<aside id="bd-MobileSiderbar">
+					<div class="search-mobile">
+				<form role="search" method="get" class="search-form" action="https://xakep.ru/">
+				<label>
+					<span class="screen-reader-text">Найти:</span>
+					<input type="search" class="search-field" placeholder="Поиск&hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Поиск" />
+			</form>			</div>
+				<div id="mobile-menu"></div>
+					<div class="widget-social-links bdaia-social-io-colored">
+				<div class="sl-widget-inner">
+									</div>
+			</div>
+			</aside>
+	<div id="page">
+		<div class="inner-wrapper">
+			<div id="warp" class="clearfix  bdaia-sidebar-none ">
+				
+<div class="header-wrapper bdaia-hibryd-menu">
+	
+	
+	
+	<style scoped>.bdaia-header-default #navigation .primary-menu #menu-primary > li > a, .bdaia-header-default #navigation .primary-menu #menu-primary > li > a > *, #navigation .bdaia-cart, .bdaia-nav-search, #navigation .bdaia-random-post{color: #ededed !important;} .bdaia-header-default #navigation .primary-menu #menu-primary > li.bd_mega_menu > a:before, .bdaia-header-default #navigation .primary-menu #menu-primary > li.menu-item-object-category > a:before, .bdaia-header-default #navigation .primary-menu #menu-primary > li.menu-item-has-children > a:before{border-top-color:#ededed;}.bdaia-header-default #navigation .primary-menu #menu-primary > li > a:hover, .bdaia-header-default #navigation .primary-menu #menu-primary > li:hover > a {color: #ffffff;}.bdaia-header-default #navigation .primary-menu ul#menu-primary > li:hover > a, .bdaia-header-default #navigation .primary-menu ul#menu-primary > li.current-menu-item > a, .bdaia-header-default #navigation .primary-menu ul#menu-primary > li.current-menu-ancestor > a, .bdaia-header-default #navigation .primary-menu ul#menu-primary > li.current-menu-parent > a, #navigation .bdaia-cart, .bdaia-nav-search, #navigation .bdaia-random-post {background: #23282D; border : 0 none !important; color: #ffffff;}</style><div class="cfix"></div>
+<nav id="navigation" style="background: #32393D; border-top-color:transparent !important">
+    <div class="navigation-wrapper" style="background: #32393D; border-top-color:transparent !important">
+        <div class="bd-container">
+            <div class="bdayh-click-open"><div class="bd-ClickOpen bd-ClickAOpen"><span></span></div></div>
+            <style type=text/css>
+                .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu{z-index:111;}
+                #menu-profile{z-index:1;}
+
+                #menu-profile{position:absolute;top:0;right:0;min-width:120px;max-width:200px;height:60px;color:#fff;padding:10px 0 10px 50px;}
+                #menu-profile a{color:#fff;}
+                #menu-profile .username{display:block;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+                #menu-profile>img{border-radius:50%;border: solid 2px #fff;max-width: 42px;max-height: 42px;position: absolute;top:10px;left:0;}
+                #menu-profile>a{text-decoration:underline;}
+                #menu-profile .login-link{display:block;float:right;margin:10px 5px 0 0;}
+                #menu-profile .links{display:none;position:absolute;width:210px;left:0;top:55px;padding:10px 0;background-color: #32393D;border: solid 1px #fff;border-radius: 6px;color: #fff;box-shadow: 0 5px 15px #000;}
+                #menu-profile .links:before{content:'';display:block;position:absolute;width:16px;height:16px;border:solid 8px transparent;border-bottom-color: #fff;top:-16px;left:12px;}
+                #menu-profile .links a{display:block;padding:2px 15px;}
+                #menu-profile .links .logout{display:none;}
+                #menu-profile .links a:hover{background-color:#23282D;}
+                #menu-profile:hover .links, #menu-profile:focus .links, #menu-profile .links:hover, #menu-profile .links:focus{display:block;}
+
+                #navigation .primary-menu{position:relative !important;}
+                #navigation .secondary-menu{position:relative;height:34px;background-color:#23282D;}
+                #navigation .secondary-menu:before, #navigation .secondary-menu:after{content:'';display:block;position:absolute;top:0;width:100%;height:34px;background-color:#23282D;}
+                #navigation .secondary-menu:before{left:-100%;}
+                #navigation .secondary-menu:after{right:-100%;}
+                #navigation .mobile-subscribe{display:none;text-align:center;height:34px;line-height:34px;color:#fff;text-decoration:underline;}
+                #navigation .secondary-menu #menu-tags{float:left;height:34px;margin:0;}
+                #navigation .secondary-menu #menu-tags li{display:inline-block;}
+                #navigation .secondary-menu #menu-tags li a {display:inline-block;height:34px;line-height:34px;color: #fff;padding:0 10px;}
+                #navigation .secondary-menu #menu-tags li a:hover{background-color:#32393D;}
+                .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu #navigation .bdaia-alert-new-posts, .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu #navigation .bdaia-alert-new-posts span, .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu #navigation .bdaia-random-post, .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu #navigation .bdaia-random-post .bdaia-io, .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu #navigation .bdaia-cart, .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu #navigation .bdaia-cart .bdaia-io, .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu .bdaia-nav-search, .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu .bdaia-nav-search .bdaia-ns-btn.bdaia-io{height:34px;line-height:34px;}
+                .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu .bdaia-nav-search, .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu .bdaia-nav-search .bdaia-ns-btn.bdaia-io{font-size: 18px;}
+                #navigation .bdaia-alert-new-posts {padding: 0 30px; font-weight: 700;}
+                .bdaia-hibryd-menu .bdayh-click-open, .bdaia-hibryd-menu .bd-ClickOpen{width:60px;height:60px;line-height:60px;background-color:transparent;}
+                .bdaia-hibryd-menu .bd-ClickOpen{padding:0 0 0 12px;}
+                .bdaia-hibryd-menu .bd-ClickOpen span{margin:20px 0 0 0 !important;}
+                .bdaia-hibryd-menu .bd-ClickOpen span, .bdaia-hibryd-menu .bd-ClickOpen span:after, .bdaia-hibryd-menu .bd-ClickOpen span:before {height:3px;width:32px;}
+                .bdaia-hibryd-menu .bd-ClickOpen span {margin: 16px 0 0 0;}
+                #bd-MobileSiderbar #menu-tags{display:block;border-top: solid 8px #eee;}
+                #bd-MobileSiderbar #menu-tags li{display:block;}
+
+                @media (min-width: 768px) {
+                    .bdaia-header-default .bdayh-click-open {display: none !important;}
+                    .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu #navigation div.bdaia-nav-search,
+                    .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu #navigation ul#menu-primary{display:block !important;}
+                    #navigation .primary-menu {position:absolute;width: 100%;overflow: hidden;}
+                    .bdaia-header-default div.header-wrapper.bdaia-hibryd-menu div.logo {
+                        float: left;
+                        padding-left: 0;
+                        padding-right: 10px;
+                        max-height: 60px;
+                    }
+                }
+                @media (max-width:900px){
+                    #menu-profile{width:60px !important;min-width:0;padding:0;right:-2%;}
+                    #menu-profile>span, #menu-profile>.logout-link{display:none !important;}
+                    #menu-profile .login-link{margin:20px 5px 0 0;}
+                    #menu-profile .links{left:auto;right:18px;}
+                    #menu-profile .links:before{left:auto;right:12px;}
+                    #menu-profile .links .logout{display:block;}
+                    #menu-profile>img{display:block !important;}
+                }
+                @media (max-width:767px){
+                    #menu-profile{right:-5.5%;}
+                    #menu-profile .links a{padding:7px 15px;}
+                    #navigation .secondary-menu #menu-tags{display:none;}
+                    #navigation .mobile-subscribe{display:block;}
+                    body.subscriber #navigation .secondary-menu{display:none!important;}
+                }
+                @media (max-width:479px){
+                    #menu-profile{right:0;}
+                }
+                .bdaia-blocks.bdaia-block6{z-index:0;}
+            </style>
+            <div id="menu-profile" tabindex=0>                    <a href="https://xakep.ru/login/?redirect_to=https%3A%2F%2Fxakep.ru%2F2026%2F04%2F17%2Fdeltachat%2F" class=login-link>Вход</a>
+                </div>
+
+
+                            <div class="primary-menu">
+                                                                
+    <div class="logo">
+        <h2 class="site-title" title="Факультет компьютерной опасности">                        <a href="https://xakep.ru/" rel="home">
+                <img src="https://xakep.ru/wp-content/uploads/2018/09/x-new_6.png" alt="Хакер" />
+            </a>
+                        </h2>    </div><!-- End Logo -->
+                                        <ul id="menu-primary">
+                        <li id="menu-item-154670" class=" menu-item menu-item-type-taxonomy menu-item-object-category bd_depth- bd_menu_item " ><a href="https://xakep.ru/category/hack/">  <span class="menu-label" style="" >Взлом</span></a>
+
+<div class="mega-menu-content">
+</div><li id="menu-item-154675" class=" menu-item menu-item-type-taxonomy menu-item-object-category bd_depth- bd_menu_item " ><a href="https://xakep.ru/category/privacy/">  <span class="menu-label" style="" >Приватность</span></a>
+
+<div class="mega-menu-content">
+</div><li id="menu-item-154678" class=" menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent bd_depth- bd_menu_item " ><a href="https://xakep.ru/category/tricks/">  <span class="menu-label" style="" >Трюки</span></a>
+
+<div class="mega-menu-content">
+</div><li id="menu-item-154671" class=" menu-item menu-item-type-taxonomy menu-item-object-category bd_depth- bd_menu_item " ><a href="https://xakep.ru/category/coding/">  <span class="menu-label" style="" >Кодинг</span></a>
+
+<div class="mega-menu-content">
+</div><li id="menu-item-154669" class=" menu-item menu-item-type-taxonomy menu-item-object-category bd_depth- bd_menu_item " ><a href="https://xakep.ru/category/admin/">  <span class="menu-label" style="" >Админ</span></a>
+
+<div class="mega-menu-content">
+</div><li id="menu-item-154702" class=" menu-item menu-item-type-taxonomy menu-item-object-category bd_depth- bd_menu_item " ><a href="https://xakep.ru/category/geek/">  <span class="menu-label" style="" >Geek</span></a>
+
+<div class="mega-menu-content">
+</div><li id="menu-item-582067" class="blue menu-item menu-item-type-custom menu-item-object-custom bd_depth- bd_menu_item " ><a href="https://xakep.ru/issues/xb/008/">  <span class="menu-label" style="" >Курс</span></a>
+
+<div class="mega-menu-content">
+</div><li id="menu-item-505321" class="red menu-item menu-item-type-custom menu-item-object-custom bd_depth- bd_menu_item " ><a target="_blank" href="https://xakep.shop/">  <span class="menu-label" style="" >Журналы</span></a>
+
+<div class="mega-menu-content">
+</div>                    </ul>
+                </div>
+
+                <div class="cfix"></div>
+                <div class="secondary-menu">
+                    <a class=mobile-subscribe href="/wp-admin/users.php?page=paywall_subscribes&from=paywall_subscribe&subscribe=12_months">Подписаться на материалы</a>
+                    <div class="menu-tags-container"><ul id="menu-tags" class="menu"><li id="menu-item-159917" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-159917"><a href="https://xakep.ru/tag/windows/">Windows</a></li>
+<li id="menu-item-159918" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-159918"><a href="https://xakep.ru/tag/linux/">Linux</a></li>
+<li id="menu-item-159919" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-159919"><a href="https://xakep.ru/tag/android/">Android</a></li>
+<li id="menu-item-159921" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-159921"><a href="https://xakep.ru/tag/zhelezo/">Железо</a></li>
+<li id="menu-item-452807" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-452807"><a href="https://xakep.ru/tag/python/">Python</a></li>
+<li id="menu-item-452808" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-452808"><a href="https://xakep.ru/tag/iskusstvennyj-intellekt/">AI</a></li>
+<li id="menu-item-568229" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag menu-item-568229"><a href="https://xakep.ru/tag/knowledge/">Новичкам</a></li>
+<li id="menu-item-355822" class="hidden menu-item menu-item-type-custom menu-item-object-custom menu-item-355822"><a target="_blank" href="https://xakep.ru/issues/xa/">Все выпуски «Хакера»</a></li>
+<li id="menu-item-483595" class="hidden menu-item menu-item-type-custom menu-item-object-custom menu-item-483595"><a href="https://xakep.shop/advert">Реклама на «Хакере»</a></li>
+</ul></div>                    <span class="bdaia-alert-new-posts">Выпуски</span>
+                                            <div class="bdaia-nav-search">
+                            <span class="bdaia-ns-btn bdaia-io bdaia-io-search"></span>
+                            <div class="bdaia-ns-wrap">
+                                <div class="bdaia-ns-content">
+                                    <div class="bdaia-ns-inner">
+                                        <form method="get" id="searchform" action="/">
+                                            <input type="text" class="bbd-search-field" id="s" name="s" placeholder="Поиск по сайту" />
+                                            <button type="submit" class="bbd-search-btn"><span class="bdaia-io bdaia-io-search"></span></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                    </div>
+            
+                            <div class="cfix"></div>
+                <style type=text/css>
+                                    </style>
+                <div class=bdaia-alert-new-posts-content>
+                    <div class=bdaia-alert-new-posts-inner>
+                        <div class=bdaia-anp-inner>
+                            <a href=/issues title="Все выпуски «Хакера»" class="bdaia-io bdaia-io-angle-double-left">&nbsp;</a>
+                            
+
+
+                                                                <div class="bd-col-xs-4 bd-col-sm-3 bd-col-md-2 sub">
+                                        <a href="/about" target=_blank>
+                                            <p class=desc>
+                                                <img src=/wp-content/plugins/xakep-core/images/xakep_logo_w.png alt= />
+                                                Годовая<br/>подписка<br/>на<br/><strong>Хакер</strong>
+                                            </p>
+                                            <img src=/wp-content/plugins/xakep-core/images/issue-stub.png width=210 height=280 alt= />
+                                        </a>
+                                        <span class="starburst"><span><span><span>-40%</span></span></span></span>                                    </div>
+                                    <div class="bd-col-xs-4 bd-col-sm-3 bd-col-md-2 current_issue">
+                                        <div class=img-wrap>
+                                            <a href="/issues/xa/327"><img width="210" height="280" src="https://xakep.ru/wp-content/uploads/2026/06/576679/327-210x280.jpg" class="attachment-medium size-medium wp-post-image" alt="" decoding="async" fetchpriority="high" srcset="https://xakep.ru/wp-content/uploads/2026/06/576679/327-210x280.jpg 210w, https://xakep.ru/wp-content/uploads/2026/06/576679/327-70x93.jpg 70w, https://xakep.ru/wp-content/uploads/2026/06/576679/327-768x1024.jpg 768w, https://xakep.ru/wp-content/uploads/2026/06/576679/327-1152x1536.jpg 1152w, https://xakep.ru/wp-content/uploads/2026/06/576679/327.jpg 1536w" sizes="(max-width: 210px) 100vw, 210px" /></a>
+                                            <p class=title>Хакер #327. Doom.ttf</p>
+                                        </div>
+                                        </div><div class="bd-col-xs-4 bd-col-sm-3 bd-col-md-2 ">
+                                        <div class=img-wrap>
+                                            <a href="/issues/xb/008"><img width="210" height="280" src="https://xakep.ru/wp-content/uploads/2026/08/575438/pentest-web-cover-210x280.jpg" class="attachment-medium size-medium wp-post-image" alt="" decoding="async" srcset="https://xakep.ru/wp-content/uploads/2026/08/575438/pentest-web-cover-210x280.jpg 210w, https://xakep.ru/wp-content/uploads/2026/08/575438/pentest-web-cover-70x93.jpg 70w, https://xakep.ru/wp-content/uploads/2026/08/575438/pentest-web-cover-768x1024.jpg 768w, https://xakep.ru/wp-content/uploads/2026/08/575438/pentest-web-cover.jpg 1024w" sizes="(max-width: 210px) 100vw, 210px" /></a>
+                                            <p class=title>Пентест WEB: практический курс для начинающих</p>
+                                        </div>
+                                        </div><div class="bd-col-xs-4 bd-col-sm-3 bd-col-md-2 ">
+                                        <div class=img-wrap>
+                                            <a href="/issues/xa/326"><img width="210" height="280" src="https://xakep.ru/wp-content/uploads/2026/05/575151/326-210x280.jpg" class="attachment-medium size-medium wp-post-image" alt="" decoding="async" srcset="https://xakep.ru/wp-content/uploads/2026/05/575151/326-210x280.jpg 210w, https://xakep.ru/wp-content/uploads/2026/05/575151/326-70x93.jpg 70w, https://xakep.ru/wp-content/uploads/2026/05/575151/326-768x1024.jpg 768w, https://xakep.ru/wp-content/uploads/2026/05/575151/326-1152x1536.jpg 1152w, https://xakep.ru/wp-content/uploads/2026/05/575151/326.jpg 1536w" sizes="(max-width: 210px) 100vw, 210px" /></a>
+                                            <p class=title>Хакер #326. Router from Hell</p>
+                                        </div>
+                                        </div><div class="bd-col-xs-4 bd-col-sm-3 bd-col-md-2 ">
+                                        <div class=img-wrap>
+                                            <a href="/issues/xa/325"><img width="210" height="280" src="https://xakep.ru/wp-content/uploads/2026/04/573447/325-210x280.jpg" class="attachment-medium size-medium wp-post-image" alt="" decoding="async" srcset="https://xakep.ru/wp-content/uploads/2026/04/573447/325-210x280.jpg 210w, https://xakep.ru/wp-content/uploads/2026/04/573447/325-70x93.jpg 70w, https://xakep.ru/wp-content/uploads/2026/04/573447/325-768x1024.jpg 768w, https://xakep.ru/wp-content/uploads/2026/04/573447/325-1152x1536.jpg 1152w, https://xakep.ru/wp-content/uploads/2026/04/573447/325.jpg 1536w" sizes="(max-width: 210px) 100vw, 210px" /></a>
+                                            <p class=title>Хакер #325. Шпионские штучки</p>
+                                        </div>
+                                        </div><div class="bd-col-xs-4 bd-col-sm-3 bd-col-md-2 ">
+                                        <div class=img-wrap>
+                                            <a href="/issues/xa/324"><img width="210" height="280" src="https://xakep.ru/wp-content/uploads/2026/05/571117/324-1-210x280.jpg" class="attachment-medium size-medium wp-post-image" alt="" decoding="async" srcset="https://xakep.ru/wp-content/uploads/2026/05/571117/324-1-210x280.jpg 210w, https://xakep.ru/wp-content/uploads/2026/05/571117/324-1-70x93.jpg 70w, https://xakep.ru/wp-content/uploads/2026/05/571117/324-1-768x1024.jpg 768w, https://xakep.ru/wp-content/uploads/2026/05/571117/324-1-1152x1536.jpg 1152w, https://xakep.ru/wp-content/uploads/2026/05/571117/324-1.jpg 1536w" sizes="(max-width: 210px) 100vw, 210px" /></a>
+                                            <p class=title>Хакер #324. Всякое с моделями</p>
+                                        </div>
+                                        </div>                                    
+
+
+
+                        </div>
+                        <div class="cfix"></div>
+                    </div>
+                </div>
+            
+            <div class="cfix"></div>
+        </div>
+    </div>
+</nav>
+<div class="cfix"></div>
+
+</div>
+
+
+				<div class='bdaia-post-style7-head'><a class='bdaia-featured-img-cover' style='background-image:url(https://xakep.ru/wp-content/uploads/2026/04/574106/deltachat.jpg);'></a><div class="bd-container"><header class="bdaia-post-header">
+          <div class="bdaia-category"><a class='bd-cat-link bd-cat-4926' href='https://xakep.ru/category/tricks/'>Трюки</a><a class='bd-cat-link bd-cat-4936' href='https://xakep.ru/category/xa/'>Хакер</a></div>
+          <div class="bdaia-post-title"><a href="https://xakep.ru/2026/04/17/deltachat/"><h1 class="post-title entry-title">Delta Chat изнутри. Как устроен мессенджер, работающий поверх электронной почты</h1></a></div>
+          
+    <div class="bdaia-meta-info">
+
+                        <div class="bdaia-post-author-name">
+                <a href="https://xakep.ru/author/mr-grogrig/" title="Записи mr.grogrig" rel="author">mr.grogrig</a>                </div>
+                    <div class="bdaia-post-date"><span class='bdayh-date'>17.04.2026</span></div>
+        
+        
+                    <div class="bdaia-post-comment">
+                <span class='bdaia-io bdaia-io-bubble'></span>
+                <a href='#wpdcom'>1 комментарий</a>
+                            </div>
+        
+                    <div class="bdaia-post-view">
+                <span class='bdaia-io bdaia-io-eye4'></span>
+                20,744            </div>
+        
+                    <div class="bdaia-post-like"></div>
+        
+    </div>
+
+<!-- END Meta Info. -->
+          <div class="bdaia-post-read-down"><a href="#"><span class="bdaia-io bdaia-io-angle-double-down"></span></a></div>
+        </header></div><img class='bdaia-featured-img-mobile' src='https://xakep.ru/wp-content/uploads/2026/04/574106/deltachat.jpg' /></div>				
+								
+									<div class="cfix"></div>
+					<div class="bdaia-hibryd-e3">
+						
+						</div>
+					<div class="cfix"></div>
+																				<div class="bdMain">
+<style type=text/css>
+  .bdaia-post-template-style7 .bdaia-featured-img-mobile {display:none;margin: 20px auto 0;}
+  @media only screen and (max-width: 767px) {
+    .bdaia-post-template-style7 .bdaia-post-style7-head {background-color:transparent;margin:15px 0 -5px;}
+    .bdaia-post-template-style7 .bdaia-post-style7-head * {color:#222; text-shadow:none;}
+    .bdaia-post-template-style7 .bdaia-post-style7-head .bd-container{height:auto; padding:0;}
+    .bdaia-post-template-style7 .bdaia-post-style7-head .bdaia-post-header{position:relative; text-align:left; padding:0;}
+    .bdaia-post-template-style7 .bdaia-post-style7-head .bdaia-meta-info {margin:0;}
+    .bdaia-post-template-style7 .bdaia-post-style7-head .bdaia-meta-info * {color:#444;}
+    .bdaia-post-template-style7 .bdaia-featured-img-mobile {display:block;}
+
+    .bdaia-post-template-style7 #content .bdaia-post-style7-head{margin:20px auto;}
+    .bdaia-post-template-style7 #content .bdaia-post-style7-head .bd-container{width:100% !important; max-width:100% !important; padding:0;}
+
+    #navigation .secondary-menu,
+    .bdaia-post-template-style7 .bdaia-featured-img-cover,
+    .bdaia-post-template-style7 .bdaia-post-style7-head .bdaia-category,
+    .bdaia-post-template-style7 .bdaia-post-style7-head .bdaia-post-time-read,
+    .bdaia-post-template-style7 .bdaia-post-style7-head .bdaia-post-read-down,
+    #amp-link{display:none !important;}
+    #bookmark, #bookmark .add, #bookmark .add *{color:#444;}
+    #bookmark:hover, #bookmark .del, #bookmark .del *{color:#d20;}
+  }
+  @media only screen and (max-width: 480px) {
+    .bdaia-post-template-style7 .bdaia-post-style7-head .bd-container{padding:0 10px;}
+  }
+  </style>
+<!--div id=amp-link><a href=https://xakep.ru/2026/04/17/deltachat/?amp>Мобильная версия статьи</a></div-->
+<div class="bd-container bdaia-post-template">
+  <div class="bd-main bdaia-site-content" id="bdaia-primary">
+
+    <div id="content" role="main"><article id="post-574106" data-id="574106" class="hentry post-574106 post type-post status-publish format-standard has-post-thumbnail category-tricks category-xa tag-imap tag-openpgp tag-smtp tag-vybor-redaktora tag-articles tag-xakep-lite" itemscope itemtype="http://schema.org/Article">
+        <section class="x-shelf x-shelf--single"
+         data-placement="single"
+         data-metrika-id="88149838"
+         data-article-id="574106">
+
+            <div class="x-shelf__head">
+                            <h2 class="x-shelf__title">Продукты «Хакера»</h2>
+            
+                    </div>
+    
+    <ul class="x-shelf__grid">
+                    <li class="x-shelf__card">
+                <div class="x-shelf__media">
+                                            <img class="x-shelf__image"
+                             src="https://xakep.ru/wp-content/uploads/2026/09/Oblozhka-3-kvartalnyj-359x280.png"
+                             width="359"
+                             height="280"
+                             alt="Ежеквартальный «Хакер» #3"
+                             loading="lazy" decoding="async"/>
+                    
+                                    </div>
+
+                <h3 class="x-shelf__card-title">Ежеквартальный «Хакер» #3</h3>
+
+                                    <p class="x-shelf__card-desc">Лучшие статьи квартала на бумаге</p>
+                
+                                    <p class="x-shelf__price">2 000 ₽</p>
+                
+                <a class="x-shelf__cta"
+                   href="https://xakep.shop/xakep-2026-3"
+                   data-product="magazine"
+                   data-position="1">Заказать журнал</a>
+            </li>
+                    <li class="x-shelf__card">
+                <div class="x-shelf__media">
+                                            <img class="x-shelf__image"
+                             src="https://xakep.ru/wp-content/uploads/2026/09/neon_matrix_style_xakep.ru_subscription_poster-280x280.png"
+                             width="280"
+                             height="280"
+                             alt="Годовая подписка на Xakep.ru"
+                             loading="lazy" decoding="async"/>
+                    
+                                    </div>
+
+                <h3 class="x-shelf__card-title">Годовая подписка на Xakep.ru</h3>
+
+                                    <p class="x-shelf__card-desc">Полный доступ к статьям и архиву выпусков</p>
+                
+                                    <p class="x-shelf__price">6 000 ₽ в год</p>
+                
+                <a class="x-shelf__cta"
+                   href="https://xakep.ru/about-magazine/?utm_source=xakep&#038;utm_medium=shelf&#038;utm_campaign=single&#038;utm_content=year_sub"
+                   data-product="year_sub"
+                   data-position="2">Подписаться</a>
+            </li>
+                    <li class="x-shelf__card">
+                <div class="x-shelf__media">
+                                            <img class="x-shelf__image"
+                             src="https://xakep.ru/wp-content/uploads/2026/09/pentest-web-light-wp-210x280.png"
+                             width="210"
+                             height="280"
+                             alt="«Пентест WEB» для начинающих"
+                             loading="lazy" decoding="async"/>
+                    
+                                    </div>
+
+                <h3 class="x-shelf__card-title">«Пентест WEB» для начинающих</h3>
+
+                                    <p class="x-shelf__card-desc">Совместный курс «Хакера» и лаборатории «Хаксет»</p>
+                
+                                    <p class="x-shelf__price">7 000 ₽</p>
+                
+                <a class="x-shelf__cta"
+                   href="https://xakep.ru/issues/xb/008/?utm_source=xakep&#038;utm_medium=shelf&#038;utm_campaign=single&#038;utm_content=card-3"
+                   data-product="card-3"
+                   data-position="3">Купить курс</a>
+            </li>
+                    <li class="x-shelf__card">
+                <div class="x-shelf__media">
+                                            <img class="x-shelf__image"
+                             src="https://xakep.ru/wp-content/uploads/2026/09/oblozhka-4-spets-e1789034766311-254x280.jpg"
+                             width="254"
+                             height="280"
+                             alt="Спецвыпуск «Хакера» #4"
+                             loading="lazy" decoding="async"/>
+                    
+                                    </div>
+
+                <h3 class="x-shelf__card-title">Спецвыпуск «Хакера» #4</h3>
+
+                                    <p class="x-shelf__card-desc">Лучшие статьи за 2021–2022 годы на бумаге</p>
+                
+                                    <p class="x-shelf__price">2 000 ₽</p>
+                
+                <a class="x-shelf__cta"
+                   href="https://xakep.shop/paper-special-4"
+                   data-product="course"
+                   data-position="4">Заказать журнал</a>
+            </li>
+            </ul>
+</section>
+          <div class="bdaia-post-content">
+            <div id="sticker"><div class="theiaStickySidebar"><a
+    href="https://bit.ly/4yiZMHW"
+    target="_blank"
+    style="display: block; padding-bottom: 20px"
+>
+    <img
+        src="https://static.xakep.ru/advert/2026/banner_hacker2.png"
+        alt="CyberYozh"
+        style="width: 100%; height: auto"
+    />
+</a>
+</div></div>
+            <div id=toc><h3>Содержание статьи</h3><ul><li class=h2 data-id=01.><a href=#toc01.>Быстрый старт</a></li><li class=h2 data-id=02.><a href=#toc02.>Система релеев</a></li><li class=h2 data-id=03.><a href=#toc03.>Пишем свой клиент</a></li><li class=h3 data-id=03.1><a href=#toc03.1>Регистрация</a></li><li class=h3 data-id=03.2><a href=#toc03.2>Создание аккаунта</a></li><li class=h3 data-id=03.3><a href=#toc03.3>Генерация ключа PGP</a></li><li class=h3 data-id=03.4><a class=cut href=#xakepcut>Сохранение</a></li><li class=h3 data-id=03.5><a class=cut href=#xakepcut>Добавление контакта и отправка сообщения</a></li><li class=h3 data-id=03.6><a class=cut href=#xakepcut>Свойства Autocrypt</a></li><li class=h3 data-id=03.7><a class=cut href=#xakepcut>Эхо-бот</a></li><li class=h2 data-id=04.><a class=cut href=#xakepcut>Приложения</a></li><li class=h2 data-id=05.><a class=cut href=#xakepcut>Безопасность</a></li><li class=h2 data-id=06.><a class=cut href=#xakepcut>Заключение</a></li></ul></div><article id=article574106 class='xmd tricks'><div id="lead1" class="lead">Мес­сен­джер без собс­твен­ных сер­веров, без номера телефо­на, без при­вяз­ки к обла­ку — и при этом с end-to-end-шиф­ровани­ем из короб­ки. Delta Chat работа­ет поверх обыч­ной элек­трон­ной поч­ты: сооб­щения идут по IMAP и SMTP, но шиф­руют­ся через OpenPGP. Сна­ружи — при­выч­ный чат с кон­такта­ми, груп­пами и мгно­вен­ной дос­тавкой. Внут­ри — нет­риви­аль­ная связ­ка крип­тогра­фии, про­токо­лов рукопо­жатия и жес­тких огра­ниче­ний на фор­мат пакетов.</div><div id=toc01. class=toch>&nbsp;</div><h2>Быстрый старт</h2><p id="p1">При­ложе­ние качай с <a id="link1" href="https://delta.chat/ru/">офи­циаль­ного сай­та</a> — есть вер­сии для Android, iOS, Windows, macOS и Linux. При пер­вом запус­ке дос­таточ­но ввес­ти имя поль­зовате­ля — поч­товый акка­унт соз­дас­тся авто­мати­чес­ки на сер­вере chatmail. При желании мож­но под­клю­чить собс­твен­ный акка­унт Gmail или «Яндекса».</p><div id=toc02. class=toch>&nbsp;</div><h2>Система релеев</h2><p id="p2">Из­началь­но Delta Chat задумы­вал­ся как мес­сен­джер поверх любого поч­тового сер­вера, но на прак­тике это при­вело к проб­лемам:</p><div class="bdaia-p-inline-e3-desktop"><div class="bdaia-e3-container"></div></div><ul id="ul1"><li id="li1">спам‑филь­тры уда­ляли зашиф­рован­ные сооб­щения;</li><li id="li2">сер­веры огра­ничи­вали чис­ло пересы­лок в час;</li><li id="li3">сер­веры собира­ли метадан­ные;</li><li id="li4">ре­гис­тра­ция тре­бова­ла номер телефо­на;</li><li id="li5">при пересыл­ке ломались заголов­ки.</li></ul>
+<p id="p3">Вдо­бавок, если про­вай­дер заб­локиру­ет кон­крет­ный сер­вер, ты фак­тичес­ки лишишь­ся дос­тупа к сво­ему акка­унту. В ответ на эти огра­ниче­ния появи­лись relay-сер­веры.</p><p id="p4">По фак­ту релей — это час­тный поч­товый сер­вер, обыч­но на базе <a id="link2" href="https://github.com/chatmail">chatmail</a>. Любой жела­ющий может арен­довать VPS на Linux, купить домен и за счи­таные минуты <a id="link3" href="https://delta.chat/ru/serverguide">раз­вернуть</a> свой релей.</p><p id="p5">Delta Chat под­держи­вает multi-relay: один акка­унт может иметь нес­коль­ко адре­сов на раз­ных реле­ях. Собесед­ник при получе­нии сооб­щения видит все твои адре­са и отве­чает на каж­дый из них.</p><p id="p6">Это соот­ветс­тву­ет идее федера­тив­ного устрой­ства сети — у чата нет еди­ной точ­ки отка­за. Если <a id="link4" href="https://chatmail.at/relays">пуб­личные</a> сер­веры ста­нут недос­тупны, обще­ние про­дол­жится через час­тные релеи.</p><div id=toc03. class=toch>&nbsp;</div><h2>Пишем свой клиент</h2><p id="p7">Вмес­то того что­бы раз­бирать­ся в мегабай­тах докумен­тации, которая час­то рас­ходит­ся с реали­заци­ей, я поп­росил Claude соб­рать минималь­но работа­ющий кли­ент на чис­том Python, све­ряясь с исходни­ками Delta Chat. Иде­аль­ная задача для ИИ: исходни­ки откры­ты, резуль­тат лег­ко про­веря­ется — либо сооб­щение дош­ло и рас­шифро­валось, либо нет.</p><p id="p8">Для работы нуж­ны два репози­тория:</p><ul id="ul2"><li id="li6"><a id="link5" href="https://github.com/deltachat/deltachat-core-rust">deltachat-core-rust</a> — ядро Delta Chat на Rust. Здесь реали­зова­на вся крип­тогра­фия (через rPGP), про­токол SecureJoin, работа с IMAP и SMTP, фор­мат сооб­щений;</li><li id="li7"><a id="link6" href="https://github.com/chatmail/relay">chatmail</a> — сер­верная часть chatmail-реле­ев. Здесь вид­но, как сер­вер филь­тру­ет сооб­щения (filtermail), какие пакеты при­нима­ет, а какие откло­няет.</li></ul>
+<p id="p9">За­дача — соб­рать кли­ент, у которо­го есть три фун­кции:</p><ol id="ol1"><li id="li8"><strong>Ре­гис­тра­ция</strong> — соз­дать акка­унт на chatmail-сер­вере и сге­нери­ровать ключ PGP.</li><li id="li9"><strong>До­бав­ление кон­такта и отправ­ка</strong> — отпра­вить сооб­щение пер­вым.</li><li id="li10"><strong>Эхо‑бот</strong> — при­нимать вхо­дящие сооб­щения, рас­шифро­вывать и отве­чать на них.</li></ol>
+<p id="p10">Ес­ли все три сце­нария работа­ют — кли­ент отправ­ляет, при­нима­ет, шиф­рует и рас­шифро­выва­ет, — зна­чит, про­токол понят вер­но. Пос­ле это­го раз­бира­ем <a id="link7" href="https://github.com/gr0grig/pydeltachat">по­лучен­ный код</a> вруч­ную.</p><div id=toc03.1 class=toch>&nbsp;</div><h3>Регистрация</h3><code id="code1" class="highlight bash"><div class="wrapper"><div class="l l1"><span class="none">python</span><span class="w"> </span>-m<span class="w"> </span><span class="none">pydeltachat.</span><span class="none">tests.</span><span class="none">register
+</span></div><div class="l l2"><span class="none">python</span><span class="w"> </span>-m<span class="w"> </span><span class="none">pydeltachat.</span><span class="none">tests.</span><span class="none">register</span><span class="w"> </span><span class="none">--</span><span class="none">name</span><span class="w"> </span><span class="s2">"My </span><span class="s2">Bot"</span><span class="w"> </span><span class="none">--</span><span class="none">domain</span><span class="w"> </span><span class="none">nine.</span><span class="none">testrun.</span><span class="none">org
+</span></div></div></code><p id="p11">Скрипт соз­дает новый chatmail-акка­унт с клю­чом PGP, сов­мести­мым с Delta Chat.</p><div id=toc03.2 class=toch>&nbsp;</div><h3>Создание аккаунта</h3><p id="p12">По умол­чанию исполь­зует­ся релей <code id="code2">nine.<wbr></wbr>testrun.<wbr></wbr>org</code>. Скрипт генери­рует слу­чай­ные credentials: 9-сим­воль­ный username и 50-сим­воль­ный пароль из <code id="code3">[<wbr></wbr>a-zA-Z0-9]</code> через <code id="code4">secrets.<wbr></wbr>choice</code> — крип­тогра­фичес­ки стой­кий ГПСЧ.</p><p id="p13">Chatmail-сер­веры реали­зуют instant onboarding: отдель­ной регис­тра­ции нет — акка­унт соз­дает­ся авто­мати­чес­ки при пер­вом IMAP-логине. Скрипт под­клю­чает­ся к сер­веру по IMAP4 SSL, выпол­няет <code id="code5">LOGIN</code> — и акка­унт готов.</p><div id=toc03.3 class=toch>&nbsp;</div><h3>Генерация ключа PGP</h3><p id="p14">Скрипт генери­рует ключ OpenPGP v4, сос­тоящий из двух час­тей.</p>
+</article>	<div id=xakepcut class="xakepcut default">
+	  <div class="wrapper">
+		
+          <h3>Продолжение доступно только участникам</h3>
+      <h4>Вариант&nbsp;1. Присоединись к&nbsp;сообществу «Xakep.ru», чтобы&nbsp;читать все&nbsp;материалы на&nbsp;сайте</h4>
+    
+    <p>
+      Членство в&nbsp;сообществе в&nbsp;течение указанного срока откроет&nbsp;тебе доступ ко&nbsp;ВСЕМ материалам «Хакера», позволит скачивать выпуски в&nbsp;PDF, отключит рекламу на&nbsp;сайте и&nbsp;увеличит личную накопительную скидку!
+      <a target="_blank" href="/subscribe/">Подробнее</a>
+    </p>
+    <table><tr>
+      <td><form method="post" class="subscribe 12_months" action="https://xakep.ru/wp-admin/users.php?page=paywall_subscribes" target="_blank">
+            <input type="hidden" name="from" value="paywall_article">
+            <input type="hidden" name="subscribe" value="12_months">
+            <span class="starburst"><span><span><span>-40%</span></span></span></span>            <h4 class="title">1 ГОД</h4>
+            <p class="price">
+              <span class="striked">9990 рублей</span>              6000&nbsp;р.            </p>
+            <input type="submit" value="ПРИСОЕДИНИТЬСЯ НА ГОД" class="button button-large" />
+                      </form></td><td><form method="post" class="subscribe 1_month" action="https://xakep.ru/wp-admin/users.php?page=paywall_subscribes" target="_blank">
+            <input type="hidden" name="from" value="paywall_article">
+            <input type="hidden" name="subscribe" value="1_month">
+                        <h4 class="title">1 МЕСЯЦ</h4>
+            <p class="price">
+                            950&nbsp;р.            </p>
+            <input type="submit" value="ПРИСОЕДИНИТЬСЯ НА МЕСЯЦ" class="button button-large" />
+                      </form></td>    </tr></table>
+
+          <div class="or"></div>
+      <h4>Вариант&nbsp;2. Оформи подписку на&nbsp;материалы по&nbsp;тегу</h4>
+      <p>
+        Если тебе интересна эта тема целиком, можно открыть доступ не к одному материалу, а ко всем платным статьям выбранного тега.
+      </p>
+      <div class="tag-subscriptions">
+                  <div class="tag-subscription-card">
+                        <h4 class="title">Хакер Лайт</h4>
+            <p class="price">от 1000 р.</p>
+            <p class="desc">
+              Тег:
+              <a href="https://xakep.ru/tag/xakep-lite/" target="_blank">#Хакер Лайт</a>            </p>
+            <a class="button button-large" href="https://xakep.ru/tag-subscriptions/xakep-lite/" target="_blank">
+              Купить подписку            </a>
+          </div>
+              </div>
+    
+          <div class="or"></div>
+      <h4>Вариант&nbsp;3. Открой один&nbsp;материал</h4>
+      <p>
+        Заинтересовала статья, но&nbsp;нет&nbsp;возможности стать членом клуба «Xakep.ru»? Тогда этот&nbsp;вариант для&nbsp;тебя!
+        Обрати&nbsp;внимание: этот&nbsp;способ подходит только&nbsp;для статей, опубликованных более&nbsp;двух&nbsp;месяцев назад.
+      </p>
+            <form method="post" class="subscribe 1_post" action="https://xakep.ru/wp-admin/users.php?page=paywall_subscribes" target="_blank">
+        <input type="hidden" name="from" value="paywall_article">
+        <input type="hidden" name="subscribe" value="1_post">
+        <input type="submit" value="КУПИТЬ ЗА 120 РУБЛЕЙ" class="button button-large" />
+      </form>
+      <br/>
+    
+    <a class="login-link" href="https://xakep.ru/login/?redirect_to=https%3A%2F%2Fxakep.ru%2F2026%2F04%2F17%2Fdeltachat%2F">Я&nbsp;уже участник&nbsp;«Xakep.ru»</a>    <img decoding="async" src="" height="45" alt="" />
+  </div>
+</div>
+<style type="text/css">
+  .xakepcut {
+    position: relative;
+    margin: 0 0 30px;
+  }
+  .xakepcut:before {
+    position: absolute;
+    display: block;
+    top: -202px;
+    left: -10px;
+    right: -10px;
+    height: 200px;
+    content: '';
+    background-color: rgba(255,255,255,0);
+    background-image: -moz-linear-gradient(rgba(255,255,255,0),#fff);
+    background-image: -webkit-linear-gradient(rgba(255,255,255,0),#fff);
+    background-image: linear-gradient(rgba(255,255,255,0),#fff);
+  }
+  .xakepcut .wrapper {
+    text-align: center;
+    background-color: #fafbff;
+    border: solid 4px #ddd;
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    -o-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
+    padding: 40px;
+  }
+  .xakepcut .wrapper:hover {
+    background-color: #f0f1f5;
+    border-color: #3498db;
+  }
+  .xakepcut h1 {font-weight:900 !important;font-size:52px !important;color:#000;margin:0;}
+  .xakepcut p {line-height:18px}
+  .xakepcut h3 {color: #d20; font: normal 26px/30px 'Roboto',sans-serif !important;margin-top:0}
+  .xakepcut h4 {color: #000; font-size: 22px !important; line-height: 24px !important;}
+  .xakepcut small {display: block; max-width: 600px; color: #666; font-size:13px; line-height: 15px; margin: 10px auto;}
+  .xakepcut .or {position:relative; height:2px; background-color:#ccc; margin: 40px 50px 30px;}
+  .xakepcut .or:after {
+    display: block;
+    position: absolute;
+    left: 50%;
+    width: 80px;
+    top: -12px;
+    content: "или";
+    font-size: 21px;
+    color: #999;
+    background-color: #fafbff;
+    margin-left: -40px;
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    -o-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
+  }
+  .xakepcut .wrapper:hover .or:after {background-color: #f0f1f5;}
+  .xakepcut table {width: 100%; border: none !important; margin: 20px auto;}
+  .xakepcut table td {width: 50%; max-width: 400px; border: none !important;}
+  .xakepcut table h4 {font: normal 18px 'Roboto Condensed',sans-serif !important; text-transform: uppercase; color: #666; margin: 0;}
+  .xakepcut table form {position:relative; min-height: 200px; background-color: #d7d8d8; padding: 20px; margin: 0 10px;}
+  .xakepcut table .starburst {right: -10px; top: -10px;}
+  .xakepcut table .striked {position: absolute;
+    display: block;
+    top: -10px;
+    left: 0;
+    right: 0;
+    width: 75px;
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.7;
+    margin: 0 auto;}
+  .xakepcut table .price {position:relative; font: bold 36px 'Roboto Condensed',sans-serif !important; color: #000; margin: 20px auto;}
+  .xakepcut table .price small {display:inline;font-size:50%;line-height:auto}
+  .xakepcut .button {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    color: #fff;
+    background-color: #d20;
+    border: none;
+    padding: 15px 5px;
+    margin: 10px auto 0;
+  }
+  .xakepcut .button:hover, .xakepcut .button:active, .xakepcut .button:focus {
+    background-color: #b10;
+  }
+  .xakepcut .button-success {
+    background-color: #20af24;
+  }
+  .xakepcut .button-success:hover, .xakepcut .button-success:active, .xakepcut .button-success:focus {
+    background-color: #0a8c0e;
+  }
+  .xakepcut table .desc {display: block; font-size: 15px; color: #333; margin-top: 8px;}
+  .xakepcut .tag-subscriptions {display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:20px; margin: 25px auto 10px;}
+  .xakepcut .tag-subscription-card {background-color:#d7d8d8; padding:20px; text-align:center;}
+  .xakepcut .tag-subscription-card .title {font: normal 18px 'Roboto Condensed',sans-serif !important; text-transform: uppercase; color: #666; margin: 0;}
+  .xakepcut .tag-subscription-card .price {position:relative; font: bold 32px 'Roboto Condensed',sans-serif !important; color: #000; margin: 18px auto 12px;}
+  .xakepcut .tag-subscription-card .desc {display:block; font-size:15px; color:#333; margin-top:8px;}
+  .xakepcut .login-link {
+    position: relative;
+    display: block;
+    float: right;
+  }
+  @media (max-width: 632px) {
+    .xakepcut table {margin-bottom: 0;}
+    .xakepcut table td {display: block; width: 100%; max-width: 350px; margin: 0 auto 20px;}
+    .xakepcut table .button {padding: 10px 5px;}
+    .xakepcut table form {min-height: auto;}
+  }
+  @media (min-width: 783px) and (max-width: 991px) {
+    .xakepcut table {margin-bottom: 0;}
+    .xakepcut table td {display: block; width: 100%; max-width: 350px; margin: 0 auto 20px;}
+    .xakepcut table .button {padding: 10px 5px;}
+    .xakepcut table form {min-height: auto;}
+  }
+</style>
+</p>          </div>
+                <footer><div class="bdaia-author-box">
+		<div class="authorBlock-avatar">
+			<a href="https://xakep.ru/author/mr-grogrig/"><img alt='' src='https://secure.gravatar.com/avatar/1ece2c62a5d8c773633a408163c0f8d40bae4db09532a8e27c77eb15eb5afd90?s=150&#038;d=retro&#038;r=g' srcset='https://secure.gravatar.com/avatar/1ece2c62a5d8c773633a408163c0f8d40bae4db09532a8e27c77eb15eb5afd90?s=300&#038;d=retro&#038;r=g 2x' class='avatar avatar-150 photo' height='150' width='150' loading='lazy' decoding='async'/></a>
+		</div>
+
+		<div class="authorBlock-header">
+			<h3 class="authorBlock-header-title vcard author">
+				<span class="fn"><a href="https://xakep.ru/author/mr-grogrig/">mr.grogrig</a></span>
+			</h3>
+
+			<p class="authorBlock-header-bio">
+				Больше материалов в моём телеграме: @grogrigs			</p>
+
+			<div class="authorBlock-meta bdaia-social-io-colored">
+				<div class="bdaia-social-io bdaia-social-io-size-32">
+					<a class='bdaia-io-url-home' href='https://t.me/grogrigs'><span class='bdaia-io bdaia-io-home3'></span>t.me/grogrigs</a>
+									</div>
+			</div>
+		</div>
+	</div><!-- END Author Box. --><div class="clear"></div><div id="wpdcom" class="tagcloud"><span>Теги:</span><a href="https://xakep.ru/tag/imap/" rel="tag">IMAP</a><a href="https://xakep.ru/tag/openpgp/" rel="tag">OpenPGP</a><a href="https://xakep.ru/tag/smtp/" rel="tag">SMTP</a><a href="https://xakep.ru/tag/vybor-redaktora/" rel="tag">Выбор редактора</a><a href="https://xakep.ru/tag/articles/" rel="tag">Статьи</a><a href="https://xakep.ru/tag/xakep-lite/" rel="tag">Хакер Лайт</a></div><div class="clear"></div>            <section id="bdCheckAlso" class="bdCheckAlso-right">
+
+	            <h4 class="block-title">
+		            <span>Читай также</span>
+
+		            <a href="#" id="check-also-close"><span class="bdaia-io bdaia-io-cross"></span></a>
+	            </h4>
+
+                                    <div class="check-also-post">
+                                                    <figure
+                                class="check-also-thumb"  style="background-image:url(https://xakep.ru/wp-content/uploads/2026/09/583207/wp2shell-320x220.jpg);">
+                            </figure>
+                        
+                        <h2 class="post-title"><a href="https://xakep.ru/2026/09/29/wp2shell-2/" rel="bookmark">Ядреная веб-бомба. Разбираем RCE в WordPress без плагинов</a></h2>
+
+                        <p>Впервые за десять лет найден путь прямого взлома WordPress без плагинов. Владельцы сайтов &#8230;</p>
+                    </div>
+                            </section>
+        </footer><div class="bdaia-post-next-prev"><div class="bdaia-post-prev-post"><a href="https://xakep.ru/2026/04/17/nginx-ui/" rel="prev"><span>&larr; Ранее</span> Критическая уязвимость в Nginx UI позволяет получить полный контроль над сервером</a></div><div class="bdaia-post-next-post"><a href="https://xakep.ru/2026/04/17/dawrkweb-law/" rel="next"><span>Далее &rarr;</span> За управление сайтами в даркнете предложили ввести уголовную ответственность</a></div></div><!-- END Previous/Next article. --><span style="display: none;" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+	<meta itemprop="name" content="mr.grogrig">
+</span>
+<meta itemprop="interactionCount" content="UserComments:1">
+<meta itemprop="datePublished" content="2026-04-17T16:30:49+00:00">
+<meta itemprop="dateModified" content="2026-04-17T16:30:49+00:00">
+<meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="https://xakep.ru/2026/04/17/deltachat/">
+<span style="display: none;" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+	<span style="display: none;" itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+		<meta itemprop="url" content="https://xakep.ru/wp-content/uploads/2018/09/x-new_6.png">
+	</span>
+	<meta itemprop="name" content="Хакер">
+</span>
+<meta itemprop="headline " content="Delta Chat изнутри. Как устроен мессенджер, работающий поверх электронной почты">
+<span style="display: none;" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+	<meta itemprop="url" content="https://xakep.ru/wp-content/uploads/2026/04/574106/deltachat.jpg">
+	<meta itemprop="width" content="2000">
+	<meta itemprop="height" content="1333">
+</span></article><li id="block-2" class="widget-odd widget-last widget-first widget-1 widget widget_block"><style type="text/css">
+    .before-comments-telegram-container {
+      background-color: #0693e3;
+      color: white;
+      padding: 2rem;
+    }
+    .before-comments-telegram-container-icon {
+      float: left;
+      max-width: 8rem;
+      max-height: 8rem;
+      border-radius: 24px;
+    }
+    .before-comments-telegram-container-text {
+      margin-left: 6rem;
+    }
+    .before-comments-telegram-container-text > p {
+      margin-bottom: 0.5rem;
+    }
+    .before-comments-telegram-container-text > p > a {
+      display: inline-block;
+      background-color: white;
+      padding: 0.4rem 1rem;
+      font-size: larger;
+    }
+    .before-comments-telegram-container-text > a > h4{
+      margin-top: 0;
+      font-weight: bold;
+      color: white;
+    }
+    .before-comments-telegram-container-cf {
+      display: block;
+      clear: both;
+    }
+
+  </style>
+  <div class="before-comments-telegram-container">
+    <div class="before-comments-telegram-container-icon">
+      <img decoding="async" src="https://static.xakep.ru/assets/tlg-up-01.png">
+    </div>
+    <div class="before-comments-telegram-container-text">
+      <a href="https://t.me/xakep_ru">
+        <h4>Подпишись на наc в Telegram!</h4>
+      </a>
+      <p>Только важные новости и лучшие статьи</p>
+      <p>
+        <a href="https://t.me/xakep_ru">Подписаться</a>
+      </p>
+    </div>
+    <div class="before-comments-telegram-container-cf"></div>
+  </div></li>
+<div class='bdaia-load-comments-btn'><a href="https://xakep.ru/2026/04/17/deltachat/#comments">1 комментарий</a></div>    <div class="wpdiscuz_top_clearing"></div>
+    <div id='comments' class='comments-area'><div id='respond' style='width: 0;height: 0;clear: both;margin: 0;padding: 0;'></div>    <div id="wpdcom" class="wpdiscuz_unauth wpd-default wpd-layout-3 wpd-comments-open">
+                    <div class="wc_social_plugin_wrapper">
+                            </div>
+            <div class="wpd-form-wrap">
+                <div class="wpd-form-head">
+                                            <div class="wpd-sbs-toggle">
+                            <i class="far fa-envelope"></i> <span
+                                class="wpd-sbs-title">Подписаться</span>
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                                            <div class="wpd-auth">
+                                                <div class="wpd-login">
+                            <a href="https://xakep.ru/login/?redirect_to=https%3A%2F%2Fxakep.ru%2F2026%2F04%2F17%2Fdeltachat%2F"><i class='fas fa-sign-in-alt'></i> авторизуйтесь</a>                        </div>
+                    </div>
+                </div>
+                                                    <div class="wpdiscuz-subscribe-bar wpdiscuz-hidden">
+                                                    <form action="https://xakep.ru/wp-admin/admin-ajax.php?action=wpdAddSubscription"
+                                  method="post" id="wpdiscuz-subscribe-form">
+                                <div class="wpdiscuz-subscribe-form-intro">Уведомить о </div>
+                                <div class="wpdiscuz-subscribe-form-option"
+                                     style="width:40%;">
+                                    <select class="wpdiscuz_select" name="wpdiscuzSubscriptionType">
+                                                                                    <option value="post">новых последующих комментариях</option>
+                                                                                                                                <option
+                                                value="all_comment" >новых ответах на мои комментарии</option>
+                                                                                </select>
+                                </div>
+                                                                    <div class="wpdiscuz-item wpdiscuz-subscribe-form-email">
+                                        <input class="email" type="email" name="wpdiscuzSubscriptionEmail"
+                                               required="required" value=""
+                                               placeholder="Email"/>
+                                    </div>
+                                                                    <div class="wpdiscuz-subscribe-form-button">
+                                    <input id="wpdiscuz_subscription_button" class="wpd-prim-button wpd_not_clicked"
+                                           type="submit"
+                                           value="›"
+                                           name="wpdiscuz_subscription_button"/>
+                                </div>
+                                <input type="hidden" id="wpdiscuz_subscribe_form_nonce" name="wpdiscuz_subscribe_form_nonce" value="128b71c59a" /><input type="hidden" name="_wp_http_referer" value="/2026/04/17/deltachat/" />                            </form>
+                                                </div>
+                            <div
+            class="wpd-form wpd-form-wrapper wpd-main-form-wrapper" id='wpd-main-form-wrapper-0_0'>
+                                </div>
+                <div id="wpdiscuz_hidden_secondary_form" style="display: none;">
+                    <div
+            class="wpd-form wpd-form-wrapper wpd-secondary-form-wrapper" id='wpd-secondary-form-wrapper-wpdiscuzuniqueid' style='display: none;'>
+                            <div class="wpd-secondary-forms-social-content"></div>
+                <div class="clearfix"></div>
+                                </div>
+                </div>
+                            <div class="wpd-login-to-comment">Пожалуйста, войдите, чтобы прокомментировать</div>
+                                </div>
+                        <div id="wpd-threads" class="wpd-thread-wrapper">
+                <div class="wpd-thread-head">
+                    <div class="wpd-thread-info "
+                         data-comments-count="1">
+                        <span class='wpdtc' title='1'>1</span> Комментарий                    </div>
+                                        <div class="wpd-space"></div>
+                    <div class="wpd-thread-filter">
+                                                    <div class="wpd-filter wpdf-reacted wpd_not_clicked "
+                                 wpd-tooltip="Самый популярный комментарий ">
+                                <i class="fas fa-bolt"></i></div>
+                                                        <div class="wpd-filter wpdf-hottest wpd_not_clicked "
+                                 wpd-tooltip="Цепочка популярного комментария">
+                                <i class="fas fa-fire"></i></div>
+                                                        <div class="wpd-filter wpdf-sorting ">
+                                                                        <span class="wpdiscuz-sort-button wpdiscuz-date-sort-asc wpdiscuz-sort-button-active"
+                                              data-sorting="oldest">Старые</span>
+                                                                        <i class="fas fa-sort-down"></i>
+                                <div class="wpdiscuz-sort-buttons">
+                                                                            <span class="wpdiscuz-sort-button wpdiscuz-date-sort-desc"
+                                              data-sorting="newest">Новые</span>
+                                                                                <span class="wpdiscuz-sort-button wpdiscuz-vote-sort-up"
+                                              data-sorting="by_vote">Популярные</span>
+                                                                        </div>
+                            </div>
+                                                </div>
+                </div>
+                <div class="wpd-comment-info-bar">
+                    <div class="wpd-current-view"><i
+                            class="fas fa-quote-left"></i> Межтекстовые Отзывы                     </div>
+                    <div class="wpd-filter-view-all">Посмотреть все комментарии</div>
+                </div>
+                                <div class="wpd-thread-list">
+                                        <div class="wpdiscuz-comment-pagination" style='display:none;'>
+                                                    <div class="wpd-load-more-submit-wrap">
+                                <button name="submit" data-lastparentid="0"
+                                        class="wpd-load-more-submit wpd-loaded wpd-prim-button">
+                                    Загрузить ещё комментарии                                </button>
+                            </div>
+                            <span id="wpdiscuzHasMoreComments" data-is_show_load_more="0"></span>
+                                                </div>
+                </div>
+            </div>
+                </div>
+        </div>
+    <div id="wpdiscuz-loading-bar"
+         class="wpdiscuz-loading-bar-unauth"></div>
+    <div id="wpdiscuz-comment-message"
+         class="wpdiscuz-comment-message-unauth"></div>
+    </div>
+
+      </div>
+</div>
+						</div>
+						                        			                        <div class="bdaia-footer">
+	                        
+		                        	                        <div class="bdaia-footer-area" style ="background-color:#23282D;">
+		                        <div class="bd-container" style="font-size:13px">
+
+															<div class=footer-col-two>
+															  <div class=footer-widget-inner>
+															         Вопросы по&nbsp;материалам и подписке: <a href="mailto:support@glc.ru">support@glc.ru</a>
+															    <br/>Отдел рекламы и&nbsp;спецпроектов: <a href="mailto:yakovleva.a@glc.ru">yakovleva.a@glc.ru</a>
+															    <br/>Контент&nbsp;<strong>18+</strong>
+                                  <br/><br/>
+                                  <div style="font-size:95%"><a href=https://qrator.net/ru/ target=_blank rel=nofollow><img src="https://xakep.ru/wp-content/themes/woohoo/images/curator-logo.svg" width=100 alt=Qrator style="float:left;margin: 0 10px 0 0" /></a> Сайт защищен Qrator&nbsp;—<br/>самой забойной защитой от&nbsp;DDoS в&nbsp;мире</div>
+															  </div>
+															  <div class=footer-widget-inner style="text-align:right">
+															         <a href="https://xakep.ru/about-magazine/">Подписка для физлиц</a>
+                                  <br/><a href="https://xakep.shop/corporate">Подписка для юрлиц</a>
+															    <br/><a href="https://xakep.shop/advert">Реклама на «Хакере»</a>
+                                  <!-- <br/><a href="/offer/">Авторский договор</a> -->
+															    <br/><a href="/contact/">Контакты</a>
+                                  															  </div>
+															</div>
+
+		                        </div>
+	                        </div>
+                        </div><!--.bdaia-footer/-->
+                    </div>
+                </div>
+            </div><!-- #page/-->
+        </div><!-- .page-outer/-->
+        <script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/woohoo\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<div id="reading-position-indicator"></div>
+<script>
+    </script><span id='wpdUserContentInfoAnchor' style='display:none;' rel='#wpdUserContentInfo' data-wpd-lity>wpDiscuz</span><div id='wpdUserContentInfo' style='overflow:auto;background:#FDFDF6;padding:20px;width:600px;max-width:100%;border-radius:6px;' class='lity-hide'></div><div id='wpd-editor-source-code-wrapper-bg'></div><div id='wpd-editor-source-code-wrapper'><textarea id='wpd-editor-source-code'></textarea><button id='wpd-insert-source-code'>Insert</button><input type='hidden' id='wpd-editor-uid' /></div><script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/js/widget-ajax.js" id="woohoo-wboxs-ajax-js-js"></script>
+<script type="text/javascript" id="woohoo-post-like-js-extra">
+/* <![CDATA[ */
+var ajax_var = {"url":"https:\/\/xakep.ru\/wp-admin\/admin-ajax.php","nonce":"a7788ef2a0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/js/post-like.js" id="woohoo-post-like-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/framework/shorty/js/blocks.js" id="woohoo_blocks_ajax_js-js"></script>
+<script type="text/javascript" id="wp-polls-js-extra">
+/* <![CDATA[ */
+var pollsL10n = {"ajax_url":"https:\/\/xakep.ru\/wp-admin\/admin-ajax.php","text_wait":"\u0412\u0430\u0448 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0439 \u0437\u0430\u043f\u0440\u043e\u0441 \u0435\u0449\u0435 \u043e\u0431\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0435\u0442\u0441\u044f. \u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430 \u043f\u043e\u0434\u043e\u0436\u0434\u0438\u0442\u0435 ...","text_valid":"\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430 \u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u043e \u0432\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043e\u0442\u0432\u0435\u0442.","text_multiple":"\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e \u0434\u043e\u043f\u0443\u0441\u0442\u0438\u043c\u043e\u0435 \u0447\u0438\u0441\u043b\u043e \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u043e\u0432:","show_loading":"1","show_fading":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/plugins/wp-polls/polls-js.js" id="wp-polls-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/js/matchMedia.js" id="woohoo-match-media-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/js/matchMedia.addListener.js" id="woohoo-match-media-add-listener-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/js/jquery.placeholder.js" id="woohoo-placeholder-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/js/theia-sticky.js" id="woohoo-theia-sticky-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/js/enquire.min.js" id="woohoo-enquire-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/js/min.js" id="woohoo-min-js"></script>
+<script type="text/javascript" id="woohoo-main-js-extra">
+/* <![CDATA[ */
+var bd = {"is_singular":"1","bd_lazyload":"","mobile_topmenu":"","sticky_sidebar":"","post_reading_position_indicator":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" async="async" src="https://xakep.ru/wp-content/themes/woohoo/js/main.js" id="woohoo-main-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-includes/js/comment-reply.min.js" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/assets/js/product-shelf.js" id="woohoo-product-shelf-js"></script>
+<script type="text/javascript" id="wpdiscuz-combo-js-js-extra">
+/* <![CDATA[ */
+var wpdiscuzAjaxObj = {"wc_hide_replies_text":"\u0421\u043f\u0440\u044f\u0442\u0430\u0442\u044c \u043e\u0442\u0432\u0435\u0442\u044b","wc_show_replies_text":"\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u043e\u0442\u0432\u0435\u0442\u043e\u0432","wc_msg_required_fields":"\u0417\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u0435 \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u044b\u0435 \u043f\u043e\u043b\u044f","wc_invalid_field":"\u041d\u0435\u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u043f\u043e\u043b\u044f \u0437\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u044b \u043d\u0435\u0432\u0435\u0440\u043d\u043e","wc_error_empty_text":"\u043f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u0437\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u0435 \u044d\u0442\u043e \u043f\u043e\u043b\u0435, \u0447\u0442\u043e\u0431\u044b \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c","wc_error_url_text":"url \u043d\u0435\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0439","wc_error_email_text":"\u0430\u0434\u0440\u0435\u0441 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u043e\u0439 \u043f\u043e\u0447\u0442\u044b \u043d\u0435\u0432\u0435\u0440\u0435\u043d","wc_invalid_captcha":"\u041d\u0435\u0432\u0435\u0440\u043d\u043e \u0432\u0432\u0435\u0434\u0435\u043d \u043a\u043e\u0434","wc_login_to_vote":"\u0412\u044b \u0434\u043e\u043b\u0436\u043d\u044b \u0432\u043e\u0439\u0442\u0438 , \u0447\u0442\u043e\u0431\u044b \u043f\u0440\u043e\u0433\u043e\u043b\u043e\u0441\u043e\u0432\u0430\u0442\u044c","wc_deny_voting_from_same_ip":"\u0412\u044b \u043d\u0435 \u043c\u043e\u0436\u0435\u0442\u0435 \u0433\u043e\u043b\u043e\u0441\u043e\u0432\u0430\u0442\u044c \u0437\u0430 \u044d\u0442\u043e\u0442 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439","wc_self_vote":"\u0412\u044b \u043d\u0435 \u043c\u043e\u0436\u0435\u0442\u0435 \u0433\u043e\u043b\u043e\u0441\u043e\u0432\u0430\u0442\u044c \u0437\u0430 \u0441\u0432\u043e\u0439 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439","wc_vote_only_one_time":"\u0412\u044b \u0443\u0436\u0435 \u0433\u043e\u043b\u043e\u0441\u043e\u0432\u0430\u043b\u0438 \u0437\u0430 \u044d\u0442\u043e\u0442 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439","wc_voting_error":"\u041e\u0448\u0438\u0431\u043a\u0430 \u0433\u043e\u043b\u043e\u0441\u043e\u0432\u0430\u043d\u0438\u044f","wc_banned_user":"You are banned","wc_rate_limit_exceeded":"Too many requests. Please slow down.","wc_comment_edit_not_possible":"\u0418\u0437\u0432\u0438\u043d\u0438\u0442\u0435, \u044d\u0442\u043e\u0442 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439 \u0431\u043e\u043b\u044c\u0448\u0435 \u043d\u0435\u043b\u044c\u0437\u044f \u0440\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c","wc_comment_not_updated":"\u0418\u0437\u0432\u0438\u043d\u0438\u0442\u0435, \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439 \u043d\u0435 \u0431\u044b\u043b \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d","wc_comment_not_edited":"\u0412\u044b \u043d\u0435 \u0441\u0434\u0435\u043b\u0430\u043b\u0438 \u043d\u0438\u043a\u0430\u043a\u0438\u0445 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0439","wc_msg_input_min_length":"\u0412\u0432\u043e\u0434 \u0441\u043b\u0438\u0448\u043a\u043e\u043c \u043a\u043e\u0440\u043e\u0442\u043a\u0438\u0439","wc_msg_input_max_length":"\u0412\u0432\u043e\u0434 \u0441\u043b\u0438\u0448\u043a\u043e\u043c \u0434\u043b\u0438\u043d\u043d\u044b\u0439","wc_spoiler_title":"\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0441\u043f\u043e\u0439\u043b\u0435\u0440\u0430","wc_cannot_rate_again":"\u0412\u044b \u043d\u0435 \u043c\u043e\u0436\u0435\u0442\u0435 \u0441\u043d\u043e\u0432\u0430 \u043e\u0446\u0435\u043d\u0438\u0442\u044c","wc_not_allowed_to_rate":"\u0412\u0430\u043c \u043d\u0435 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043d\u043e \u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0437\u0434\u0435\u0441\u044c \u043e\u0446\u0435\u043d\u043a\u0443","wc_confirm_rate_edit":"Are you sure you want to edit your rate?","wc_follow_user":"\u041f\u043e\u0434\u043f\u0438\u0441\u0430\u0442\u044c\u0441\u044f \u043d\u0430 \u044d\u0442\u043e\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f","wc_unfollow_user":"\u041e\u0442\u043f\u0438\u0441\u0430\u0442\u044c\u0441\u044f \u043e\u0442 \u044d\u0442\u043e\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f","wc_follow_success":"\u0412\u044b \u043f\u043e\u0434\u043f\u0438\u0441\u0430\u043b\u0438\u0441\u044c \u043d\u0430 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438 \u044d\u0442\u043e\u0433\u043e \u0430\u0432\u0442\u043e\u0440\u0430","wc_follow_canceled":"\u0412\u044b \u043f\u0440\u0438\u043e\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u043b\u0438 \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0443 \u043d\u0430 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438 \u044d\u0442\u043e\u0433\u043e \u0430\u0432\u0442\u043e\u0440\u0430.","wc_follow_email_confirm":"\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u043f\u0440\u043e\u0432\u0435\u0440\u044c\u0442\u0435 \u0441\u0432\u043e\u0439 email \u0438 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0437\u0430\u043f\u0440\u043e\u0441 \u043d\u0430 \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0443.","wc_follow_email_confirm_fail":"\u041e\u0447\u0435\u043d\u044c \u0436\u0430\u043b\u044c, \u043d\u043e \u043c\u044b \u043d\u0435 \u043c\u043e\u0436\u0435\u043c \u043e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u044c \u043f\u0438\u0441\u044c\u043c\u043e \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u044f.","wc_follow_login_to_follow":"\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0443\u0439\u0442\u0435\u0441\u044c \u0447\u0442\u043e\u0431\u044b \u043f\u043e\u0434\u043f\u0438\u0441\u044b\u0432\u0430\u0442\u044c\u0441\u044f \u043d\u0430 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439.","wc_follow_impossible":"\u041e\u0447\u0435\u043d\u044c \u0436\u0430\u043b\u044c, \u043d\u043e \u0432\u044b \u043d\u0435 \u043c\u043e\u0436\u0435\u0442\u0435 \u043f\u043e\u0434\u043f\u0438\u0441\u0430\u0442\u044c\u0441\u044f \u043d\u0430 \u044d\u0442\u043e\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f.","wc_follow_not_added":"\u041f\u043e\u0434\u043f\u0438\u0441\u0430\u0442\u044c\u0441\u044f \u043d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c. \u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u043f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u043f\u043e\u0437\u0436\u0435.","is_user_logged_in":"","commentListLoadType":"0","commentListUpdateType":"0","commentListUpdateTimer":"30","liveUpdateGuests":"0","wordpressThreadCommentsDepth":"10","wordpressIsPaginate":"","commentTextMaxLength":"0","replyTextMaxLength":"0","commentTextMinLength":"1","replyTextMinLength":"1","storeCommenterData":"100000","socialLoginAgreementCheckbox":"1","enableFbLogin":"0","fbUseOAuth2":"0","enableFbShare":"0","facebookAppID":"","facebookUseOAuth2":"0","enableGoogleLogin":"0","googleClientID":"","googleClientSecret":"","cookiehash":"95a2ce14874d444647baa643165aaf19","isLoadOnlyParentComments":"0","scrollToComment":"1","commentFormView":"collapsed","enableDropAnimation":"1","isNativeAjaxEnabled":"1","userInteractionCheck":"1","enableBubble":"0","bubbleLiveUpdate":"0","bubbleHintTimeout":"600","bubbleHintHideTimeout":"10","cookieHideBubbleHint":"wpdiscuz_hide_bubble_hint","bubbleHintShowOnce":"1","bubbleHintCookieExpires":"7","bubbleShowNewCommentMessage":"0","bubbleLocation":"content_left","firstLoadWithAjax":"1","wc_copied_to_clipboard":"\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d \u0432 \u0431\u0443\u0444\u0435\u0440 \u043e\u0431\u043c\u0435\u043d\u0430.","inlineFeedbackAttractionType":"blink","loadRichEditor":"1","wpDiscuzReCaptchaSK":"6LddLaYZAAAAAKCc3QwxZAcV2RLOhR09NcYPSlZH","wpDiscuzReCaptchaTheme":"light","wpDiscuzReCaptchaVersion":"2.0","wc_captcha_show_for_guest":"1","wc_captcha_show_for_members":"0","wpDiscuzIsShowOnSubscribeForm":"0","wmuEnabled":"0","wmuInput":"wmu_files","wmuMaxFileCount":"1","wmuMaxFileSize":"2097152","wmuPostMaxSize":"209715200","wmuIsLightbox":"1","wmuMimeTypes":{"jpg":"image\/jpeg","jpeg":"image\/jpeg","jpe":"image\/jpeg","gif":"image\/gif","png":"image\/png"},"wmuPhraseConfirmDelete":"\u0412\u044b \u0443\u0432\u0435\u0440\u0435\u043d\u044b, \u0447\u0442\u043e \u0445\u043e\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043b\u0438\u0442\u044c \u044d\u0442\u043e \u0432\u043b\u043e\u0436\u0435\u043d\u0438\u0435?","wmuPhraseNotAllowedFile":"\u041d\u0435\u0434\u043e\u043f\u0443\u0441\u0442\u0438\u043c\u044b\u0439 \u0442\u0438\u043f \u0444\u0430\u0439\u043b\u0430","wmuPhraseMaxFileCount":"\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0437\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u043c\u044b\u0445 \u0444\u0430\u0439\u043b\u043e\u0432 1","wmuPhraseMaxFileSize":"\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u044b\u0439 \u0440\u0430\u0437\u043c\u0435\u0440 \u0437\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u043c\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u0430 2MB","wmuPhrasePostMaxSize":"\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u044b\u0439 \u0440\u0430\u0437\u043c\u0435\u0440 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044f 200MB","wmuPhraseDoingUpload":"Uploading in progress! Please wait.","msgEmptyFile":"File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.ini or by post_max_size being defined as smaller than upload_max_filesize in php.ini.","msgPostIdNotExists":"ID \u0437\u0430\u043f\u0438\u0441\u0438 \u043d\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442","msgUploadingNotAllowed":"\u0418\u0437\u0432\u0438\u043d\u0438\u0442\u0435, \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0430 \u0434\u043b\u044f \u044d\u0442\u043e\u0433\u043e \u043f\u043e\u0441\u0442\u0430 \u0437\u0430\u043f\u0440\u0435\u0449\u0435\u043d\u0430","msgPermissionDenied":"\u0423 \u0432\u0430\u0441 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e \u043f\u0440\u0430\u0432 \u0434\u043b\u044f \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f \u044d\u0442\u043e\u0433\u043e \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f","wmuKeyImages":"images","wmuSingleImageWidth":"auto","wmuSingleImageHeight":"200","wmuIconVideo":"https:\/\/xakep.ru\/wp-content\/plugins\/wpdiscuz\/assets\/img\/file-icons\/video-audio-type.png","wmuIconFile":"https:\/\/xakep.ru\/wp-content\/plugins\/wpdiscuz\/assets\/img\/file-icons\/file-type.png","previewTemplate":"<div class=\"wmu-preview [PREVIEW_TYPE_CLASS]\" title=\"[PREVIEW_TITLE]\" data-wmu-type=\"[PREVIEW_TYPE]\" data-wmu-attachment=\"[PREVIEW_ID]\" data-wmu-index=\"[PREVIEW_INDEX]\">\r\n    <div class=\"wmu-preview-remove\">\r\n        <img class=\"wmu-preview-img\" src=\"[PREVIEW_ICON]\">\r\n        <div class=\"wmu-file-name\">[PREVIEW_FILENAME]<\/div>\r\n        <div class=\"wmu-preview-delete\" title=\"Delete\">\u2715<\/div>\r\n        <label class=\"wmu-preview-replace\" title=\"Replace\">\u21bb<input type=\"file\" style=\"display:none\" class=\"wmu-replace-input\"><\/label>\r\n    <\/div>\r\n<\/div>\r\n","isUserRated":"0","version":"7.6.54","wc_post_id":"574106","isCookiesEnabled":"1","loadLastCommentId":"0","dataFilterCallbacks":[],"phraseFilters":[],"scrollSize":"32","url":"https:\/\/xakep.ru\/wp-admin\/admin-ajax.php","customAjaxUrl":"https:\/\/xakep.ru\/wp-content\/plugins\/wpdiscuz\/utils\/ajax\/wpdiscuz-ajax.php","bubbleUpdateUrl":"https:\/\/xakep.ru\/wp-json\/wpdiscuz\/v1\/update","restNonce":"8b4542fc92","is_rate_editable":"0","menu_icon":"https:\/\/xakep.ru\/wp-content\/plugins\/wpdiscuz\/assets\/img\/plugin-icon\/wpdiscuz-svg.svg","menu_icon_hover":"https:\/\/xakep.ru\/wp-content\/plugins\/wpdiscuz\/assets\/img\/plugin-icon\/wpdiscuz-svg_hover.svg","isUpdateNonceWithAjax":"1","nonceName":"wpdiscuz_nonce","postAttachmentsAsGallery":"","wmuPhraseNotAllowedFileType":"File type is not allowed","is_email_field_required":"1"};
+var wpdiscuzUCObj = {"msgConfirmDeleteComment":"\u0412\u044b \u0445\u043e\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043b\u0438\u0442\u044c \u044d\u0442\u043e\u0442 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439?","msgConfirmCancelSubscription":"\u0412\u044b \u0445\u043e\u0442\u0438\u0442\u0435 \u043e\u0442\u043c\u0435\u043d\u0438\u0442\u044c \u044d\u0442\u0443 \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0443?","msgConfirmCancelFollow":"\u0423\u0432\u0435\u0440\u0435\u043d\u044b, \u0447\u0442\u043e \u0445\u043e\u0442\u0438\u0442\u0435 \u043e\u0442\u043c\u0435\u043d\u0438\u0442\u044c \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0443?","additionalTab":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" id="wpdiscuz-combo-js-js-before">
+/* <![CDATA[ */
+        var wpdiscuzEditorOptions = {
+        modules: {
+        toolbar: "",
+        counter: {
+        uniqueID: "",
+        commentmaxcount : 0,
+        replymaxcount : 0,
+        commentmincount : 1,
+        replymincount : 1,
+        },
+                },
+        wc_be_the_first_text: "\u041f\u043e\u0434\u0435\u043b\u0438\u0442\u0435\u0441\u044c \u0441\u0432\u043e\u0438\u043c \u043c\u043d\u0435\u043d\u0438\u0435\u043c",
+        wc_comment_join_text: "\u041f\u0440\u0438\u0441\u043e\u0435\u0434\u0438\u043d\u0438\u0442\u044c\u0441\u044f \u043a \u043e\u0431\u0441\u0443\u0436\u0434\u0435\u043d\u0438\u044e",
+        theme: 'snow',
+        debug: 'error'
+        };
+        
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/plugins/wpdiscuz/assets/js/wpdiscuz-combo.min.js" id="wpdiscuz-combo-js-js"></script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" id="wpdiscuz-google-recaptcha-js"></script>
+<script type="text/javascript" src="https://xakep.ru/wp-content/themes/woohoo/js/search.js" id="bd-search-js"></script>
+  <link rel="stylesheet" href="/wp-content/themes/woohoo/js/tablesaw/tablesaw.css">
+  <script src="/wp-content/themes/woohoo/js/tablesaw/tablesaw.jquery.js"></script>
+  <script src="/wp-content/themes/woohoo/js/tablesaw/tablesaw-init.js"></script>
+
+<script type='text/javascript'>(function($){
+  console.log("$$$$$$$$$$$$$ $$$$$$$$$$$$$\n          $$$ $$$\n          $$$ $$$  $$$$$$$$$$$$$ $$$     $$$  $$$$$$$$$$$$$ $$$$$$$$$$$$$\n                   $$$       $$$ $$$     $$$  $$$$$$$       $$$       $$$\n          $$$ $$$  $$$$$$$$$$$$$ $$$$$$$$$$$$ $$$           $$$$$$$$$$$$$\n          $$$ $$$  $$$       $$$ $$$      $$$ $$$$$$$$$$$$$ $$$\n$$$$$$$$$$$$$ $$$$$$$$$$$$$\n\nХочешь прославиться, заработать и иметь бесплатную подписку? Пиши в «Хакер»!\nПодробнее: https://xakep.ru/new-authors/");
+  $('article.xmd figure:not(.video)').each(function(){
+    if($(this).find('a').length == 0){
+      var img = $(this).find('img').attr('src');
+      $(this).wrapInner('<a href="'+img+'" target=_blank class="foobox"></a>');
+    }
+  });
+  $('.bdaia-post-content>pre').addClass('prettyprint');
+  $('.wp-polls-form .wp-polls-ul input').on('change', function(){$(this).parents('form').find('input[name=vote]').click();})
+  $.each($('#bookmark'), function(i, el){
+    var bookmark = $(el);
+    var pid = bookmark.data('pid');
+    $.get('/wp-admin/admin-ajax.php?action=xakep_bookmark&pid='+pid, function(res){
+      bookmark.html(res);
+    });
+    bookmark.on('click', function(){
+      $.get('/wp-admin/admin-ajax.php?action=xakep_bookmark&set=book&pid='+pid, function(res){
+        bookmark.html(res);
+      });
+    });
+  });
+}(jQuery));</script>
+    
+	<!-- Enkod popup API -->
+	<script type="text/javascript">
+		var script = document.createElement('script');
+		script.type = 'text/javascript';
+		script.src = '//cdn.enkod.ru/script/enpop.min.js';
+		script.async = true;
+		var first = document.getElementsByTagName('script')[0];
+		first.parentNode.insertBefore(script, first);
+		var enKodBox = window.enKodBox = window.enKodBox || {};    
+		var ekEvents = window.ekEvents || [];
+		enKodBox['token'] = 'xakep';
+	</script>
+	<script type="text/javascript">
+		ekEvents.push('pageOpen')
+	</script>
+	<!-- Enkod popup API end -->
+	
+	</body>
+</html><!--
+Performance optimized by Redis Object Cache. Learn more: https://wprediscache.com
+
+Получено 3030 объектов (708 КБ) от Redis через PhpRedis (v5.3.5).
+-->
