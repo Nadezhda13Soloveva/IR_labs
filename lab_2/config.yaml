@@ -1,0 +1,63 @@
+db:
+  uri: "mongodb://localhost:27017"
+  database: "mai_ir"
+  documents: "documents" # сохранённые страницы
+  frontier: "frontier" # очередь URL (для resume)
+
+logic:
+  delay: 1.5
+  timeout: 20
+  user_agent: "MAI-IR-Crawler/1.0 (lab2)"
+  max_pages: 1000
+  recrawl_after_days: 7 # через сколько дней пробовать переобход
+  max_errors_per_url: 3 # после N ошибок URL помечаем error
+
+sources:
+  securitylab:
+    start_urls:
+      - "https://www.securitylab.ru/news/"
+      - "https://www.securitylab.ru/analytics/"
+    allowed_domains:
+      - "www.securitylab.ru"
+      - "securitylab.ru"
+    article_link_selectors:
+      - "a[href*='/news/']"
+      - "a[href*='/analytics/']"
+
+  antimalware:
+    start_urls:
+      - "https://www.anti-malware.ru/news"
+    allowed_domains:
+      - "www.anti-malware.ru"
+      - "anti-malware.ru"
+    article_link_selectors:
+      - "a[href*='/news/']"
+
+  xakep:
+    start_urls:
+      - "https://xakep.ru/"
+    allowed_domains:
+      - "xakep.ru"
+      - "www.xakep.ru"
+    article_link_selectors:
+      - "a[href*='/20']"
+
+  habr:
+    start_urls:
+      - "https://habr.com/ru/hubs/infosecurity/articles/"
+    allowed_domains:
+      - "habr.com"
+      - "www.habr.com"
+    article_link_selectors:
+      - "a.tm-title__link"
+      - "a[href*='/articles/']"
+      - "a[href*='/companies/'][href*='/articles/']"
+
+  securelist:
+    start_urls:
+      - "https://securelist.ru/"
+    allowed_domains:
+      - "securelist.ru"
+      - "www.securelist.ru"
+    article_link_selectors:
+      - "a[href*='securelist.ru/']"
